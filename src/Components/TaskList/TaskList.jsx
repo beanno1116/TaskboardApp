@@ -1,11 +1,13 @@
-import styles from '../column.module.css';
-import ListItem from './ListItem';
 
-const ColumnList = () => {
+import styles from './taskList.module.css';
+// import ListItem from './ListItem';
+
+const TaskList = ({children}) => {
   return (
-    <div className={styles.body}>
-       <div className={styles.column_list}>
-        <ListItem></ListItem>
+    <div className={styles.tasklist_body}>
+       <div className={styles.tasklist}>
+        {children}
+        {/* <ListItem></ListItem> */}
             {/* <ul>
                 {tasks.map(task => {                    
                     return (
@@ -33,4 +35,6 @@ const ColumnList = () => {
   );
 }
 
-export default ColumnList;
+// TaskList.Task = TaskListItem;
+
+export default TaskList;

@@ -7,12 +7,14 @@
 // import PopoverMenuPortal from '../../portals/PopoverMenuPortal';
 
 import styles from './column.module.css';
+import TaskList from '../TaskList/TaskList';
 import ColumnHeader from './component/ColumnHeader';
-import ColumnList from './component/ColumnList';
+import TaskListItem from '../TaskListItem/TaskListItem';
+// import ColumnList from './component/ColumnList';
 // import AddGroupMenuPopover from '../../popovers/AddGroupMenuPopover/AddGroupMenuPopover';
 
 
-function Column({children}){
+function Column({heading,tasks,children}){
     
     // const [coords,updateCoordinates,portalState,togglePortal] = usePortal();
     // const addGroupButtonRef = useRef();
@@ -55,7 +57,8 @@ function Column({children}){
     );
 }
 
-Column.header = ColumnHeader;
-Column.list = ColumnList;
+Column.Header = ColumnHeader;
+Column.TaskList = TaskList;
+Column.TaskListItem = TaskListItem;
 
 export default Column;

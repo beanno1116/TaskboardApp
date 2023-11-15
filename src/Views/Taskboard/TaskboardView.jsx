@@ -1,6 +1,8 @@
 import Column from '../../Components/Column/Column';
 import styles from './taskboardView.module.css'
 
+import { devTasks } from '../../data/testData';
+
 
 
 
@@ -63,26 +65,48 @@ function TaskboardView(){
     return (
       <div className={styles.taskboard}>
         {/* <h1 style={{color:"limegreen"}}>Taskboard</h1> */}
-        <Column>
-          <Column.header>
+
+          <Column>
+            <Column.Header>Active Development</Column.Header>
+            <Column.TaskList>
+              {devTasks.map((task,index) => {
+                return (
+                  <Column.TaskListItem key={`${task.id}-${index}`} task={task}>
+                    <Column.TaskListItem.Status status={task.status} />
+                    <Column.TaskListItem.Content title={task.title} content={task.content} />                                                            
+                    <Column.TaskListItem.Nav>
+                      <Column.TaskListItem.OptionButton rowID={1} onClick={() => {}} />
+                      <Column.TaskListItem.Contact contact={"Ben Klimo"} />
+                    </Column.TaskListItem.Nav>
+                  </Column.TaskListItem>
+                )
+              })}
+            </Column.TaskList>
+          </Column>
+    
+
+        {/* <Column>
+          <Column.Header>
             Column 1
-          </Column.header>
-          <Column.list></Column.list>
+          </Column.Header>
+          <Column.TaskList>
+            <Column.TaskListItem></Column.TaskListItem>
+          </Column.TaskList>
         </Column>
 
         <Column>
-          <Column.header>
+          <Column.Header>
             Column 2
-          </Column.header>
-          <Column.list></Column.list>
+          </Column.Header>
+          <Column.TaskList></Column.TaskList>
         </Column>
         
         <Column>
-          <Column.header>
+          <Column.Header>
             Column 3
-          </Column.header>
-          <Column.list></Column.list>
-        </Column>
+          </Column.Header>
+          <Column.TaskList></Column.TaskList>
+        </Column> */}
 
       </div>
         // <Taskboard>

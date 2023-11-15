@@ -2,7 +2,8 @@
     position: relative;
     flex: 1;
     max-width: 500px;
-    padding: 0 2.5em;
+    padding: 2rem 2rem;
+    border-radius: 8px;
     background-color: rgba(240, 248, 255, 0.515);
 }
 
@@ -10,8 +11,8 @@
 
 .header {
   position: relative;
-  padding: .5em;
-  text-align: left;
+  padding: .75em;
+  text-align: center;
   border-radius: 8px;
   background-color: #373a44;
   box-shadow: 0 4px 6px -2px rgba(0,0,0,0.1),0 10px 15px -3px rgba(0,0,0,0.15);
