@@ -4,6 +4,7 @@
   flex-wrap: nowrap;
   margin-bottom: .5em;
   /* height: calc(60px + 1.5em);     */
+  min-height: 110px;
   border-radius: .25em;
   background-color: rgb(56, 58, 68);
   background-color: #373a44;
@@ -95,27 +96,23 @@
 }
 
 .option_btn {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* top: .5em;
-  right: .5em; */
-  width: 30px;
-  height: 30px;
-  border: 0;
-  outline: 0;
-  background-color: transparent;
-  text-align: center;
-  box-shadow: 0;
-  z-index: 9;
+  position: relative;    
+  cursor: pointer;
+  padding-top: 5px;
+  background-color: transparent;  
+  color: snow;
   opacity: 0;
-  cursor: pointer;    
-  transition: opacity .5s ease-in-out;
+  transform: scale(1);
+  transition: transform .3s ease-in-out, opacity .3s ease-in-out;
 }
 
-.task_item:hover .option_btn {
+.tasklist_item:hover .option_btn {
+  opacity: 1;  
+}
+
+.option_btn:hover {
   opacity: 1;
+  transform: scale(1.1);
 }
 
 .task_item:hover .option_btn:hover {
@@ -128,8 +125,7 @@
   justify-content: center;
   align-items: center;    
   width: 30px;
-  height: 30px;
-  padding-top: .25em;
+  height: 30px;  
   border-radius: 50%;
   background-color: rgb(143,183,117);
   font-size: .8rem;
@@ -137,5 +133,13 @@
   line-height: 1.6;
   font-family: 'Roboto', sans-serif;
   cursor: pointer;
+}
+
+.contact_initials {  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%);
+
 }
 
