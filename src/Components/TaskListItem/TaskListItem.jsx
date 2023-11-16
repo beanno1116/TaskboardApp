@@ -13,6 +13,8 @@ import styles from './taskListItem.module.css';
 import StatusIndicator from './components/TaskItemStatusIndicator';
 import TaskItemContent from './components/TaskItemContent';
 import TaskItemNav from './components/TaskItemNav';
+import SettingsIcon from '../../assets/icons/SettingsButton';
+import SettingsButton from '../../assets/icons/SettingsButton';
 
 // const statusLevels = [
 //     {title:"new"},
@@ -107,12 +109,10 @@ const Body = ({ children }) => {
   )
 }
 
-const OptionButton = ({ rowID,onClick }) => {
+const OptionButton = ({onClick }) => {
   return (
       <>
-          <button data-btype={"option"} name={rowID} className={styles.option_btn} onClick={onClick} >
-              {/* {icon(24,"snow").vThreeDots} */}X
-          </button>
+        <SettingsButton className={styles.option_btn} width={25} height={25} onClick={onClick} />      
       </>
   )
 }
@@ -126,7 +126,9 @@ const Contact = ({ contact }) => {
   }
   return (
       <div title={contact ? contact : ""} className={styles.contact}>
+        <span className={styles.contact_initials}>
           {contact && getinitials(contact)}
+        </span>
       </div>
   )
 }
@@ -135,7 +137,9 @@ const Contact = ({ contact }) => {
 
 
 
-function TaskListItem({ task,type,onClick,onDragStart,onDragEnter,onDrop,children,...props }) {
+// function TaskListItem({ task,type,onClick,onDragStart,onDragEnter,onDrop,children,...props }) {
+function TaskListItem({ task,onClick,onChange }) {
+  const {id,title,content,contact,status} = task;
     
     
     // const [coords,updateCoordinates,portalState,togglePortal] = usePortal();
@@ -143,18 +147,24 @@ function TaskListItem({ task,type,onClick,onDragStart,onDragEnter,onDrop,childre
     // const activeButtonRef = useRef(null);
 
 
-    // const onOptionsMenuBtnClick = (e) => {
-    //   try {        
-    //     if (portalState) return;
-    //     let button = getClosestByElement(e.target,"button");        
-    //     if (!button) return;
-    //     activeButtonRef.current = button;
-    //     updateCoordinates(button);    
-    //     togglePortal();
-    //   } catch (error) {
-    //     console.log(`onOptionMenuBtnClick Event error ${error.message}`);
-    //   }
-    // }
+    const onItemOptionButtonClick = (e) => {
+      try {        
+        // if (portalState) return;
+        // let button = getClosestByElement(e.target,"button");        
+        // if (!button) return;
+        // activeButtonRef.current = button;
+        // updateCoordinates(button);    
+        // togglePortal();
+        onTaskDataChange(e);
+        console.log(e);
+      } catch (error) {
+        console.log(`onOptionMenuBtnClick Event error ${error.message}`);
+      }
+    }
+
+    const onTaskDataChange = (e) => {
+      onChange(e);
+    }
 
     // const onTaskChange = (e,_action,_id) => {
         
@@ -171,17 +181,22 @@ function TaskListItem({ task,type,onClick,onDragStart,onDragEnter,onDrop,childre
     // }
 
     return (
-        <div className={styles.tasklist_item}>
-          {children}
-          {/* <StatusIndicator status={task.status} />
-          <TaskItemContent>
-            <Title>{task.title}</Title>
-            <Body>{task.content}</Body>
-          </TaskItemContent>
+        <div className={styles.tasklist_item} id={id}>
+
+          <StatusIndicator status={status} />
+
+          <TaskItemContent title={title} content={content} />
+            
           <TaskItemNav>
-            <OptionButton rowID={1} onClick={() => {}} />
-            <Contact contact={"Ben Klimo"} />
-          </TaskItemNav> */}
+            
+            <OptionButton onClick={(e) => {
+              onItemOptionButtonClick(e);
+            }} />
+            
+            <Contact contact={contact} />
+
+          </TaskItemNav>
+
           {/* 
           {portalState && (
               <PopoverMenuPortal>

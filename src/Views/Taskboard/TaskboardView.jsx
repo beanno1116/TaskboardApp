@@ -1,7 +1,7 @@
 import Column from '../../Components/Column/Column';
 import styles from './taskboardView.module.css'
 
-import { devTasks } from '../../data/testData';
+import { devTasks,columnData } from '../../data/testData';
 
 
 
@@ -63,10 +63,51 @@ function TaskboardView(){
 
 
     return (
-      <div className={styles.taskboard}>
-        {/* <h1 style={{color:"limegreen"}}>Taskboard</h1> */}
+      <div className={styles.taskboard}>        
 
-          <Column>
+        {columnData.map(column => {
+
+          return (
+
+            <Column key={column.id} id={column.id}>
+
+              <Column.Header>{column.title}</Column.Header>
+
+              <Column.TaskList listId={column.id} tasks={column.tasks} />
+
+                {/* {column.tasks.map((task,index) => {
+
+                  return (
+
+                    <Column.TaskListItem key={`${task.id}-${index}`} task={task}>
+
+                    <Column.TaskListItem.Status status={task.status} />
+
+                    <Column.TaskListItem.Content title={task.title} content={task.content} />   
+
+                    <Column.TaskListItem.Nav>
+
+                      <Column.TaskListItem.OptionButton rowID={1} onClick={() => {}} />
+
+                      <Column.TaskListItem.Contact contact={"Ben Klimo"} />
+
+                    </Column.TaskListItem.Nav>
+
+                  </Column.TaskListItem>
+
+                  )
+
+                })}
+
+              </Column.TaskList> */}
+
+            </Column>
+
+          )
+
+        })}
+
+          {/* <Column>
             <Column.Header>Active Development</Column.Header>
             <Column.TaskList>
               {devTasks.map((task,index) => {
@@ -82,7 +123,7 @@ function TaskboardView(){
                 )
               })}
             </Column.TaskList>
-          </Column>
+          </Column> */}
     
 
         {/* <Column>
