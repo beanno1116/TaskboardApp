@@ -1,0 +1,33 @@
+.popup {
+  position: absolute;    
+  display: none;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* width: 200px; */
+  /* height: 200px;     */  
+  padding: .65rem;
+  overflow: visible;
+  border-radius: 5px;
+  background-color: #262829;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  z-index: 2;
+}
+.popup_content {
+  overflow: visible;
+}
+/* .popup_content::before {
+  content: "";
+  position: relative;
+  display: block;
+  top: -15px;
+  left: 15px;
+  width: 15px;
+  height: 15px;
+  background-color: #262829;
+  transform: rotate(45deg);
+} */
+.popup.show {
+  display: block;
+}
