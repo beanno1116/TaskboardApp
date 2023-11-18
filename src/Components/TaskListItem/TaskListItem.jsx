@@ -1,4 +1,5 @@
-import React, { useState,useRef, useEffect } from 'react';
+import { useState,useRef, useEffect } from 'react';
+import { optionMenuItems } from '../../data/optionMenuItems';
 
 // import usePortal from '../../../../portals/hooks/usePortal';
 
@@ -15,6 +16,13 @@ import TaskItemContent from './components/TaskItemContent';
 import TaskItemNav from './components/TaskItemNav';
 import SettingsIcon from '../../assets/icons/SettingsButton';
 import SettingsButton from '../../assets/icons/SettingsButton';
+import WEPopup, { useWEPopup } from '../WEPopup/WEPopup';
+import ListSeperator from '../ListSeperator/ListSeperator';
+import RightChevronButton from '../../assets/icons/RightChevron';
+import RightChevronIcon from '../../assets/icons/RightChevron';
+import TrashButton from '../../assets/icons/TrashButton';
+import EditButton from '../../assets/icons/EditButton';
+import Popover from '../Popover/Popover';
 
 // const statusLevels = [
 //     {title:"new"},
@@ -91,23 +99,7 @@ import SettingsButton from '../../assets/icons/SettingsButton';
 // }
 
 
-const Title = ({ children }) => {
-  return (
-      <div title={children} className={styles.title}>
-              <div>{children}</div>
-              <h1>{"taskitem"}</h1>
-          
-      </div>
-  )
-}
 
-const Body = ({ children }) => {
-  return (
-      <div className={styles.body}>
-          {children}
-      </div>
-  )
-}
 
 const OptionButton = ({onClick }) => {
   return (
@@ -133,13 +125,20 @@ const Contact = ({ contact }) => {
   )
 }
 
+const TestComponent = () => {
+  return (
+    <div style={{position:"absolute",width:"100px",height:"100px",right:"101%",backgroundColor:"red"}}>
 
+    </div>
+  )
+}
 
 
 
 // function TaskListItem({ task,type,onClick,onDragStart,onDragEnter,onDrop,children,...props }) {
 function TaskListItem({ task,onClick,onChange }) {
   const {id,title,content,contact,status} = task;
+  const [isOpen,setIsOpen] = useState(false);
     
     
     // const [coords,updateCoordinates,portalState,togglePortal] = usePortal();
@@ -149,14 +148,18 @@ function TaskListItem({ task,onClick,onChange }) {
 
     const onItemOptionButtonClick = (e) => {
       try {        
+        debugger;
+        setIsOpen(!isOpen);
+        let eventTarget = e.currentTarget;
+        eventTarget.classList.toggle(styles.open);
         // if (portalState) return;
         // let button = getClosestByElement(e.target,"button");        
         // if (!button) return;
         // activeButtonRef.current = button;
         // updateCoordinates(button);    
         // togglePortal();
-        onTaskDataChange(e);
-        console.log(e);
+        // onTaskDataChange(e);
+        // console.log(e);
       } catch (error) {
         console.log(`onOptionMenuBtnClick Event error ${error.message}`);
       }
@@ -189,9 +192,17 @@ function TaskListItem({ task,onClick,onChange }) {
             
           <TaskItemNav>
             
-            <OptionButton onClick={(e) => {
-              onItemOptionButtonClick(e);
-            }} />
+            <div>
+
+              <Popover isOpen={isOpen}/>
+              
+              <OptionButton onClick={(e) => {
+                  onItemOptionButtonClick(e);
+                }} 
+              />
+
+            </div>
+
             
             <Contact contact={contact} />
 
