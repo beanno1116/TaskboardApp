@@ -18,8 +18,9 @@ const TaskList = ({listId,tasks=[]}) => {
         
           {listItems.map(task => {
             return (
-              <TaskListItem 
+              <TaskListItem
                 key={task.id}
+                listId={listId}
                 task={task}
                 onClick={() => {}}
                 onChange={(e) => onListItemDataChange(e)}

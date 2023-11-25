@@ -1,0 +1,29 @@
+.body {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+.bottom_nav {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 1em .5em;
+  /* border-top: 1px solid black; */
+}
+.nav_btn {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  box-shadow: 0;
+  padding: 0;
+  margin: 0;
+  color: #b0b0b5;
+  cursor: pointer;
+}
+.nav_btn:hover {
+  color: #67ffc8;
+}
