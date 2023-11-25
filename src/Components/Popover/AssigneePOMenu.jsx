@@ -92,7 +92,7 @@ function AssigneePOMenu({ onMenuBack, onChange, task }) {
 
 
   return (
-    <POMenu isActive={true}>
+    <POMenu isActive={false}>
 
       <Header>
         <HeaderButton onClick={onMenuBack}>{}</HeaderButton>

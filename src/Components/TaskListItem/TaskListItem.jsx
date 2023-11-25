@@ -16,13 +16,15 @@ import TaskItemContent from './components/TaskItemContent';
 import TaskItemNav from './components/TaskItemNav';
 import SettingsIcon from '../../assets/icons/SettingsButton';
 import SettingsButton from '../../assets/icons/SettingsButton';
-import WEPopup, { useWEPopup } from '../WEPopup/WEPopup';
+// import WEPopup, { useWEPopup } from '../WEPopup/WEPopup';
 import ListSeperator from '../ListSeperator/ListSeperator';
 import RightChevronButton from '../../assets/icons/RightChevron';
 import RightChevronIcon from '../../assets/icons/RightChevron';
 import TrashButton from '../../assets/icons/TrashButton';
 import EditButton from '../../assets/icons/EditButton';
 import Popover from '../Popover/Popover';
+import PopoverButton from '../PopoverButton/PopoverButton';
+import TasklistItemMenu from '../menus/TaskListItemMenu/TasklistItemMenu';
 
 // const statusLevels = [
 //     {title:"new"},
@@ -148,20 +150,14 @@ function TaskListItem({ task,onClick,onChange }) {
 
     const onItemOptionButtonClick = (e) => {
       try {        
-        debugger;
+        
+        e.currentTarget.classList.toggle(styles.open);
         setIsOpen(!isOpen);
-        let eventTarget = e.currentTarget;
-        eventTarget.classList.toggle(styles.open);
-        // if (portalState) return;
-        // let button = getClosestByElement(e.target,"button");        
-        // if (!button) return;
-        // activeButtonRef.current = button;
-        // updateCoordinates(button);    
-        // togglePortal();
-        // onTaskDataChange(e);
-        // console.log(e);
+
       } catch (error) {
+
         console.log(`onOptionMenuBtnClick Event error ${error.message}`);
+
       }
     }
 
@@ -184,44 +180,22 @@ function TaskListItem({ task,onClick,onChange }) {
     // }
 
     return (
-        <div className={styles.tasklist_item} id={id}>
+      <div className={styles.tasklist_item} id={id}>
 
-          <StatusIndicator status={status} />
+        <StatusIndicator status={status} />
 
-          <TaskItemContent title={title} content={content} />
-            
-          <TaskItemNav>
-            
-            <div>
+        <TaskItemContent title={title} content={content} />
+          
+        <TaskItemNav>
+          
+          <PopoverButton popover={<Popover isOpen={isOpen} content={<TasklistItemMenu task={task}/ >} />} button={<OptionButton onClick={(e) => {onItemOptionButtonClick(e)}} />} />
+          {/* <PopoverButton  isOpen={isOpen} toggle={() => setIsOpen(!isOpen)} popover={<Popover isOpen={isOpen} />} button={<OptionButton onClick={(e) => {onItemOptionButtonClick(e)}} />} /> */}
+          
+          <Contact contact={contact} />
 
-              <Popover isOpen={isOpen}/>
-              
-              <OptionButton onClick={(e) => {
-                  onItemOptionButtonClick(e);
-                }} 
-              />
+        </TaskItemNav>
 
-            </div>
-
-            
-            <Contact contact={contact} />
-
-          </TaskItemNav>
-
-          {/* 
-          {portalState && (
-              <PopoverMenuPortal>
-                  <TaskItemOptionPopover 
-                      task={task}
-                      height={"195"}
-                      onChange={onTaskChange}
-                      onClick={onMenuClick}
-                      coords={coords}
-                      updatePopoverCoords={() => updateCoordinates(activeButtonRef.current)}
-                  />
-              </PopoverMenuPortal>
-          )} */}
-        </div>
+      </div>
     );
 }
 
