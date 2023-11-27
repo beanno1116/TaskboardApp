@@ -36,9 +36,9 @@ const AssigneeMenu = ({ isActive }) => {
 
       <div className={styles.list}>
         <ul>
-          <ListItem data={{id:"1",first_name:"ben",last_name:"klimo"}} onClick={() => {}} isSelected={true} />
+          <ListItem data={{id:"1",first_name:"ben",last_name:"klimo"}} onClick={() => {}} isSelected={false} />
         </ul>
-    </div>
+      </div>
 
     </div>
   );
