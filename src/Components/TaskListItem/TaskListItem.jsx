@@ -188,7 +188,7 @@ function TaskListItem({ task,onClick,onChange }) {
           
         <TaskItemNav>
           
-          <PopoverButton popover={<Popover isOpen={isOpen} content={<TasklistItemMenu task={task}/ >} />} button={<OptionButton onClick={(e) => {onItemOptionButtonClick(e)}} />} />
+          <PopoverButton popover={<Popover isOpen={isOpen} content={<TasklistItemMenu task={task}/>} />} button={<OptionButton onClick={(e) => {onItemOptionButtonClick(e)}} />} />
           {/* <PopoverButton  isOpen={isOpen} toggle={() => setIsOpen(!isOpen)} popover={<Popover isOpen={isOpen} />} button={<OptionButton onClick={(e) => {onItemOptionButtonClick(e)}} />} /> */}
           
           <Contact contact={contact} />
