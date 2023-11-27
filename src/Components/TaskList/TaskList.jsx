@@ -14,7 +14,6 @@ const TaskList = ({listId,tasks=[]}) => {
   return (
     <div className={styles.tasklist_body}>
        <div className={styles.tasklist}>
-         {/* {children} */}
         
           {listItems.map(task => {
             return (
@@ -28,30 +27,6 @@ const TaskList = ({listId,tasks=[]}) => {
             )
           })}
         
-       
-        
-            {/* <ul>
-                {tasks.map(task => {                    
-                    return (
-                        <TaskItem 
-                            key={task.id}                                             
-                            task={task}
-                            type={taskType}
-                            onClick={taskListEventHandler}                            
-                            onDragStart={e => onDragStartHandler(e,task.id)}
-                            onDragEnter={e => onDragEnterHandler(e,task.id)}
-                            onDrop={e => onDropHandler(e,task.id)}
-                        />
-                    )
-                })}
-            </ul>
-            <AddTaskItem
-                key={1}
-                type={taskType}
-                onClick={showAddTaskForm}
-                isAdding={isAddTaskFormShowing}
-                action={addTaskItem}
-            /> */}
         </div>
     </div>
   );

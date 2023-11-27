@@ -19,14 +19,14 @@
 .menu_header {
   position: relative;
   display: flex;
-  flex-wrap: nowrap;
-  padding: .5em 0;
-  padding-bottom: .25em;
+  flex-wrap: nowrap;  
 }
 .menu_header_btn {
   position: relative;
-  width: 2.75em;
-  padding: .25em;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  padding: .5rem;
   margin: 0;
   background-color: transparent;
   border: 0;
@@ -47,10 +47,11 @@
   flex: 1;
   font-family: 'Roboto', sans-serif;
   color: #b0b0b5;
+  font-size: 1.25rem;
 }
-.menu_title_placeholder {
+.menu_header_placeholder {
   position: relative;
-  width: 2.75em;
+  width: calc(.5rem + 38px);  
 }
 
 
