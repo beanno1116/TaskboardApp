@@ -1,5 +1,6 @@
 
 
+import LeftDblCheveronButton from '../../../../../assets/icons/LeftDblCheveronButton';
 import ListSeperator from '../../../../ListSeperator/ListSeperator';
 import styles from './assigneeMenu.module.css';
 
@@ -17,21 +18,22 @@ const ListItem = ({ data, onClick, isSelected }) => {
   )
 }
 
-const AssigneeMenu = ({ isActive }) => {
+const AssigneeMenu = ({ isActive,onClick }) => {
   return (
     <div className={`${styles.menu_container} ${!isActive ? "" : styles.show_menu}`}>
       <div className={styles.menu_header}>
-        <button className={styles.menu_header_btn} type={'button'} onClick={() => {}}>
+        <LeftDblCheveronButton width={22} height={22} onClick={onClick} type={"button"} className={styles.menu_header_btn} />
+        {/* <button className={styles.menu_header_btn} type={'button'} onClick={() => {}}>
           HB
-        </button>
-        <div className={styles.title}>Tititle</div>
-        <div className={styles.title_placeholder}></div>
+        </button> */}
+        <div className={styles.menu_title}>Assignees</div>
+        <div className={styles.menu_header_placeholder}></div>
       </div>
 
       <ListSeperator />
 
       <div className={styles.search_row}>
-        <input type={"text"} className={styles.search_input} value={() => {}} onChange={() => {}} />
+        <input type={"text"} className={styles.search_input} value={""} onChange={() => {}} />
       </div>
 
       <div className={styles.list}>

@@ -14,16 +14,8 @@ import styles from './taskListItem.module.css';
 import StatusIndicator from './components/TaskItemStatusIndicator';
 import TaskItemContent from './components/TaskItemContent';
 import TaskItemNav from './components/TaskItemNav';
-import SettingsIcon from '../../assets/icons/SettingsButton';
 import SettingsButton from '../../assets/icons/SettingsButton';
-// import WEPopup, { useWEPopup } from '../WEPopup/WEPopup';
-import ListSeperator from '../ListSeperator/ListSeperator';
-import RightChevronButton from '../../assets/icons/RightChevron';
-import RightChevronIcon from '../../assets/icons/RightChevron';
-import TrashButton from '../../assets/icons/TrashButton';
-import EditButton from '../../assets/icons/EditButton';
 import Popover from '../Popover/Popover';
-import PopoverButton from '../PopoverButton/PopoverButton';
 import TasklistItemMenu from '../menus/TaskListItemMenu/TasklistItemMenu';
 
 // const statusLevels = [
@@ -188,8 +180,9 @@ function TaskListItem({ task,onClick,onChange }) {
           
         <TaskItemNav>
           
-          <PopoverButton popover={<Popover isOpen={isOpen} content={<TasklistItemMenu task={task}/>} />} button={<OptionButton onClick={(e) => {onItemOptionButtonClick(e)}} />} />
-          {/* <PopoverButton  isOpen={isOpen} toggle={() => setIsOpen(!isOpen)} popover={<Popover isOpen={isOpen} />} button={<OptionButton onClick={(e) => {onItemOptionButtonClick(e)}} />} /> */}
+          <Popover popover={<TasklistItemMenu task={task} />} isOpen={isOpen}>
+            <OptionButton onClick={(e) => {onItemOptionButtonClick(e)}} />
+          </Popover>
           
           <Contact contact={contact} />
 

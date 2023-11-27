@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { optionMenuItems } from '../../../data/optionMenuItems';
 
@@ -13,14 +13,20 @@ import AssigneeMenu from './menus/AssigneeMenu/AssigneeMenu';
 
 const TasklistItemMenu = ({task}) => {
   const [showMenuView,setShowMenuView] = useState(false);
-  const [currentMenu,setCurrentMenu] = useState();
+  const [currentMenu,setCurrentMenu] = useState("");
+
+  const onNavChangeEvent = (e) => {
+    setShowMenuView(false);
+    setCurrentMenu("");
+  }
 
 
-  const menuViewShowing = (menuName) => {
+  const setMenuView = (menuName) => {
+    // debugger;
     switch (menuName.toLowerCase()) {
       case "assignee":                
     //       root.style.setProperty("--po-height","380px");
-        return (<AssigneeMenu isActive={true}/>)
+        return (<AssigneeMenu isActive={showMenuView} onClick={onNavChangeEvent} onChange={() => {}} />)
     //       return (<POAssigneeMenu onMenuBack={menuBackClickEvent} onChange={e => onChange(e,"assignee")} task={task} />)
     //   case "status":
     //       root.style.setProperty("--po-height","380px");
@@ -32,7 +38,8 @@ const TasklistItemMenu = ({task}) => {
     //       root.style.setProperty("--po-height","380px");                
     //       return (<POPriorityMenu onClick={menuBackClickEvent} onChange={e => onChange(e,"priority")} task={task} />)
       default:
-        return (<div>NO MENU TO SHOW</div>);
+        return "";
+        // return (<div>NO MENU TO SHOW</div>);
     }
   }
 
@@ -56,7 +63,7 @@ const TasklistItemMenu = ({task}) => {
    <>
     <div className={styles.body}>
         
-      {showMenuView && menuViewShowing(currentMenu)}
+      {showMenuView && setMenuView(currentMenu)}
                 
 
       <MainMenu menuItems={optionMenuItems} isActive={showMenuView} onClick={onMenuItemClick}/>
