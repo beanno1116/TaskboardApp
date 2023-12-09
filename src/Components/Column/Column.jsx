@@ -39,20 +39,6 @@ function Column({heading,tasks,children}){
     return (
         <div className={styles.column}>
           {children}
-            {/* {portalState && (
-                    <PopoverMenuPortal>
-                        <AddGroupMenuPopover
-                            action={onGroupChange}
-                            coords={coords}
-                            height={"380"}
-                            updatePopoverCoords={() => updateCoordinates(addGroupButtonRef.current)}
-                        />                       
-                    </PopoverMenuPortal>
-                )}
-            <ColumnLayout>
-                <ColumnLayout.Header addGroupAction={showAddGroupPopover}>{heading}</ColumnLayout.Header>
-                <ColumnLayout.Body>{children}</ColumnLayout.Body>
-            </ColumnLayout>   */}
         </div>
     );
 }

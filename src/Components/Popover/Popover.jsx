@@ -39,14 +39,14 @@ const Popover = ({isOpen,popover,children}) => {
     let rheight = 0;
     for (let i = 0; i < children.length; i++) {
       const child = children[i];
-      if (child.children.length > 0) {
-        for (let l = 0; l < child.children.length; l++) {
-          const c = child.children[l];
-          rheight += c.offsetHeight;          
-        }
-      }else{
-        rheight += child.clientHeight;
-      }
+      // if (child.children.length > 0) {
+      //   for (let l = 0; l < child.children.length; l++) {
+      //     const c = child.children[l];
+      //     rheight += c.offsetHeight;          
+      //   }
+      // }else{
+        rheight += child.offsetHeight;
+      // }
     }
     let newHeight = rheight;
     if (rheight > height) {
@@ -74,6 +74,14 @@ const Popover = ({isOpen,popover,children}) => {
 
   useEffect(() => {
     const mutationObserver = new MutationObserver(popoverMutationEvent);
+    // var th;
+    // if (popoverRef.current && popoverRef.current?.children?.length > 0) {
+    //   debugger;
+    //   let h = popoverRef.current.children[0];
+      
+    //   th = h?.clientHeight;
+
+    // }
     mutationObserver.observe(popoverRef.current,observerConfig);
     return () => {
       mutationObserver.disconnect();
@@ -87,7 +95,7 @@ const Popover = ({isOpen,popover,children}) => {
 
   return (
     <div>
-      <div ref={popoverRef} data-open={isOpen} className={`${styles.popover} ${isOpen ? styles.is_open : ""}`} style={{height: height + "px"}}>
+      <div ref={popoverRef} data-open={isOpen} className={`${styles.popover} ${isOpen ? styles.is_open : ""}`}>
         {isOpen ? popover : null}
       </div>      
       {children}    

@@ -11,3 +11,5 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 ## PopoverReviseBrach
 
 11/27/2023 Refactored the popover component. working on adding dynamic height
+
+12/09/2023 worked on the add task form as a list item working on taskboard view state mnangement

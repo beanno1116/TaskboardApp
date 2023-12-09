@@ -1,0 +1,105 @@
+.label_button {
+    position: relative;
+    display: inline-block;    
+    height: 38px;    
+    width: fit-content;
+    padding: 4px 16px 4px 4px;
+    border: 0;
+    border-radius: 30px;
+    /* border: 1px solid #67ffc8; */
+    cursor: pointer !important;
+    background-color: transparent;        
+    transition: all .3s ease;
+}
+
+.label_button:after {
+    content: "";
+    position: absolute;
+    display: block;
+    height: 2px;
+    width: 0%;    
+    left: 16px;
+    top: 50%;
+    transform: translate(0,-50%);
+    background: #67ffc8;
+    transition: ease .3s all;
+    z-index: 1;
+    opacity: 0;
+    border-radius: 30px;
+}
+
+
+
+.icon {
+    position: relative;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    margin-left: -3px;
+    background: #67ffc8;
+    /* background: red; */
+    border-radius: 30px;    
+    vertical-align: middle;
+    margin-right: 6px;
+    z-index: 4;
+    cursor: pointer;
+}
+
+.icon:after, .icon:before {
+    content: "";
+    position: absolute;
+    display: block;
+    height: 2px;
+    width: 16px;
+    left: 7px;
+    top: 14px;
+    background: #373a44;
+}
+
+.icon::before {
+    content: "";
+    position: absolute;
+    display: block;
+    height: 16px;
+    width: 2px;    
+    left: 14px;
+    top: 7px;
+    background: #373a44;
+}
+
+
+
+.btn_label {
+    position: relative;
+    display: inline-block;
+    height: 32px;    
+    line-height: 32px;
+    vertical-align: middle;
+    font-weight: 600;
+    transition: ease .3s all;
+    z-index: 4;
+    font-size: 1rem;
+    color: #67ffc8;
+    cursor: pointer;
+}
+
+
+.label_button:hover .icon {
+    transform: rotate(90deg);
+    transition: ease .3s all;
+}
+
+.label_button:hover .btn_label {
+    color: var(--page-paper-main);
+}
+
+.label_button:hover:after {
+    position: absolute;
+    height: 38px;
+    width: 100%;
+    left: 0;
+    opacity: 1;
+    cursor: pointer !important;
+}
+
+

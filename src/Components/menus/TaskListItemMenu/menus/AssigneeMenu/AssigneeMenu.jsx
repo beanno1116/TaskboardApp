@@ -1,5 +1,6 @@
 
 
+import { useRef } from 'react';
 import LeftDblCheveronButton from '../../../../../assets/icons/LeftDblCheveronButton';
 import ListSeperator from '../../../../ListSeperator/ListSeperator';
 import styles from './assigneeMenu.module.css';
@@ -18,14 +19,18 @@ const ListItem = ({ data, onClick, isSelected }) => {
   )
 }
 
+
+
+
 const AssigneeMenu = ({ isActive,onClick }) => {
+
+  const listRef = useRef(null);
+
   return (
-    <div className={`${styles.menu_container} ${!isActive ? "" : styles.show_menu}`}>
+    <div className={`${styles.menu_container} ${styles.assignee_menu} ${!isActive ? "" : styles.show_menu}`}>
+
       <div className={styles.menu_header}>
         <LeftDblCheveronButton width={22} height={22} onClick={onClick} type={"button"} className={styles.menu_header_btn} />
-        {/* <button className={styles.menu_header_btn} type={'button'} onClick={() => {}}>
-          HB
-        </button> */}
         <div className={styles.menu_title}>Assignees</div>
         <div className={styles.menu_header_placeholder}></div>
       </div>
@@ -36,7 +41,7 @@ const AssigneeMenu = ({ isActive,onClick }) => {
         <input type={"text"} className={styles.search_input} value={""} onChange={() => {}} />
       </div>
 
-      <div className={styles.list}>
+      <div ref={listRef} className={styles.list}>
         <ul>
           <ListItem data={{id:"1",first_name:"ben",last_name:"klimo"}} onClick={() => {}} isSelected={false} />
         </ul>

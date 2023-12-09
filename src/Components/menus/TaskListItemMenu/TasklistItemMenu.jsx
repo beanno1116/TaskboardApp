@@ -11,7 +11,7 @@ import TrashButton from '../../../assets/icons/TrashButton';
 import AssigneeMenu from './menus/AssigneeMenu/AssigneeMenu';
 
 
-const TasklistItemMenu = ({task}) => {
+const TasklistItemMenu = ({task,onChange}) => {
   const [showMenuView,setShowMenuView] = useState(false);
   const [currentMenu,setCurrentMenu] = useState("");
 
@@ -20,6 +20,9 @@ const TasklistItemMenu = ({task}) => {
     setCurrentMenu("");
   }
 
+  useEffect(() => {
+    
+  })
 
   const setMenuView = (menuName) => {
     // debugger;
@@ -60,7 +63,7 @@ const TasklistItemMenu = ({task}) => {
   }
 
   return (
-   <>
+   <div className={styles.tasklist_item_menu_container}>
     <div className={styles.body}>
         
       {showMenuView && setMenuView(currentMenu)}
@@ -79,7 +82,7 @@ const TasklistItemMenu = ({task}) => {
       <TrashButton width={24} height={24}  name={"edit_btn"} className={styles.nav_btn} type={"button"} onClick={() => {}} />
 
     </div>
-   </>
+   </div>
   );
 }
 
