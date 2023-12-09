@@ -2,24 +2,9 @@ import Column from '../../Components/Column/Column';
 import styles from './taskboardView.module.css'
 
 import { devTasks,columnData } from '../../data/testData';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import AddTaskListItem from '../../Components/AddTaskListItem/AddTaskListItem';
+import { useReducer, useState } from 'react';
+import taskboardReducer from '../../reducers/taskboardReducer';
 
 
 
@@ -57,15 +42,50 @@ import { devTasks,columnData } from '../../data/testData';
 // }
 
 
+const useTaskboard = () => {
+  const [state,dispatch] = useReducer(taskboardReducer,[...columnData]);
+  const [boardData,setBoardData] = useState(columnData);
+
+  const fetchBoardData = () => {
+
+  }
+
+  const updateBoard = () => {
+
+  }
+
+
+  const updateState = () => {
+
+  }
+
+  const addTask = (colId,taskdata) => {
+    const tmpColId = colId;
+    const tmpTaskData = taskdata;
+    const tmpRes = columnData.filter(tl => tl.id === colId);
+    debugger;
+    console.log("");
+  }
+
+
+
+  return {boardState:state,updateState,addTask}
+}
+
+
 
 function TaskboardView(){
+  const {boardState,updateState,addTask} = useTaskboard();
    
+  const handleOnAddEvent = (e) => {
+
+  }
 
 
     return (
       <div className={styles.taskboard}>        
 
-        {columnData.map(column => {
+        {boardState.map(column => {
 
           return (
 
@@ -73,95 +93,18 @@ function TaskboardView(){
 
               <Column.Header>{column.title}</Column.Header>
 
-              <Column.TaskList listId={column.id} tasks={column.tasks} />
+              <Column.TaskList listId={column.id} tasks={column.tasks} onChange={() => {}} />
 
-                {/* {column.tasks.map((task,index) => {
-
-                  return (
-
-                    <Column.TaskListItem key={`${task.id}-${index}`} task={task}>
-
-                    <Column.TaskListItem.Status status={task.status} />
-
-                    <Column.TaskListItem.Content title={task.title} content={task.content} />   
-
-                    <Column.TaskListItem.Nav>
-
-                      <Column.TaskListItem.OptionButton rowID={1} onClick={() => {}} />
-
-                      <Column.TaskListItem.Contact contact={"Ben Klimo"} />
-
-                    </Column.TaskListItem.Nav>
-
-                  </Column.TaskListItem>
-
-                  )
-
-                })}
-
-              </Column.TaskList> */}
-
+              <AddTaskListItem type={column.id} onAdd={addTask}/>
+                
             </Column>
 
           )
 
         })}
 
-          {/* <Column>
-            <Column.Header>Active Development</Column.Header>
-            <Column.TaskList>
-              {devTasks.map((task,index) => {
-                return (
-                  <Column.TaskListItem key={`${task.id}-${index}`} task={task}>
-                    <Column.TaskListItem.Status status={task.status} />
-                    <Column.TaskListItem.Content title={task.title} content={task.content} />                                                            
-                    <Column.TaskListItem.Nav>
-                      <Column.TaskListItem.OptionButton rowID={1} onClick={() => {}} />
-                      <Column.TaskListItem.Contact contact={"Ben Klimo"} />
-                    </Column.TaskListItem.Nav>
-                  </Column.TaskListItem>
-                )
-              })}
-            </Column.TaskList>
-          </Column> */}
-    
-
-        {/* <Column>
-          <Column.Header>
-            Column 1
-          </Column.Header>
-          <Column.TaskList>
-            <Column.TaskListItem></Column.TaskListItem>
-          </Column.TaskList>
-        </Column>
-
-        <Column>
-          <Column.Header>
-            Column 2
-          </Column.Header>
-          <Column.TaskList></Column.TaskList>
-        </Column>
-        
-        <Column>
-          <Column.Header>
-            Column 3
-          </Column.Header>
-          <Column.TaskList></Column.TaskList>
-        </Column> */}
-
+          
       </div>
-        // <Taskboard>
-
-        //     <Column heading={"What we are working on"} addGroupAction={e => addGroupButtonEvent(e,"dev")}>                
-        //         <TaskList taskType={"dev"}/>
-        //     </Column>
-
-
-        //     <Column heading={"How can we help?"} addGroupAction={e => addGroupButtonEvent(e,"gen")}>
-        //         {/* <TaskList taskType={"gen"}/>                 */}
-        //     </Column>
-    
-        // </Taskboard>
     );
 }
 

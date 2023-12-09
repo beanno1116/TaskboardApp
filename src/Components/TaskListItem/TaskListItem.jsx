@@ -129,15 +129,15 @@ const TestComponent = () => {
 
 
 
-// function TaskListItem({ task,type,onClick,onDragStart,onDragEnter,onDrop,children,...props }) {
+
 function TaskListItem({ task,onClick,onChange }) {
   const {id,title,content,contact,status} = task;
   const [isOpen,setIsOpen] = useState(false);
     
     
-    // const [coords,updateCoordinates,portalState,togglePortal] = usePortal();
 
-    // const activeButtonRef = useRef(null);
+
+
 
 
     const onItemOptionButtonClick = (e) => {
@@ -157,19 +157,7 @@ function TaskListItem({ task,onClick,onChange }) {
       onChange(e);
     }
 
-    // const onTaskChange = (e,_action,_id) => {
-        
-    //     if (_action === "edit"){
-    //         return;
-    //     }
-    //     togglePortal();
-    //     onClick(e,_action,_id);
-    //     return;
-    // }
 
-    // const onMenuClick = () => {
-
-    // }
 
     return (
       <div className={styles.tasklist_item} id={id}>
@@ -180,7 +168,7 @@ function TaskListItem({ task,onClick,onChange }) {
           
         <TaskItemNav>
           
-          <Popover popover={<TasklistItemMenu task={task} />} isOpen={isOpen}>
+          <Popover popover={<TasklistItemMenu task={task} onChange={() => {}} />} isOpen={isOpen}>
             <OptionButton onClick={(e) => {onItemOptionButtonClick(e)}} />
           </Popover>
           

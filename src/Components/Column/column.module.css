@@ -1,6 +1,8 @@
 .column {
     position: relative;
-    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     max-width: 500px;
     padding: 2rem 2rem;
     border-radius: 8px;

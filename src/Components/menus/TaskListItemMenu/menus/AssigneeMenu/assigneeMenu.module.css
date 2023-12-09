@@ -1,4 +1,4 @@
-.menu_container {
+.assignee_menu {
   position: absolute;
   display: flex;
   flex-flow: column;
@@ -16,6 +16,7 @@
   transform: translateX(0%);
 }
 
+/* MENU HEADER SECTION CSS STYLES */
 .menu_header {
   position: relative;
   display: flex;
@@ -38,7 +39,6 @@
 .menu_header_btn:hover {
   color: snow;
 }
-
 .menu_title {
   position: relative;
   display: flex;
@@ -55,6 +55,8 @@
 }
 
 
+
+/* MENU SEARCH SECTION CSS STYLES */
 .search_row {
   position: relative;
   width: 100%;
@@ -85,10 +87,14 @@
 
 }
 
+
+
+
+/* MENU ITEM LIST SECTION CSS STYLES */
 .list {
   position: relative;
-  flex: 1;
-  width: 100%;
+  /* flex: 1; */
+  /* width: 100%; */
   /* background-color: #67ffc8; */
 }
 .list ul {

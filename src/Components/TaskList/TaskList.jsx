@@ -3,7 +3,7 @@ import TaskListItem from '../TaskListItem/TaskListItem';
 import styles from './taskList.module.css';
 // import ListItem from './ListItem';
 
-const TaskList = ({listId,tasks=[]}) => {
+const TaskList = ({listId,onChange,tasks=[]}) => {
   const [listItems, setListItems] = useState(tasks);
 
   const onListItemDataChange = (e) => {
