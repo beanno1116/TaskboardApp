@@ -3,9 +3,12 @@ import styles from './taskboardView.module.css'
 
 import { devTasks,columnData } from '../../data/testData';
 import AddTaskListItem from '../../Components/AddTaskListItem/AddTaskListItem';
-import { useReducer, useState } from 'react';
+import { useCallback, useEffect, useReducer, useState } from 'react';
 import taskboardReducer from '../../reducers/taskboardReducer';
 
+import * as actions from '../../reducers/actions';
+import { Task } from '../../data/models/task';
+import { devFetchBoards } from '../../data/fakeApi';
 
 
 // const addTaskItem = {
@@ -44,7 +47,7 @@ import taskboardReducer from '../../reducers/taskboardReducer';
 
 const useTaskboard = () => {
   const [state,dispatch] = useReducer(taskboardReducer,[...columnData]);
-  const [boardData,setBoardData] = useState(columnData);
+  
 
   const fetchBoardData = () => {
 
@@ -59,15 +62,33 @@ const useTaskboard = () => {
 
   }
 
-  const addTask = (colId,taskdata) => {
-    const tmpColId = colId;
-    const tmpTaskData = taskdata;
-    const tmpRes = columnData.filter(tl => tl.id === colId);
-    debugger;
-    console.log("");
+
+  const addTask = (columnId) => (e,taskData) => {
+    try {
+      var boardIndex = -1;
+      var taskIndex = -1;
+      var task = new Task(columnId,taskData);
+      var taskBoard;
+      
+      debugger;
+      boardIndex = state.findIndex(col => col.id === columnId);
+      if (boardIndex === -1) {
+        return false;
+      }
+      taskBoard = state[boardIndex];
+      taskIndex = taskBoard.tasks.findIndex(t => t.id === task.id);
+
+      if (taskIndex !== -1) {
+        return false;
+      }
+      
+      
+      dispatch({type:actions.ADD_NEW_TASK,task:{boardId:columnId,data:task}});
+      return true;      
+    } catch (error) {
+      console.error();
+    }    
   }
-
-
 
   return {boardState:state,updateState,addTask}
 }
@@ -75,17 +96,21 @@ const useTaskboard = () => {
 
 
 function TaskboardView(){
-  const {boardState,updateState,addTask} = useTaskboard();
+  console.log("TaskboardView Rendered");
+  const [boards,setBoards] = useState([]);
+  
    
-  const handleOnAddEvent = (e) => {
 
-  }
+
+  useEffect(() => {
+    setBoards(devFetchBoards());
+  },[]);
 
 
     return (
       <div className={styles.taskboard}>        
 
-        {boardState.map(column => {
+        {boards.map(column => {
 
           return (
 
@@ -93,9 +118,9 @@ function TaskboardView(){
 
               <Column.Header>{column.title}</Column.Header>
 
-              <Column.TaskList listId={column.id} tasks={column.tasks} onChange={() => {}} />
+              <Column.TaskList listId={column.id} />
 
-              <AddTaskListItem type={column.id} onAdd={addTask}/>
+              {/* <AddTaskListItem addTaskHandler={addTask(column.id)}/> */}
                 
             </Column>
 

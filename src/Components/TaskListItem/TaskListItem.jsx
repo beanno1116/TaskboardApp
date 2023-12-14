@@ -1,14 +1,5 @@
-import { useState,useRef, useEffect } from 'react';
-import { optionMenuItems } from '../../data/optionMenuItems';
+import { useState } from 'react';
 
-// import usePortal from '../../../../portals/hooks/usePortal';
-
-// import { getClosestByElement,createFormDataObj,apiDataFetch } from '../../../../Utilities';
-
-// import { icon } from '../../../../assets/Icon';
-
-// import PopoverMenuPortal from '../../../../portals/PopoverMenuPortal';
-// import TaskItemOptionPopover from '../../../../popovers/TaskItemOptionPopover/TaskItemOptionPopover';
 
 import styles from './taskListItem.module.css';
 import StatusIndicator from './components/TaskItemStatusIndicator';
@@ -130,8 +121,8 @@ const TestComponent = () => {
 
 
 
-function TaskListItem({ task,onClick,onChange }) {
-  const {id,title,content,contact,status} = task;
+function TaskListItem({ task,onClick,onChange,children }) {
+  const {id,title,description,contact,status} = task;
   const [isOpen,setIsOpen] = useState(false);
     
     
@@ -142,7 +133,6 @@ function TaskListItem({ task,onClick,onChange }) {
 
     const onItemOptionButtonClick = (e) => {
       try {        
-        
         e.currentTarget.classList.toggle(styles.open);
         setIsOpen(!isOpen);
 
@@ -162,9 +152,11 @@ function TaskListItem({ task,onClick,onChange }) {
     return (
       <div className={styles.tasklist_item} id={id}>
 
+        
+
         <StatusIndicator status={status} />
 
-        <TaskItemContent title={title} content={content} />
+        <TaskItemContent title={title} content={description} />
           
         <TaskItemNav>
           
