@@ -1,6 +1,7 @@
 .form {
   position: relative;
   width: 100%;
+  padding: .5rem .75rem;
 }
 
 .form_content {

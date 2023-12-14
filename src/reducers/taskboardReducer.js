@@ -1,11 +1,15 @@
 
+import * as actions from './actions';
+
+
 
 
 const taskboardReducer = (state,action)  => {
   switch (action.type) {
-    case "":
+    case actions.ADD_NEW_TASK:
       
-      break;
+     return;
+      
   
     default:
       break;

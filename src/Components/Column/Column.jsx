@@ -14,7 +14,7 @@ import TaskListItem from '../TaskListItem/TaskListItem';
 // import AddGroupMenuPopover from '../../popovers/AddGroupMenuPopover/AddGroupMenuPopover';
 
 
-function Column({heading,tasks,children}){
+function Column({children}){
     
     // const [coords,updateCoordinates,portalState,togglePortal] = usePortal();
     // const addGroupButtonRef = useRef();

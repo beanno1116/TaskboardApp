@@ -4,19 +4,11 @@ import styles from './addTaskListItem.module.css';
 import WELabelButton from '../WELabelButton/WELabelButton';
 import AddTaskItemForm from './components/AddTaskItemForm/AddTaskItemForm';
 
-const AddTaskListItem = ({ type,onAdd,...props }) => {
+const AddTaskListItem = ({ addTaskHandler,...props }) => {
   const [isFormShowing,setIsFormShowing] = useState(false);
   
-  // const [showForm,setShowForm] = useState(false);
-  const handleFormSubmit = (e,formData) => {
-    console.log(formData);
-    onAdd(type,formData);
-    debugger;
-    let tmpAdd = add;
+  
 
-    debugger;
-    console.log(e);
-  }
   
   return (
       
@@ -32,7 +24,7 @@ const AddTaskListItem = ({ type,onAdd,...props }) => {
           </WELabelButton>
         }
         
-        {isFormShowing && <AddTaskItemForm isFocused={isFormShowing} onSubmit={handleFormSubmit} />}
+        {isFormShowing && <AddTaskItemForm isFocused={isFormShowing} onSubmit={addTaskHandler} closeForm={() => setIsFormShowing(!isFormShowing)}/>}
         {/* {isAdding && <AddTaskForm type={type} isFocused={isAdding} onSubmit={action}/>} */}
 
     </div>      
