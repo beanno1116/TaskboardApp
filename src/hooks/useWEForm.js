@@ -3,7 +3,7 @@ import { useState, useRef } from 'react';
 const validator = {
   inputTypes: ["text", "password", "email", "number"],
   required: (input) => {
-
+    
     const type = input.type;
     if (input.value.length === 0) {
       return false;
@@ -60,10 +60,10 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
     const config = findInputConfig(inputName, inputs.current);
     const { name, input } = config;
 
-    // if (checkInputForErrors(name, errors)) {
-    //   removeErrorStatus(input);
-    //   setErrors([...errors.filter(x => x.name !== name)]);
-    // }
+    if (checkInputForErrors(name, errors)) {
+      removeErrorStatus(input);
+      setErrors([...errors.filter(x => x.name !== name)]);
+    }
 
     setFormData({
       ...formData,
@@ -85,10 +85,10 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
     })
   }
 
-  const handleInputBlur = (e) => {
+  const handleInputBlur = (e,name) => {
 
-
-    let name = e.target.getAttribute('name');
+    // debugger;
+    // let name = e.target.getAttribute('name');
 
     let inputsCopy = [...inputs.current];
 
@@ -101,12 +101,13 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
       inputConfig = inputConfig[0];
       if (Object.keys(inputConfig?.options).length === 0) return;
 
-      if (inputConfig?.required) {
+      if (inputConfig?.options?.required) {
         let isValid = validator.required(e.target);
         if (!isValid) {
           inputConfig.valid = false;
           inputConfig.error = { msg: `This field is required`, target: e.target };
           setErrors([inputConfig]);
+          applyErrorStatus(inputConfig.input);
         } else {
           inputConfig.valid = true;
         }
@@ -147,7 +148,7 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
     setFormData({ ...formDataCopy });
   }
 
-  const handleSubmit = (e, handler, args = {}) => {
+  const handleSubmit = (e, handler, args = {}) => {    
     e.preventDefault();
     e.stopPropagation();
     const inputsCopy = [...inputs.current];
@@ -173,7 +174,8 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
       }
     });
 
-    handler && handler(e, formDataCopy, validationStatus, args)
+    handler && handler(e,formDataCopy, validationStatus, args)
+    return validationStatus;
   }
 
   const registerFormInput = (name, options = {}) => {

@@ -11,13 +11,13 @@ export const Task =  function(type,dataObj={}) {
     title: "Untitled ",
     description: "",
     content: "",   
-    contact: "",
+    contact: "? ?",
     author: "",
     group: "",
     priority: 0,
     status: 0,
     position: "",
-    assignee: "",
+    assignee: "? ?",
     creationDate: dateWithFormat(today,'sql'),
     completionDate: dateWithFormat(today,'sql'),
     modifiedDate: dateWithFormat(today,'sql'),
@@ -26,8 +26,8 @@ export const Task =  function(type,dataObj={}) {
 
   const task = {...defaultTask,...dataObj}
 
-  task.id = uuid("tsk_");
-  task.type = type;
+  task.id = task?.id?.length > 0 ? task.id : uuid("tsk_");
+  task.type = task?.type?.length > 0 ? task.type : type;
   
   return task;  
 }

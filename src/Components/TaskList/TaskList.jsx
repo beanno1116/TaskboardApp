@@ -6,17 +6,15 @@ import styles from './taskList.module.css';
 
 import AddTaskListItem from '../AddTaskListItem/AddTaskListItem';
 import useTaskList from './hooks/useTaskList';
+import TasklistItemMenu from '../menus/TaskListItemMenu/TasklistItemMenu';
 
 const TaskList = ({listId}) => {
-  const {tasks,addTask} = useTaskList(listId);   
+  const {tasks,addTask,deleteTask,updateTask} = useTaskList(listId);   
 
 
   
 
-  const onListItemDataChange = (e) => {
-    console.log("onListItemDataChange");
-    console.log(e);
-  }
+ 
 
   return (
     <>
@@ -29,8 +27,7 @@ const TaskList = ({listId}) => {
                   key={task.id}
                   listId={listId}
                   task={task}
-                  onClick={() => {}}
-                  onChange={(e) => onListItemDataChange(e)}
+                  menu={<TasklistItemMenu task={task} onChange={() => {}} deleteTask={deleteTask} updateTask={updateTask} />}                  
                 />
               )
             })}

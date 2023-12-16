@@ -1,21 +1,15 @@
-.popover {
-  /* --po-height: calc(3.5em + 145px); */
+.popover {  
   position: absolute;
-  display: none;
-  /* flex-flow: column; */
-  right: 100%;
-  width: 225px;    
-  /* height: var(--po-height);     */
+  display: none;  
+  right: 100%;    
   height: 300px;
   background-color: #373a44;
   border: 1px solid black;
   box-shadow: 0 4px 6px -2px rgba(0,0,0,0.1),0 10px 15px -3px rgba(0,0,0,0.15);
   border-radius: .5em;
   transition: height .4s ease-out;
-  z-index: 9;
-  /* transform: translate(-100px, -100%); */
+  z-index: 9;  
 }
 .popover.is_open {
-  display: flex;
-  /* display: block; */
+  display: flex;  
 }

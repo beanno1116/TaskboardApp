@@ -23,7 +23,7 @@
 }
 
 .taskitem_status_indicator.new {
-  background-color: rgba(255,255,255,0);
+  background-color: rgb(255, 255, 255);
 }
 
 .taskitem_status_indicator.complete {

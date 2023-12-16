@@ -11,7 +11,7 @@ import TrashButton from '../../../assets/icons/TrashButton';
 import AssigneeMenu from './menus/AssigneeMenu/AssigneeMenu';
 
 
-const TasklistItemMenu = ({task,onChange}) => {
+const TasklistItemMenu = ({task,deleteTask,updateTask,onChange}) => {
   const [showMenuView,setShowMenuView] = useState(false);
   const [currentMenu,setCurrentMenu] = useState("");
 
@@ -20,16 +20,14 @@ const TasklistItemMenu = ({task,onChange}) => {
     setCurrentMenu("");
   }
 
-  useEffect(() => {
-    
-  })
+
 
   const setMenuView = (menuName) => {
     // debugger;
     switch (menuName.toLowerCase()) {
       case "assignee":                
     //       root.style.setProperty("--po-height","380px");
-        return (<AssigneeMenu isActive={showMenuView} onClick={onNavChangeEvent} onChange={() => {}} />)
+        return (<AssigneeMenu task={task} isActive={showMenuView} menuBack={onNavChangeEvent} onChange={updateTask} />)
     //       return (<POAssigneeMenu onMenuBack={menuBackClickEvent} onChange={e => onChange(e,"assignee")} task={task} />)
     //   case "status":
     //       root.style.setProperty("--po-height","380px");
@@ -62,6 +60,12 @@ const TasklistItemMenu = ({task,onChange}) => {
 
   }
 
+  const onEditButtonClick = (e) => {
+    onChange("edit","");
+  }
+
+  
+
   return (
    <div className={styles.tasklist_item_menu_container}>
     <div className={styles.body}>
@@ -78,10 +82,12 @@ const TasklistItemMenu = ({task,onChange}) => {
 
     <div className={styles.bottom_nav}>
         
-      <EditButton width={24} height={24}  name={"edit_btn"} className={styles.nav_btn} type={"button"} onClick={() => {}}/>
-      <TrashButton width={24} height={24}  name={"edit_btn"} className={styles.nav_btn} type={"button"} onClick={() => {}} />
+      <EditButton width={24} height={24}  name={"edit_btn"} className={styles.nav_btn} type={"button"} onClick={(e) => onEditButtonClick(e)}/>
+
+      <TrashButton width={24} height={24}  name={"trash_btn"} className={styles.nav_btn} type={"button"} onClick={() => deleteTask(task.id)} />
 
     </div>
+
    </div>
   );
 }

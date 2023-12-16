@@ -1,9 +1,5 @@
-
-
-
-
-import { useState } from 'react';
-
+import { useEffect, useRef, useState } from 'react';
+import useWEForm from '../../../../hooks/useWEForm';
 import styles from './addTaskItemForm.module.css';
 import { devFetchContacts } from '../../../../data/fakeApi';
 
@@ -33,44 +29,30 @@ const useForm = (initialState) => {
 
 
 function AddTaskItemForm({ isFocused,onSubmit,closeForm }) {
-  const {formData,handleOnSubmit,handleOnChange} = useForm({
+  const {registerFormInput,handleSubmit} = useWEForm({
     title: "",
     description:"",
     assignee: ""
-  });
-  
-    // const [formData,setFormData] = useState({
-    //   title: "",
-    //   description:"",
-    //   assignee: ""
-    // })
+  })
 
-    // const resetForm = () => {
-    //   setFormData({title:"",description:""})
-    // }
+  const initialFocusEle = useRef(null);
 
-    // const handleFormSubmit = (e) => {
-    //   e.preventDefault(); 
-    //   try {
-    //     if (!onSubmit && typeof onSubmit !== "function") {
-    //       throw new Error(`[AddTaskItemForm][FN][handleOnSubmit][ERROR]-value was not a function or is`);          
-    //     }
-        
-    //     onSubmit({...formData});        
-    //     resetForm();
-    //     closeForm();
-    //   } catch (error) {
-    //     console.log(error.message);
-    //   }
-    // }
 
-    // const handleOnChange = (e,name) => {      
-    //   setFormData({
-    //     ...formData,
-    //     [name]: e.target.value,
-    //   })
-    // }
+  useEffect(() => {
+    var intv;
     
+    if (initialFocusEle.current) {
+      initialFocusEle.current.focus();  
+      intv = setTimeout(() => {
+        debugger;
+        
+        clearTimeout(intv);
+      },800);
+    }
+    return () => {
+      // clearTimeout(intv);
+    }
+  },[isFocused])
    
 
     const assignTask = (e) => {
@@ -86,11 +68,11 @@ function AddTaskItemForm({ isFocused,onSubmit,closeForm }) {
           <div className={styles.form_content}>
             
               <div className={styles.input_row}>
-                  <input className={styles.board_input} placeholder={"Task Title *"} value={formData.title} onChange={e => handleOnChange(e,"title")}/>
+                  <input ref={initialFocusEle} className={styles.board_input} {...registerFormInput("title",{required:true})} placeholder={"Task Title *"} />                  
               </div>
 
               <div className={styles.input_row}>
-                  <textarea className={styles.board_textarea} placeholder={"Task Description *"} value={formData.description} onChange={e => handleOnChange(e,"description")}></textarea>
+                  <textarea className={styles.board_input} {...registerFormInput("description")} placeholder={"Task Description *"}></textarea>                  
               </div>
 
           </div>
@@ -99,11 +81,16 @@ function AddTaskItemForm({ isFocused,onSubmit,closeForm }) {
 
               <div className={styles.nav_section}>
 
-                  <button name={"add_task"} type="submit" className={styles.add_btn} onClick={(e) => {
+                  <button name={"add_task"} type="submit" className={styles.add_btn} onClick={e => {
+                    closeForm();
+                    handleSubmit(e,onSubmit);
+                    }}
+                  >Add Task</button>
+                  {/* <button name={"add_task"} type="submit" className={styles.add_btn} onClick={(e) => {
                     e.preventDefault();
                     handleOnSubmit(onSubmit);
                     closeForm();
-                  }}>Add Task</button>
+                  }}>Add Task</button> */}
                   {/* <button name={"add_task"} type="submit" className={styles.add_btn} onClick={(e) => handleOnSubmit(e)}>Add Task</button> */}
 
                   <button name={"close_task"} type="button" className={styles.close_btn} onClick={closeForm}>
@@ -129,6 +116,7 @@ function AddTaskItemForm({ isFocused,onSubmit,closeForm }) {
               </div>
 
           </nav>
+
         </form>
 
       </div>
