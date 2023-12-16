@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import styles from './addTaskListItem.module.css';
 import WELabelButton from '../WELabelButton/WELabelButton';
 import AddTaskItemForm from './components/AddTaskItemForm/AddTaskItemForm';
 
-const AddTaskListItem = ({ addTaskHandler,...props }) => {
+const AddTaskListItem = ({ addTaskHandler }) => {
   const [isFormShowing,setIsFormShowing] = useState(false);
   
   

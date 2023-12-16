@@ -8,6 +8,7 @@ import TaskItemNav from './components/TaskItemNav';
 import SettingsButton from '../../assets/icons/SettingsButton';
 import Popover from '../Popover/Popover';
 import TasklistItemMenu from '../menus/TaskListItemMenu/TasklistItemMenu';
+import VerticalDotsButton from '../../assets/icons/VerticalDotsButton';
 
 // const statusLevels = [
 //     {title:"new"},
@@ -89,7 +90,8 @@ import TasklistItemMenu from '../menus/TaskListItemMenu/TasklistItemMenu';
 const OptionButton = ({onClick }) => {
   return (
       <>
-        <SettingsButton className={styles.option_btn} width={25} height={25} onClick={onClick} />      
+      <VerticalDotsButton className={styles.option_btn} width={25} height={25} onClick={onClick} /> 
+        {/* <SettingsButton className={styles.option_btn} width={25} height={25} onClick={onClick} />       */}
       </>
   )
 }
@@ -121,7 +123,7 @@ const TestComponent = () => {
 
 
 
-function TaskListItem({ task,onClick,onChange,children }) {
+function TaskListItem({ task,menu}) {
   const {id,title,description,contact,status} = task;
   const [isOpen,setIsOpen] = useState(false);
     
@@ -143,10 +145,7 @@ function TaskListItem({ task,onClick,onChange,children }) {
       }
     }
 
-    const onTaskDataChange = (e) => {
-      onChange(e);
-    }
-
+   
 
 
     return (
@@ -160,7 +159,8 @@ function TaskListItem({ task,onClick,onChange,children }) {
           
         <TaskItemNav>
           
-          <Popover popover={<TasklistItemMenu task={task} onChange={() => {}} />} isOpen={isOpen}>
+          {/* <Popover popover={<TasklistItemMenu task={task} onChange={onChange} deleteTask={deleteTask} />} isOpen={isOpen}> */}
+          <Popover popover={menu} isOpen={isOpen}>
             <OptionButton onClick={(e) => {onItemOptionButtonClick(e)}} />
           </Popover>
           
