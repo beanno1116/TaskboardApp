@@ -1,6 +1,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import styles from './popover.module.css';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
 
 
 const observerConfig = {
@@ -10,21 +11,13 @@ const observerConfig = {
 }
 
 
-const Popover = ({isOpen,popover,children}) => {
+const Popover = ({isOpen,onClose,popover,children}) => {
   const [height,setHeight] = useState();
 
   const popoverRef = useRef(null);
-  const componentHeight = useRef({});
-
-  useEffect(() => {
-    if (popoverRef.current) {
-      setHeight(popoverRef.current.offsetHeight);
-    }
-  },[])
-
-  const calculateHeight = (element) => {
-    
-  }
+  const containerRef = useRef(null);
+  
+  useOnClickOutside(containerRef,onClose);
 
   const popoverMutationEvent = (mutationList,observer) => {
     
@@ -94,7 +87,7 @@ const Popover = ({isOpen,popover,children}) => {
  
 
   return (
-    <div>
+    <div ref={containerRef}>
       <div ref={popoverRef} data-open={isOpen} className={`${styles.popover} ${isOpen ? styles.is_open : ""}`}>
         {isOpen ? popover : null}
       </div>      

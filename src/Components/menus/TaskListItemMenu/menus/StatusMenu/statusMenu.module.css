@@ -8,8 +8,7 @@
   height: 40px;
   padding-left: .5em;
   border-radius: .25em;
-  cursor: pointer;
-  /* padding: .5em; */
+  cursor: pointer;  
 }
 .list_item:hover {
   background-color: rgb(44,46,56);
@@ -18,11 +17,11 @@
 .list_item.selected {
   background-color: rgb(44,46,56);
 }
-.list_item.selected .name {
+.list_item.selected .title {
   color: #67ffc8;    
 }
 
-.initials {
+.status_color {
   position: relative;
   display: flex;
   justify-content: center;
@@ -37,12 +36,12 @@
   color: snow;    
   background-color:black;
 }
-.initials > div {
+.status_color > div {
   position: relative;
   width: 14px;
   height: 14px;            
 }
-.name {
+.title {
   position: relative;
   display: flex;
   justify-content: flex-start;
@@ -50,7 +49,7 @@
   flex: 1;
   padding-left: .5em;
   font-family: 'Roboto', sans-serif;
-  font-size: .8rem;
+  font-size: 1rem;
   color: snow;
 }
 .checkbox {
