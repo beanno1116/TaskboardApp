@@ -1,6 +1,11 @@
 import {uuid} from '../../Utilities';
 import { dateWithFormat } from '../../WEDateUtils';
 
+
+const testMap = {
+  change: "first instance"
+};
+
 export const Task =  function(type,dataObj={}) {
 
   let today = new Date();
@@ -26,6 +31,7 @@ export const Task =  function(type,dataObj={}) {
 
   const task = {...defaultTask,...dataObj}
 
+  task.test = testMap;
   task.id = task?.id?.length > 0 ? task.id : uuid("tsk_");
   task.type = task?.type?.length > 0 ? task.type : type;
   

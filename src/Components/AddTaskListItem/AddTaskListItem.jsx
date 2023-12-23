@@ -7,7 +7,10 @@ import AddTaskItemForm from './components/AddTaskItemForm/AddTaskItemForm';
 const AddTaskListItem = ({ addTaskHandler }) => {
   const [isFormShowing,setIsFormShowing] = useState(false);
   
-  
+  const onCloseForm = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }
 
   
   return (

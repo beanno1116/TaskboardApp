@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import useWEForm from '../../../../hooks/useWEForm';
 import styles from './addTaskItemForm.module.css';
 import { devFetchContacts } from '../../../../data/fakeApi';
+import { Task } from '../../../../data/models/task';
 
 
 const useForm = (initialState) => {
@@ -39,18 +40,17 @@ function AddTaskItemForm({ isFocused,onSubmit,closeForm }) {
 
 
   useEffect(() => {
-    var intv;
-    
+    var intv;        
     if (initialFocusEle.current) {
-      initialFocusEle.current.focus();  
       intv = setTimeout(() => {
-        debugger;
-        
+        if (initialFocusEle.current.children.length > 0) {
+          initialFocusEle.current.children[0].focus(); 
+        }        
         clearTimeout(intv);
-      },800);
+      },200);
     }
     return () => {
-      // clearTimeout(intv);
+      clearTimeout(intv);
     }
   },[isFocused])
    
@@ -67,8 +67,8 @@ function AddTaskItemForm({ isFocused,onSubmit,closeForm }) {
 
           <div className={styles.form_content}>
             
-              <div className={styles.input_row}>
-                  <input ref={initialFocusEle} className={styles.board_input} {...registerFormInput("title",{required:true})} placeholder={"Task Title *"} />                  
+              <div ref={initialFocusEle} className={styles.input_row}>
+                  <input className={styles.board_input} {...registerFormInput("title",{required:true})} placeholder={"Task Title *"} />                  
               </div>
 
               <div className={styles.input_row}>
@@ -86,12 +86,7 @@ function AddTaskItemForm({ isFocused,onSubmit,closeForm }) {
                     handleSubmit(e,onSubmit);
                     }}
                   >Add Task</button>
-                  {/* <button name={"add_task"} type="submit" className={styles.add_btn} onClick={(e) => {
-                    e.preventDefault();
-                    handleOnSubmit(onSubmit);
-                    closeForm();
-                  }}>Add Task</button> */}
-                  {/* <button name={"add_task"} type="submit" className={styles.add_btn} onClick={(e) => handleOnSubmit(e)}>Add Task</button> */}
+                  
 
                   <button name={"close_task"} type="button" className={styles.close_btn} onClick={closeForm}>
                       <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">

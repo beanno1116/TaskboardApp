@@ -67,8 +67,13 @@ export const states = [
  * @param {String} str 
  * @returns {String}
  */
-export const capitalizeFirstLetter = (str) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+export const capitalizeFirstLetter = (str = undefined) => {
+  try {
+    if (str.length === 0 || str === undefined) throw new Error(`Cannot capitalize first letter of undefined`);  
+    return str.charAt(0).toUpperCase() + str.slice(1);    
+  } catch (error) {
+    console.error(`[capitalizeFirstLetter][ERROR]-${error.message}`);
+  }
 }
 
 /**

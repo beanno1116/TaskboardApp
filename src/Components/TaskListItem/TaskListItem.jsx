@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 
 import styles from './taskListItem.module.css';
@@ -112,13 +112,6 @@ const Contact = ({ contact }) => {
   )
 }
 
-const TestComponent = () => {
-  return (
-    <div style={{position:"absolute",width:"100px",height:"100px",right:"101%",backgroundColor:"red"}}>
-
-    </div>
-  )
-}
 
 
 
@@ -127,16 +120,18 @@ function TaskListItem({ task,menu}) {
   const {id,title,description,contact,status} = task;
   const [isOpen,setIsOpen] = useState(false);
     
-    
-
-
-
-
-
+  const popoverRef = useRef();
+  
     const onItemOptionButtonClick = (e) => {
-      try {        
+      debugger;
+      try {
         e.currentTarget.classList.toggle(styles.open);
-        setIsOpen(!isOpen);
+        if (isOpen) {
+          setIsOpen(false);
+        }else {
+          setIsOpen(true);
+        }
+        // setIsOpen(!isOpen);
 
       } catch (error) {
 
@@ -150,18 +145,16 @@ function TaskListItem({ task,menu}) {
 
     return (
       <div className={styles.tasklist_item} id={id}>
-
         
-
         <StatusIndicator status={status} />
 
         <TaskItemContent title={title} content={description} />
           
         <TaskItemNav>
           
-          {/* <Popover popover={<TasklistItemMenu task={task} onChange={onChange} deleteTask={deleteTask} />} isOpen={isOpen}> */}
-          <Popover popover={menu} isOpen={isOpen}>
-            <OptionButton onClick={(e) => {onItemOptionButtonClick(e)}} />
+
+          <Popover popover={menu} isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            <OptionButton onClick={onItemOptionButtonClick} />
           </Popover>
           
           <Contact contact={contact} />

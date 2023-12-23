@@ -5,15 +5,11 @@ export const optionMenuItems = [
   },
   {
     id: 2,
-    name: "Due Date",
-  },
-  {
-    id: 3,
     name: "Status",
   },
   {
-    id: 4,
+    id: 3,
     name: "Priority",
-  }  
+  }    
 ]
 
