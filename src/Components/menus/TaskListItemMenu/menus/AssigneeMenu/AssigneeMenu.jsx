@@ -8,7 +8,7 @@ const ListItem = ({ data, onClick, isSelected }) => {
   const name = data.first_name + " " + data.last_name;
 
   return (
-    <li key={data.id} className={`${styles.list_item} ${styles.assignee} ${isSelected ? styles.selected : ""}`} onClick={() => onClick()}>
+    <li key={data.id} className={`${styles.list_item} ${styles.assignee} ${isSelected ? styles.selected : ""}`} onClick={e => onClick(e,data.id)}>
       <div className={styles.initials}>
         {`${capitalizeFirstLetter(Array.from(data.first_name)[0])}${capitalizeFirstLetter(Array.from(data.last_name)[0])}`}
       </div>
@@ -28,11 +28,12 @@ const AssigneeMenu = ({ task,isActive,menuBack,onChange,search=false }) => {
 
   const [searchValue,setSearchValue] = useState("");
 
-  const selectListItemEvent = (assigneeId) => {
+  const selectListItemEvent = (e,assigneeId) => {
     onChange(task.id,{contactId:assigneeId});
   }
 
   const renderListItems = (itemArr,selectedId) => {
+    debugger;
     return itemArr.map(item => {
       if (item.id === selectedId){
         return {

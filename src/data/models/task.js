@@ -20,7 +20,7 @@ export const Task =  function(type,dataObj={}) {
     author: "",
     group: "",
     priority: 0,
-    status: 0,
+    status: 1,
     position: "",
     assignee: "? ?",
     creationDate: dateWithFormat(today,'sql'),

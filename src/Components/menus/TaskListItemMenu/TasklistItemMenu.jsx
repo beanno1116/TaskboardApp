@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 
 
@@ -14,12 +14,27 @@ import PrioritiesMenu from './menus/PriorityMenu/PriorityMenu';
 import { devFetchListItemMainMenuItems } from '../../../data/fakeApi';
 
 
+const DEFAULT_HEIGHT = 175;
+const DEFAULT_WIDTH = 225;
+const MENU_HEIGHT = 380;
+
+
+
+
 const TasklistItemMenu = ({task,deleteTask,updateTask,onChange}) => {
   const mainMenuItems = devFetchListItemMainMenuItems();
   const [showMenuView,setShowMenuView] = useState(false);
   const [currentMenu,setCurrentMenu] = useState("");
-
+  
+  
+  const menuRef = useRef(null);
+  
+  
+  
   const onNavChangeEvent = (e) => {
+    debugger;
+    menuRef.current.style.setProperty("--height",DEFAULT_HEIGHT + "px");
+    menuRef.current.style.setProperty("--width",DEFAULT_WIDTH + "px");
     setShowMenuView(false);
     setCurrentMenu("");
   }
@@ -28,19 +43,19 @@ const TasklistItemMenu = ({task,deleteTask,updateTask,onChange}) => {
 
   const setMenuView = (menuName) => {
     // debugger;
+    menuRef.current.style.setProperty("--height",MENU_HEIGHT + "px");
     switch (menuName.toLowerCase()) {
-      case "assignee":                
-    //       root.style.setProperty("--po-height","380px");
-        return (<AssigneeMenu task={task} isActive={showMenuView} menuBack={onNavChangeEvent} onChange={updateTask} search={true} />)
-    //       return (<POAssigneeMenu onMenuBack={menuBackClickEvent} onChange={e => onChange(e,"assignee")} task={task} />)
-      case "status":
-    //       root.style.setProperty("--po-height","380px");    
+      case "assignee":                            
+        return (<AssigneeMenu task={task} isActive={showMenuView} menuBack={onNavChangeEvent} onChange={updateTask} search={true} />)    
+      case "status":    
           return (<StatusMenu task={task} isActive={showMenuView} menuBack={onNavChangeEvent} onChange={updateTask} search={false} />)
     //   case "due_date":
     //       root.style.setProperty("--po-height","380px");
     //       return (<PODueDateMenu onClick={menuBackClickEvent} onChange={e => onChange(e,"due_date")} task={task} />)
-      case "priority":
-    //       root.style.setProperty("--po-height","380px");        
+      case "priority":        
+          return (<PrioritiesMenu task={task} isActive={showMenuView} menuBack={onNavChangeEvent} onChange={updateTask} />)
+      case "edit":
+          menuRef.current.style.setProperty("--width","350px");
           return (<PrioritiesMenu task={task} isActive={showMenuView} menuBack={onNavChangeEvent} onChange={updateTask} />)
       default:
         return "";
@@ -52,6 +67,7 @@ const TasklistItemMenu = ({task,deleteTask,updateTask,onChange}) => {
     const {currentTarget} = e;
     
     if (currentTarget.localName === "li" && currentTarget.dataset.menu === "item" && name.length > 0) {
+      
       setCurrentMenu(name);
       setShowMenuView(true);
       console.log("set new menu to: " + name);  
@@ -65,13 +81,14 @@ const TasklistItemMenu = ({task,deleteTask,updateTask,onChange}) => {
   }
 
   const onEditButtonClick = (e) => {
-    onChange("edit","");
+    setCurrentMenu("edit");
+    setShowMenuView(true);
   }
 
   
 
   return (
-   <div className={styles.tasklist_item_menu_container}>
+   <div ref={menuRef} className={styles.tasklist_item_menu_container} >
     <div className={styles.body}>
         
       {showMenuView && setMenuView(currentMenu)}

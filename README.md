@@ -21,3 +21,7 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 12/16/2023 added form validation to the add new item form. tweaked the useWEForm hook. created a new onsubmit handler for the add new item form. wired up the task list item menu delete button so that it deletes the task from the array and view. wired up the assignee update method so that you can change the assignee for the task.
 
 12/23/2023 added useClickOutside hook to the popover component. created a ListMenu component for list item componenent settings menus. Created Task status update menu, task priority update menu and refactored the assignee update menu. Everything is working menu and task list item wise except for drag and drop and editing a task item. cleaned up some css as well
+
+## LoginViewBranch
+
+1/6/2024 Created the login view component rough code. I also refactored the popover component and the Task item menu.  I need to create a better way to transition between menus. I created a way to pop out to the left and the right as well as stay anchored to the top of the button.  This needs to be reworked and a better method developed. TODO: when choosing a menu option in the Task item menu, it goes back to the main menu each time. When you log in to the login view, it will take you to the task board view;

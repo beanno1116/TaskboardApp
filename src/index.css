@@ -12,6 +12,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  --alt-clr-1: #43C59E;
+  --alt-clr-2: #D81159;
+  --alt-clr-3: #701F84;
+  --alt-clr-4: #F49F0A;
 }
 
 a {
@@ -21,6 +25,16 @@ a {
 }
 a:hover {
   color: #535bf2;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+  shape-margin: 0.75rem;
 }
 
 

@@ -19,6 +19,8 @@ const TaskList = ({listId}) => {
   return (
     <>
       <div className={styles.tasklist_body}>
+        <div className={styles.tasklist_wrapper}>
+
         <div className={styles.tasklist}>
           
             {tasks.map(task => {
@@ -27,12 +29,14 @@ const TaskList = ({listId}) => {
                   key={task.id}
                   listId={listId}
                   task={task}
-                  menu={<TasklistItemMenu task={task} onChange={() => {}} deleteTask={deleteTask} updateTask={updateTask} />}                  
+                  menu={<TasklistItemMenu task={task} onChange={() => {}} deleteTask={deleteTask} updateTask={updateTask} />}
+                  onClick={updateTask}                
                 />
               )
             })}
           
           </div>        
+        </div>
       </div>
       <AddTaskListItem addTaskHandler={addTask} />
     </>

@@ -21,6 +21,7 @@ const useTaskList = (boardId) => {
   }
 
   const deleteTask = (taskId) => {
+    debugger;
     if (taskId) {
       const tasksCopy = [...tasks];
       const results = tasksCopy.filter(s => s.id !== taskId);
@@ -34,6 +35,7 @@ const useTaskList = (boardId) => {
 
   const updateTask = (taskId,update) => {    
     const tasksCopy = [...tasks];
+    debugger;
     const newState = tasksCopy.map(t => {
       if (t.id === taskId) {        
         return {...t,...update};

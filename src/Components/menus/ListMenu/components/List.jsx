@@ -16,7 +16,7 @@ const List = ({ items,onClick,ListItem }) => {
                 key={type.id} 
                 title={type.title} 
                 data={type}
-                onClick={() => onClick(type.id)} 
+                onClick={onClick}
                 isSelected={type.selected} 
               />
             )
