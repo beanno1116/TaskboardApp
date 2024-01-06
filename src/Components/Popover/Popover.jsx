@@ -1,97 +1,152 @@
 
-import { useEffect, useRef, useState } from 'react';
+import { Children,cloneElement,useState,useRef, useLayoutEffect, useEffect} from 'react';
+import { publish } from '../../events';
 import styles from './popover.module.css';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
+import { getDOMRectObj, isDomElement } from '../../WEDomUtilities';
 
 
-const observerConfig = {
-  attributes: true,
-  childList: true,
-  subtree: true
+
+
+
+// const observerConfig = {
+//   attributes: true,
+//   childList: true,
+//   subtree: true
+// }
+
+const config = {
+  onClose: () => {},
+  onOpen: () => {},
+  position: "auto",
+}
+
+const positioning = {
+  auto: "",
+  left: {
+
+  },
+  top: "",
+  right: "",
+  bottom: ""
 }
 
 
-const Popover = ({isOpen,onClose,popover,children}) => {
-  const [height,setHeight] = useState();
+const Popover = ({popover,onClose,onOpen,position="auto",children}) => {
+  const childArray = Children.toArray(children);
+  const [isVisible,setIsVisible] = useState(false);
+  
+
+  const compRef = useRef(null);
+
+  const Component = () => {
+    let props = {...popover.props};
+    let children = {...popover.props.children};
+    // debugger;
+    let ref = compRef;
+    return (
+      cloneElement(popover,{},popover.props.children)
+    )
+  }
+
+  const popoverConfig = {...config,onClose:onClose,onOpen:onOpen,position:position};
+  const [right,setRight] = useState(0);
+  const [top, setTop] = useState(0);
+  
 
   const popoverRef = useRef(null);
   const containerRef = useRef(null);
-  
-  useOnClickOutside(containerRef,onClose);
 
-  const popoverMutationEvent = (mutationList,observer) => {
-    
-    const tmpML = mutationList;
-    const tmpOB = observer;
-
-    if (mutationList.filter(mutation => mutation.type === "childList").length === 0) {
-      return;
+  const popoverClassNames = () => {
+    let classNames = styles.popover;
+    if (popoverConfig.position === "auto") {
+      return classNames;
     }
-    
-    const children = popoverRef.current.children;
-    let rheight = 0;
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i];
-      // if (child.children.length > 0) {
-      //   for (let l = 0; l < child.children.length; l++) {
-      //     const c = child.children[l];
-      //     rheight += c.offsetHeight;          
-      //   }
-      // }else{
-        rheight += child.offsetHeight;
-      // }
-    }
-    let newHeight = rheight;
-    if (rheight > height) {
-      newHeight = (height - rheight) + height;
-    }
-      
-    
-    
-    
-    let poh = newHeight;
-    
-
-    // let popoverHeight = [].slice.call(children).reduce((acc,cur) => {
-    //   let tacc = acc;
-    //   let tcur = cur.offsetHeight;
-    //   return acc + cur.offsetHeight;
-    // },0);
-
-
-    // debugger;      
-      setHeight(poh);
-    
-    console.log("Mutation Event");
+    return `${classNames} ${styles[popoverConfig.position]}`
   }
 
-  useEffect(() => {
-    const mutationObserver = new MutationObserver(popoverMutationEvent);
-    // var th;
-    // if (popoverRef.current && popoverRef.current?.children?.length > 0) {
-    //   debugger;
-    //   let h = popoverRef.current.children[0];
-      
-    //   th = h?.clientHeight;
 
-    // }
-    mutationObserver.observe(popoverRef.current,observerConfig);
-    return () => {
-      mutationObserver.disconnect();
+
+  const onClickHandler = (e,handler) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    let anchorRect = getDOMRectObj(e.currentTarget);
+   
+    let popoverRect = getDOMRectObj(popoverRef.current);
+   
+    setRight(anchorRect.width + 15);
+    setTop(anchorRect.top - popoverRect.top);
+    
+    
+    setIsVisible(!isVisible);
+    handler && handler(e);
+  }
+
+  useLayoutEffect(() => {
+    if (popoverRef.current){
+      const popover = popoverRef.current;      
+      // popover.classList.add(styles.is_open);
+      // popover.style.visibility = "hidden";
+      // let tmpRect = getDOMRectObj(popover);      
+      // debugger 
+      // popover.classList.remove(styles.is_open);
+      // popover.style.visibility = "visible";
+      let tmp = popoverRef.current;
+      let rect = getDOMRectObj(tmp);
+
+      // debugger;
     }
-  },[])
+    // let style = getComputedStyle(tmp);
+    // let h = style.height.replace("px","");
+    // let w = style.width.replace("px","");
+  })
 
-  
+  useOnClickOutside(containerRef,() => {
+    if (isVisible) {
+      setIsVisible(false);
+      onClose && onClose();
+    }
+    isVisible && setIsVisible(false);
+  });
 
-  
- 
+  useEffect(() => {
+
+    const handleTransitionEnd = (e) => {
+      const ele = e.target;
+      if (e.target.localName === "button") return;
+
+      if (ele.dataset?.open){
+        publish("didclose",{target:ele,evt:e});
+        return;
+      }  
+      publish("didopen",{target:ele,evt:e});
+                  
+    }
+
+    window.addEventListener("transitionend",handleTransitionEnd);
+    return () => {
+      window.removeEventListener("transitionend",handleTransitionEnd);
+    }
+  })
+
+
 
   return (
-    <div ref={containerRef}>
-      <div ref={popoverRef} data-open={isOpen} className={`${styles.popover} ${isOpen ? styles.is_open : ""}`}>
-        {isOpen ? popover : null}
-      </div>      
-      {children}    
+    <div className={styles.popover_container} ref={containerRef}>
+
+      <div ref={popoverRef} data-open={isVisible} className={`${popoverClassNames()} ${isVisible ? styles.is_open : ""}`} style={{right:right + "px"}}>
+        {/* {isVisible ? popover : null} */}
+        <Component />
+        
+      </div>
+      {Children.map(childArray,(child) => {
+        let childOnClickEvent = child.props.onClick;
+        let onClick = (e) => onClickHandler(e,childOnClickEvent);
+        let ref = compRef;
+        return cloneElement(child,{onClick},child.props.children);
+      })}
+      
     </div>
   );
 }

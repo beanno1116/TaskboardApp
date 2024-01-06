@@ -3,12 +3,17 @@ import { useEffect } from "react";
 
 const useOnClickOutside = (ref,handler) => {
   useEffect(() => {
+    const containerEle = ref.current;
+
     const listener = (e) => {
-      debugger;
-      if (!ref.current || ref.current.contains(e.target)){
-        return;
-      }
-      handler(e);
+      try {        
+        if (!containerEle || containerEle.contains(e.target)){
+          return;
+        }
+        handler && handler();
+      } catch (error) {
+        console.error(error.message);
+      }      
     }
 
     document.addEventListener("mousedown",listener);

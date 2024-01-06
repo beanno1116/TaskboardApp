@@ -15,7 +15,7 @@ const MenuItem = ({id,name,onClick}) => {
 const MainMenu = ({ menuItems,onClick,isActive}) => {
   return (
     <div className={`${styles.tasklist_menu__main_menu} ${isActive ? styles.hide_menu : ""}`}>        
-      <ul className={styles.tasklist_menu_ul} onClick={onClick}>
+      <ul className={styles.tasklist_menu_ul} >
 
       {menuItems.map(item => {
         return (

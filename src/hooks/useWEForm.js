@@ -151,6 +151,7 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
   const handleSubmit = (e, handler, args = {}) => {    
     e.preventDefault();
     e.stopPropagation();
+    
     const inputsCopy = [...inputs.current];
     let configs = inputsCopy.filter(x => Object.keys(x.options).length !== 0);
     let validationStatus = true;
