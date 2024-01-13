@@ -1,23 +1,49 @@
 import { useState, useRef } from 'react';
 
+const uuid = (prefix) => {
+  try {
+    var text = prefix || "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-";  
+    for (var i = 0; i < 64; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }  
+    return text;
+  } catch (error) {
+    console.error(`[FNC][UUID][ERROR] - ${error.message}`);
+  }        
+}
+
 const validator = {
-  inputTypes: ["text", "password", "email", "number"],
-  required: (input) => {
-    
+  inputTypes: ["text", "password", "email", "number"],  
+  required: (input) => {    
     const type = input.type;
     if (input.value.length === 0) {
       return false;
     }
     return true;
+  },
+  email: (input) => {
+    return true;
+  },
+  number: (input) => {
+
+  },
+  isValidator: (key) => {    
+    return validator.hasOwnProperty(key);
   }
 }
 
 const findInputConfig = (name, configsArr) => {
-  if ((!name || name === "") || configsArr.length === 0) return {};
-
-  let config = configsArr.filter(x => x.name === name);
-  if (config.length === 0) return {};
-  return { ...config[0] };
+  try {
+    if ((!name || name === "") || configsArr.length === 0) return {};
+  
+    let config = configsArr.filter(x => x.name === name);
+    if (config.length === 0) return {};
+    return { ...config[0] };
+    
+  } catch (error) {
+    console.error(`[HOOK][FN][ERROR] ${error.message}`);
+  }
 }
 
 const checkInputForErrors = (_name, errors) => {
@@ -34,6 +60,21 @@ const applyErrorStatus = (input) => {
   input.focus();
 }
 
+
+const getInputType = (input) => {
+  try {    
+    if (!input) throw new Error("input cannot be undefined");
+    if (!input instanceof HTMLInputElement) throw new Error("Input must be of type HTMLInputElement");
+    
+    if (input?.type) {
+      return input.type;
+    }
+    return "";
+        
+  } catch (error) {
+    console.error(`[HOOK][useWEForm][FN][getInputType][ERROR] - ${error.message}`);
+  }
+}
 
 
 
@@ -56,8 +97,10 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
 
 
   const handleInputChange = (e, inputName) => {
-    // 
+    
+    
     const config = findInputConfig(inputName, inputs.current);
+    
     const { name, input } = config;
 
     if (checkInputForErrors(name, errors)) {
@@ -87,35 +130,35 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
 
   const handleInputBlur = (e,name) => {
 
-    // debugger;
-    // let name = e.target.getAttribute('name');
-
-    let inputsCopy = [...inputs.current];
-
-
-    let configIdx = inputsCopy.findIndex(x => x.name === name);
-    let inputConfig = inputsCopy.splice(configIdx, 1);
-
-
-    if (inputConfig.length > 0) {
-      inputConfig = inputConfig[0];
-      if (Object.keys(inputConfig?.options).length === 0) return;
-
-      if (inputConfig?.options?.required) {
-        let isValid = validator.required(e.target);
-        if (!isValid) {
-          inputConfig.valid = false;
-          inputConfig.error = { msg: `This field is required`, target: e.target };
-          setErrors([inputConfig]);
-          applyErrorStatus(inputConfig.input);
-        } else {
-          inputConfig.valid = true;
+    try {
+      
+      var inputConfig = findInputConfig(name,inputs.current);
+      
+      if (Object.keys(inputConfig).length > 0) {
+        
+        if (Object.keys(inputConfig?.options).length === 0) return;
+  
+        if (inputConfig?.options?.submitOnly) return;
+  
+        if (inputConfig?.options?.required) {
+          let isValid = validator.required(e.target);
+          if (!isValid) {
+            inputConfig.valid = false;
+            inputConfig.error = { msg: `This field is required`, target: e.target };
+            setErrors([inputConfig]);
+            applyErrorStatus(inputConfig.input);
+          } else {
+            inputConfig.valid = true;
+          }
+          inputsCopy = [...inputsCopy, inputConfig];
+          inputs.current = [...inputsCopy];
         }
-        inputsCopy = [...inputsCopy, inputConfig];
-        inputs.current = [...inputsCopy];
-      }
-    }
+  
+      }     
 
+    } catch (error) {
+      console.error(`[HOOK][FN][ERROR] - ${error.message}`)
+    }
     console.log(`useWEForm:handleInputBlur:Event:onblur:input:${name}`);
   }
 
@@ -148,44 +191,54 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
     setFormData({ ...formDataCopy });
   }
 
-  const handleSubmit = (e, handler, args = {}) => {    
+  const handleSubmit = (e,handler, args = {}) => {    
     e.preventDefault();
     e.stopPropagation();
-    
-    const inputsCopy = [...inputs.current];
-    let configs = inputsCopy.filter(x => Object.keys(x.options).length !== 0);
-    let validationStatus = true;
-    let formDataCopy = { ...formData };
+    var validationStatus = true;
+    debugger;
+    // check for only inputs with options
+    let formInputObjs = inputs.current.filter(x => Object.keys(x.options).length !== 0);
 
-    configs.forEach(config => {
-      const { name, input, options } = config;
+    
+        
+
+    formInputObjs.forEach(inputObj => {      
+      const { name, input, options } = inputObj;
+      
+      if (validator.isValidator(getInputType(input))) {
+        let validateFn = validator[getInputType(input)];
+        if (!validateFn(input)) {
+          setErrors([...errors,{msg:"Must provide a value",name:name}]);
+          applyErrorStatus(input);
+          validationStatus = false;
+        }
+      }
 
       for (const option in options) {
-        let runValidation = options[option];
-
-        const validate = validator[option];
-
-        if (runValidation) {
-          if (!validate(input)) {
-            setErrors([...errors, { msg: "Must provide a value", name: name }]);
+        if (validator.isValidator(option)){
+          let validateFn = validator[option]
+          if (!validateFn(input)) {
+            setErrors([...errors,{msg:"Must provide a value",name:name}]);
             applyErrorStatus(input);
             validationStatus = false;
           }
         }
       }
+
     });
 
-    handler && handler(e,formDataCopy, validationStatus, args)
+    handler && handler(e,{...formData}, validationStatus, args)
     return validationStatus;
   }
 
   const registerFormInput = (name, options = {}) => {
     let inputName = name;
     const retObj = {
+      id: uuid(),
       value: formData[inputName],
       name,
       required: options?.required || false,
-      "data-error": "false",
+      "data-error": "false",      
       ref: (ele) => registerInput(inputName, ele, options),
       onChange: (e) => handleInputChange(e, inputName),
       onReset: (e) => handleInputReset(e, inputName),
@@ -206,7 +259,7 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
     return retObj;
   }
 
-  return { formData, registerFormInput, registerFormInputContext, handleSubmit, handleFormReset, handleInputChange, errors };
+  return { formData, registerFormInput, registerFormInputContext, handleSubmit, handleFormReset,handleInputReset, handleInputChange, errors };
 }
 
 export default useWEForm;

@@ -25,3 +25,10 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 ## LoginViewBranch
 
 1/6/2024 Created the login view component rough code. I also refactored the popover component and the Task item menu.  I need to create a better way to transition between menus. I created a way to pop out to the left and the right as well as stay anchored to the top of the button.  This needs to be reworked and a better method developed. TODO: when choosing a menu option in the Task item menu, it goes back to the main menu each time. When you log in to the login view, it will take you to the task board view;
+
+## Add Testing Branch 
+
+1/12/2024 ran the following commands
+
+1. npm install jest --save-dev
+2. npm install @testing-library/react --save-dev
