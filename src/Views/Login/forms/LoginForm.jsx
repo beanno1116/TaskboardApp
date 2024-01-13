@@ -3,7 +3,7 @@ import useWEForm from '../../../hooks/useWEForm';
 import styles from '../loginView.module.css';
 
 const LoginForm = ({ onSubmit }) => {
-  const {formData:loginFormData,registerFormInput,handleSubmit} = useWEForm({
+  const {formData:loginFormData,registerFormInput,handleFormReset,handleSubmit} = useWEForm({
     username: "",
     password: "",
   })
@@ -15,11 +15,15 @@ const LoginForm = ({ onSubmit }) => {
       </div>
        
       <div className={styles.input_row}>
-          <span className={styles.input_container}><input className={styles.login_form_input}  {...registerFormInput("username")} placeholder={"Username"} /></span>
+          <span className={styles.input_container}>
+            <input className={styles.login_form_input} type="email"  {...registerFormInput("username",{required:true,submitOnly:true})} placeholder={"Username"} />
+          </span>
       </div>
 
       <div className={styles.input_row}>
-          <span className={styles.input_container}><input className={styles.login_form_input} type={"password"} {...registerFormInput("password")} placeholder={"Password"} /></span>
+          <span className={styles.input_container}>
+            <input className={styles.login_form_input} type={"password"} {...registerFormInput("password",{required:true,submitOnly:true})} placeholder={"Password"} />
+          </span>
       </div>
 
       <div className={styles.input_row}>
@@ -27,8 +31,8 @@ const LoginForm = ({ onSubmit }) => {
       </div>
 
       <div className={styles.input_row}>
-        <button type='submit' className={styles.add_btn} onClick={e => handleSubmit(e,onSubmit)}>Login</button>
-        <button type='button' className={`${styles.add_btn} ${styles.no_bg}`}>Reset</button>
+        <button type='button' className={styles.add_btn} onClick={e => handleSubmit(e,onSubmit)}>Login</button>
+        <button type='button' className={`${styles.add_btn} ${styles.no_bg}`} onClick={e => handleFormReset(e)}>Reset</button>
       </div>
 
     </form>

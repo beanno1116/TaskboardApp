@@ -6,80 +6,63 @@ import styles from './app.module.css';
 import useLocalStorage from './hooks/useLocalStorage';
 
 import { devFetchContacts } from './data/fakeApi';
+import TaskboardApp from './Views/TaskboardApp/TaskboardApp';
+
+
+
+
+
 
 function App() {
   const [isAuth,setAuth] = useLocalStorage('is-auth',false);
   const users = devFetchContacts();
-  // setAuth(false);
 
-  const TaskboardViewContainer = ({children}) => {
+
+  const TaskboardViewContainer = () => {
 
     return (
       <div className={styles.taskboard_view_container}>
-        {children}
+        <TaskboardToolbar titleText="GLDS Dev Board" />
+        <TaskboardView />
       </div>
     )
   }
 
   const handleLogin = (e,formData) => {
+ 
 
-    async function fetchData(_url,_options) {
-      try {
-          const res = await fetch(_url,_options);
-          const json = await res.text();
-          
-          // const json = await res.json();
-          return json;
-      } catch (e) {
-          console.log(e);
-          return e;            
-      }        
+    let fd = new FormData();
+
+    fd.append('username',formData.username);
+    fd.append('password',formData.password);
+    fd.append('action','login');
+
+    fetch("http://172.105.4.73/api/taskboard/api.php",{
+      method: 'POST',
+      body: fd
+    })
+    .then((response) => response.json())
+    .then(data => {
+      //handle data
+      if (data.success){
+        localStorage.setItem("auth",JSON.stringify(data.data));
+        setAuth(true);
+      }
+      
+      console.log(data);
+    })
+    .catch(error => {
+      //handle error
+    });
+
   }
-
-  fetch("http://172.105.4.73/api/taskboard/api.php",{method:"GET"})
-  .then((response) => response.text())
-  .then(data => {
-    //handle data
-    debugger;
-    console.log(data);
-  })
-  .catch(error => {
-    //handle error
-  });
-
-  // fetchData("http://172.105.4.73/api/taskboard/api.php", {method:"GET",mode: 'no-cors'}).then(response => {
-  //   debugger;
-  //   console.log(response);
-  // })
-
-    // const {username,password} = formData;
-    // const results = users.filter(u => u.email === username);
-    // if (results.length > 0) {
-    //   alert(`Welcome ${results[0].first_name} ${results[0].last_name}`)
-    // }
-    // let tmp = formData;
-    // debugger;
-    // console.log(formData);
-    // setAuth(true);
-  }
-
-  
 
   return (
-    <div className={styles.taskboard_app}>
-      
-      
-
-      {isAuth &&
-        <TaskboardViewContainer>
-          <TaskboardToolbar titleText="GLDS Dev Board"/>
-          <TaskboardView />
-        </TaskboardViewContainer>
-      }
-
-      {!isAuth && <LoginView onSubmit={handleLogin} />}
-
-    </div>
+    
+    <TaskboardApp>
+      {isAuth ? <TaskboardViewContainer /> : <LoginView onSubmit={handleLogin} />}
+    </TaskboardApp>
+    
   )
 }
 

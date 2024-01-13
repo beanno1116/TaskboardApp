@@ -144,6 +144,16 @@
   overflow: visible;
 }
 
+.login_form_input[data-error="true"] {
+  border-bottom: 1px solid red;  
+  -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+	        animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+}
+.login_form_input[data-error="true"]::placeholder,
+.login_form_input[data-error="true"]:focus::placeholder {
+  color: red;
+}
+
 
 
 .login_form_input:focus {
