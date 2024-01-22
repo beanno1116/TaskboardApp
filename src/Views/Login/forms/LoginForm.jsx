@@ -1,3 +1,4 @@
+import TBForm from '../../../Components/TBForm/TBForm';
 import useWEForm from '../../../hooks/useWEForm';
 
 import styles from '../loginView.module.css';
@@ -8,34 +9,39 @@ const LoginForm = ({ onSubmit }) => {
     password: "",
   })
   return (
-    <form className={styles.login_form}>
+      <TBForm>
 
-      <div className={styles.input_row}>
-        <h1 className={styles.form_heading}>Login</h1>
-      </div>
-       
-      <div className={styles.input_row}>
-          <span className={styles.input_container}>
-            <input className={styles.login_form_input} type="email"  {...registerFormInput("username",{required:true,submitOnly:true})} placeholder={"Username"} />
-          </span>
-      </div>
+        {/* Form header row */}
+        <TBForm.Row>
+          <TBForm.Header text={"Login"} />
+        </TBForm.Row>
 
-      <div className={styles.input_row}>
-          <span className={styles.input_container}>
-            <input className={styles.login_form_input} type={"password"} {...registerFormInput("password",{required:true,submitOnly:true})} placeholder={"Password"} />
-          </span>
-      </div>
+        {/* Email text input row */}
+        <TBForm.Row>
+          <TBForm.InputWrapper>
+            <TBForm.TextField  type={"email"} {...registerFormInput("username",{required:true,submitOnly:true})} placeholder={"Username"} />          
+          </TBForm.InputWrapper>
+        </TBForm.Row>
 
-      <div className={styles.input_row}>
-        <a className={styles.reset_link}>Forgot password?</a>
-      </div>
+        {/* Password text input row */}
+        <TBForm.Row>
+          <TBForm.InputWrapper>
+            <TBForm.TextField  type={"password"} {...registerFormInput("password",{required:true,submitOnly:true})} placeholder={"Password"} />
+          </TBForm.InputWrapper>
+        </TBForm.Row>
 
-      <div className={styles.input_row}>
-        <button type='button' className={styles.add_btn} onClick={e => handleSubmit(e,onSubmit)}>Login</button>
-        <button type='button' className={`${styles.add_btn} ${styles.no_bg}`} onClick={e => handleFormReset(e)}>Reset</button>
-      </div>
+        {/* Forgot password anchor row */}
+        <TBForm.Row>
+          <TBForm.Link text={"Forgot password?"}/>
+        </TBForm.Row>
 
-    </form>
+        {/* Form login and reset button row */}
+        <TBForm.Row>
+          <TBForm.Button onClick={e => handleSubmit(e,onSubmit)} >Login</TBForm.Button>
+          <TBForm.Button no_bg onClick={handleFormReset}>Reset</TBForm.Button>
+        </TBForm.Row>
+
+      </TBForm>
   );
 }
 

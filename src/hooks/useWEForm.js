@@ -195,7 +195,7 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
     e.preventDefault();
     e.stopPropagation();
     var validationStatus = true;
-    debugger;
+    // debugger;
     // check for only inputs with options
     let formInputObjs = inputs.current.filter(x => Object.keys(x.options).length !== 0);
 

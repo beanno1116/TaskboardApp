@@ -1,13 +1,30 @@
+import axios from "axios";
+import { API_ENDPOINT } from "../config";
+import { useMutation, useQuery } from "react-query";
 
 
+const loginUser = async (email,password) => {
+  const response = await axios.post(API_ENDPOINT,{email,password},{headers:{'Content-Type':'application/json'}});
+  return response.data;
+};
 
 const useAuth = () => {
-  const setAuth = (value) => {
-    localStorage.setItem('is-auth',JSON.stringify(value));
+  const mutation = useMutation((loginObj) => axios.post(API_ENDPOINT,loginObj));
+
+  const handleLogin = (email,password) => {
+    mutation.mutate({email,password});
   }
-  const getAuth = () => {
-    return JSON.parse(localStorage.getItem('is-auth'));
+
+  const handleLogout = () => {
+
   }
+
+  return {
+    handleLogin,
+    handleLogout,
+    isSuccess:mutation.isSuccess,
+    isError:mutation.isError,
+    isLoading:mutation.isLoading}
 }
 
 export default useAuth;

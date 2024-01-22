@@ -32,3 +32,7 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 
 1. npm install jest --save-dev
 2. npm install @testing-library/react --save-dev
+
+## LoginViewBranch
+
+1/22/2024 created a signup form component for signing up to taskboard. Added a config.js file for things like api endpoints. Refactored the login view component. Created a TBForm component so that the input fields and buttons will be consistent. Added react-query and axios to the project to simplify the network requests and state management. created an auth context to manage and maintain auth state for the app
