@@ -1,0 +1,140 @@
+/* INPUT ROW COMPONENT CSS STYLES */
+.input_row {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: .75rem;
+  width: 100%;
+  padding: .5em 0;
+}
+
+/* form component */
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+  width: 100%;
+  padding: .5rem .5rem;  
+}
+
+/* HEADING COMPONENT CSS STYLES */
+.heading {
+  font-family: 'Lilita One', sans-serif;  
+  background: -webkit-linear-gradient(left, #43C59E 50%,#D81159);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+h1.heading {
+ font-size: 4rem; 
+}
+
+
+/***** INPUT COMPONENT CSS STYLES *****/
+
+/* text input component */
+.textfield {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: transparent;  
+  font-size: 1.25rem;
+  caret-color: #b0b0b5;
+  color: snow;
+  transition: color .8s ease-in-out;
+  overflow: visible;
+}
+.textfield[data-error="true"] {
+  border-bottom: 1px solid red;  
+  -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+	        animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+}
+.textfield[data-error="true"]::placeholder,
+.textfield[data-error="true"]:focus::placeholder {
+  color: red;
+}
+
+/* anchor input component */
+.link {
+  font-size: .85rem;
+  color: rgba(240, 248, 255, 0.75);
+  cursor: pointer;
+}
+.link:hover {
+  color: #F49F0A;
+}
+
+
+/* button component */
+.button {
+  display: inline-block;
+  box-sizing: border-box;  
+  margin: 0px;
+  padding: .75rem 1.75rem;
+  -webkit-font-smoothing: antialiased;
+  vertical-align: middle;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.5rem;    
+  text-decoration: none;  
+  user-select: none;
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  transition: all 0.3s ease 0s;    
+  background-color: #43C59E;;
+  border-radius: 999px;
+  color: #373a44;
+}
+.button.no_bg {
+  background-color: transparent;
+  color: snow;
+  border: 1px solid #43c59e;
+}
+.test {
+  position: relative;
+}
+.input_row .button {
+  margin-top: 2rem;
+}
+
+
+
+/* INPUT CONTAINER COMPONENT CSS STYLES */
+.input_wrapper {
+  position: relative;
+  width: 50%;  
+  padding: .5rem;
+}
+.input_wrapper::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #1BA4F0;
+  transform-origin: left;
+  transform: scale(0);
+  transition: transform .3s ease-in-out;
+}
+.input_wrapper:focus-within::before  {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #1BA4F0;
+  transform: scale(1);
+}
+.input_wrapper:has(.textfield:not(:placeholder-shown))::before {
+  transform: scale(1);
+}
+
+
+
+
+

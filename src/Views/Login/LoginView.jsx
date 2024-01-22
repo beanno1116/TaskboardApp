@@ -5,8 +5,9 @@ import styles from './loginView.module.css';
 import useWEForm from '../../hooks/useWEForm';
 import Panel from './components/Panel';
 import LoginForm from './forms/LoginForm';
+import SignupForm from './forms/SignupForm';
 
-const LoginView = ({ onSubmit }) => {
+const LoginView = ({ onLogin,onSignup }) => {
   const {formData,registerFormInput,handleSubmit} = useWEForm({
     username: "",
     password: ""
@@ -26,7 +27,18 @@ const LoginView = ({ onSubmit }) => {
         </Panel>
 
         <Panel className={styles.form_panel}>
-          <LoginForm onSubmit={onSubmit} />
+          
+          <div className={styles.form_wrapper}>
+            <LoginForm onSubmit={onLogin} />
+            {/* <SignupForm onSubmit={onSubmit} /> */}
+          </div>
+
+          <div className={styles.panel_btn_wrapper}>
+            Create an account
+          </div>
+          
+          
+          
         </Panel>
         
       </div>
