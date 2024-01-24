@@ -48,7 +48,7 @@ h1.heading {
   overflow: visible;
 }
 .textfield[data-error="true"] {
-  border-bottom: 1px solid red;  
+  /* border-bottom: 1px solid red;   */
   -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 	        animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 }
@@ -132,6 +132,10 @@ h1.heading {
 }
 .input_wrapper:has(.textfield:not(:placeholder-shown))::before {
   transform: scale(1);
+}
+.input_wrapper:has(.textfield[data-error="true"])::before {
+  transform: scale(1);
+  background-color: #D81159;
 }
 
 

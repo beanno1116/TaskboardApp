@@ -26,13 +26,13 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 
 1/6/2024 Created the login view component rough code. I also refactored the popover component and the Task item menu.  I need to create a better way to transition between menus. I created a way to pop out to the left and the right as well as stay anchored to the top of the button.  This needs to be reworked and a better method developed. TODO: when choosing a menu option in the Task item menu, it goes back to the main menu each time. When you log in to the login view, it will take you to the task board view;
 
-## Add Testing Branch 
+1/22/2024 created a signup form component for signing up to taskboard. Added a config.js file for things like api endpoints. Refactored the login view component. Created a TBForm component so that the input fields and buttons will be consistent. Added react-query and axios to the project to simplify the network requests and state management. created an auth context to manage and maintain auth state for the app
+
+1/24/2024 Tested why getting cors errors with axios. created basic logic to switch between login view and sign up view. Also reworked the login.php api route. Refactored the useAuth hook to interact with localstorage
+
+## Add Testing Branch
 
 1/12/2024 ran the following commands
 
 1. npm install jest --save-dev
 2. npm install @testing-library/react --save-dev
-
-## LoginViewBranch
-
-1/22/2024 created a signup form component for signing up to taskboard. Added a config.js file for things like api endpoints. Refactored the login view component. Created a TBForm component so that the input fields and buttons will be consistent. Added react-query and axios to the project to simplify the network requests and state management. created an auth context to manage and maintain auth state for the app
