@@ -76,6 +76,11 @@
   margin-bottom: 2.5rem;
 }
 
+.basic_btn {
+  background-color: transparent;
+  color: #D81159
+}
+
 @keyframes slideInRight {
   from {
     transform: translateX(-1000%, 0, 0);

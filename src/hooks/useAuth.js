@@ -8,23 +8,48 @@ const loginUser = async (email,password) => {
   return response.data;
 };
 
+const store = {
+  getValue(key){
+    try {
+      if (key.length === 0) throw new Error("No key provided");
+      let value = localStorage.getItem(key);
+      if (value){
+        return JSON.parse(value);
+      }  
+      return {}
+    } catch (error) {
+      console.error(error.message);
+    }
+  },
+  setValue(key,value){
+    try {
+      if (key.length === 0 || !value) throw new Error("No key or value provided");
+      localStorage.setItem(key,JSON.stringify(value));
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+}
+
 const useAuth = () => {
-  const mutation = useMutation((loginObj) => axios.post(API_ENDPOINT,loginObj));
+  
 
-  const handleLogin = (email,password) => {
-    mutation.mutate({email,password});
+  const loginUser = (id,name) => {
+    debugger;
+    const authObj = {
+      id,
+      name,
+      loginDate: new Date()
+    }
+    store.setValue("auth",JSON.stringify(authObj));
   }
-
   const handleLogout = () => {
-
+    store.setValue("auth",JSON.stringify({}));
   }
-
   return {
-    handleLogin,
-    handleLogout,
-    isSuccess:mutation.isSuccess,
-    isError:mutation.isError,
-    isLoading:mutation.isLoading}
+    loginUser,
+    handleLogout
+  }
 }
 
 export default useAuth;

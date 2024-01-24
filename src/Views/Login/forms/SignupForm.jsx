@@ -1,3 +1,4 @@
+import TBForm from '../../../Components/TBForm/TBForm';
 import useWEForm from '../../../hooks/useWEForm';
 
 import styles from '../loginView.module.css';
@@ -11,37 +12,40 @@ const SignupForm = ({ onSubmit }) => {
   })
 
   return (
-    <form className={styles.signup_form}>
+    <TBForm>
+      {/* Form header row */}
+      <TBForm.Row>
+          <TBForm.Header text={"Create Account"} />
+        </TBForm.Row>
 
-      <div className={styles.input_row}>
-        <h1 className={styles.form_heading}>Create Login</h1>
-      </div>
-       
-      <div className={styles.input_row}>
-        <span className={styles.input_container}>
-          <input className={styles.signup_form_input} type="email"  {...registerFormInput("email",{required:true,submitOnly:true})} placeholder={"Email Address"} />
-        </span>
-      </div>
+        {/* Email text input row */}
+        <TBForm.Row>
+          <TBForm.InputWrapper>
+            <TBForm.TextField  type={"email"} {...registerFormInput("username",{required:true,submitOnly:true})} placeholder={"Email"} />          
+          </TBForm.InputWrapper>
+        </TBForm.Row>
 
-      <div className={styles.input_row}>
-        <span className={styles.input_container}>
-          <input className={styles.signup_form_input} type={"password"} {...registerFormInput("password",{required:true,submitOnly:true})} placeholder={"New Password"} />
-        </span>
-      </div>
+        {/* Password text input row */}
+        <TBForm.Row>
+          <TBForm.InputWrapper>
+            <TBForm.TextField  type={"password"} {...registerFormInput("password",{required:true,submitOnly:true})} placeholder={"New Password"} />
+          </TBForm.InputWrapper>
+        </TBForm.Row>
 
-      <div className={styles.input_row}>
-        <span className={styles.input_container}>
-          <input className={styles.signup_form_input} type={"password"} {...registerFormInput("passwordConfirm",{required:true,submitOnly:true})} placeholder={"Confirm Password"} />
-        </span>
-      </div>
+         {/* Password text input row */}
+         <TBForm.Row>
+          <TBForm.InputWrapper>
+            <TBForm.TextField  type={"password"} {...registerFormInput("passwordConfirm",{required:true,submitOnly:true})} placeholder={"Confirm password"} />
+          </TBForm.InputWrapper>
+        </TBForm.Row>
 
-      
-      <div className={styles.input_row}>
-        <button type='button' className={styles.add_btn} onClick={e => handleSubmit(e,onSubmit)}>Login</button>
-        <button type='button' className={`${styles.add_btn} ${styles.no_bg}`} onClick={e => handleFormReset(e)}>Reset</button>
-      </div>
-
-    </form>
+     
+        {/* Form login and reset button row */}
+        <TBForm.Row>
+          <TBForm.Button onClick={e => handleSubmit(e,onSubmit)} >Create</TBForm.Button>
+          <TBForm.Button no_bg onClick={handleFormReset}>Reset</TBForm.Button>
+        </TBForm.Row>
+    </TBForm>    
   );
 }
 

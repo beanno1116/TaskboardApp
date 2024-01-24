@@ -22,11 +22,13 @@ const TaskboardViewContainer = () => {
 }
 
 const TaskboardApp = () => {
-  // const {handleLogin,handleLogout,isLoading,isError,isSuccess} = useAuth();
+  const {loginUser} = useAuth();
 
   const [isAuth,setIsAuth] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = (e,formData,isValid) => {
+    debugger;
+    if (!isValid) return;
   //   debugger;
   //   axios
   // .post(API_ENDPOINT, {
@@ -44,51 +46,51 @@ const TaskboardApp = () => {
   // .catch((err) => console.log(err));
 
 
-    axios.post(API_ENDPOINT, {
-      username: 'benk@glds.net',
-      password: 'devUser',
-      action: "login"
-    },{headers:{'Content-Type': 'application/json'}})
-    .then(function (response) {
-      debugger;
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-
-    // let fd = new FormData();
-
-    // fd.append('username',"benk@glds.net");
-    // fd.append('password',"devUser");
-    // // fd.append('username',formData.username);
-    // // fd.append('password',formData.password);
-    // fd.append('action','login');
-    // // debugger;
-    // fetch("http://172.105.4.73/api/taskboard/api.php",{
-    //   method: 'POST',
-    //   body: fd
-    // })
-    // .then((response) => {
+    // axios.post('https://w3bentities.com/taskboard/api/api.php', {
+    //   username: 'benk@glds.net',
+    //   password: 'devUser',
+    //   action: "login"
+    // },{headers:{'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'}})
+    // .then(function (response) {
     //   debugger;
-    //   return response.json();
+    //   console.log(response);
     // })
-    // .then(data => {
-    //   debugger;
-    //   //handle data
-    //   if (data.success){
-    //     localStorage.setItem("auth",JSON.stringify(data.data));
-    //     // setAuth(true);
-    //   }
-      
-    //   console.log(data);
-    // })
-    // .catch(error => {
-    //   debugger;
+    // .catch(function (error) {
     //   console.log(error);
-    //   //handle error
     // });
+
+
+    let fd = new FormData();
+
+    fd.append('email',"benk@glds.net");
+    fd.append('password',"devUser");
+    // fd.append('username',formData.username);
+    // fd.append('password',formData.password);
+    fd.append('action','login');
+    // debugger;
+    fetch("https://w3bentities.com/taskboard/api/api.php",{
+      method: 'POST',
+      body: fd
+    })
+    .then((response) => {      
+      return response.json();
+    })
+    .then(data => {
+      debugger;
+      
+      if (data.success){
+        const {id,firstName,lastName} = data.data;
+        loginUser(id,firstName + " " + lastName);
+        setIsAuth(true);
+      }
+      
+      console.log(data);
+    })
+    .catch(error => {
+      debugger;
+      console.log(error);
+      //handle error
+    });
     
 
   }
