@@ -32,7 +32,7 @@ const positioning = {
 }
 
 
-const Popover = ({popover,onClose,onOpen,position="auto",children}) => {
+const Popover = ({popover,onClose,onOpen,position="auto",children,...props}) => {
   const childArray = Children.toArray(children);
   const [isVisible,setIsVisible] = useState(false);
   
@@ -135,7 +135,7 @@ const Popover = ({popover,onClose,onOpen,position="auto",children}) => {
   return (
     <div className={styles.popover_container} ref={containerRef}>
 
-      <div ref={popoverRef} data-open={isVisible} className={`${popoverClassNames()} ${isVisible ? styles.is_open : ""}`} style={{right:right + "px"}}>
+      <div ref={popoverRef} data-open={isVisible} className={`${popoverClassNames()} ${isVisible ? styles.is_open : ""}`} style={{right:right + "px"}} {...props}>
         {/* {isVisible ? popover : null} */}
         <Component />
         

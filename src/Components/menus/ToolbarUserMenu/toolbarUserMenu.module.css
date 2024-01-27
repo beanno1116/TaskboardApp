@@ -1,0 +1,48 @@
+.toolbar_usermenu {
+  --height: 175px;
+  --width: 34ch;
+  display: flex;
+  flex-direction: column;
+  width: var(--width);
+  /* height: var(--height); */
+  /* max-height: 350px;   */
+  transition: height .4s ease-out, width .4s ease-in-out;
+}
+
+.usermenu_listview {
+  position: relative;
+  width: 100%;
+}
+
+.usermenu_list_btn {
+  position: relative;
+  display: flex;
+  gap: .5rem;
+  width: 100%;
+  background-color: transparent;
+  text-align: left;  
+  padding: 1rem .75rem;
+  color: #b0b0b5;
+}
+.usermenu_list_btn:hover {
+  background-color: rgb(44,46,56);
+}
+.usermenu_list_btn span {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.15rem;
+  height: 100%;
+}
+
+.usermenu_listview li h5 {  
+  text-align: left;
+  padding: 1rem .75rem;
+  padding-bottom: 0;
+  margin: 0;
+  font-size: 1.45rem;
+}
+
+.usermenu_listview li:last-child {
+  border-top: 1px solid white;
+}

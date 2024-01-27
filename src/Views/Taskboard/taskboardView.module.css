@@ -22,8 +22,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-right: 2rem;
 }
-
+.taskboard_toolbar_container h1 {
+  color: #F49F0A;
+  font-size: 2.75rem;
+}
 
 .option_btn {
   position: relative;     
