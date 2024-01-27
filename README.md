@@ -32,6 +32,10 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 
 1/27/2024 Created a useAuth hook with an auth context and auth provider. It will keep the auth state for the app and also it will sync with localstorage to retain auth even after refresh. Added the sign up action on the api backend and also refactored the session process by extracting the session actions to a seperate class.
 
+## TaskboardTaskbarBranch
+
+1/27/2024 Updated the css for the toolbar title element. Added a drop down menu for the profile button in the tool bar and built the logout action and functionality. Will log out if you click on the logout button in the menu. Created a toolbar user menu component for the user menu in the tool bar. Added icons for the toolbar user menu buttons
+
 ## Add Testing Branch
 
 1/12/2024 ran the following commands

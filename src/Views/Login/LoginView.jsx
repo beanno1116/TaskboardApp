@@ -1,14 +1,16 @@
+import { useState } from 'react';
 import image from '../../assets/images/loginImage.png';
 
 import styles from './loginView.module.css';
 
-import useWEForm from '../../hooks/useWEForm';
+
 import Panel from './components/Panel';
 import LoginForm from './forms/LoginForm';
 import SignupForm from './forms/SignupForm';
-import { useState } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 
-const LoginView = ({ onLogin,onSignup }) => {
+const LoginView = () => {
+  const auth = useAuth();
   const [showLoginForm,setShowLoginForm] = useState(true);
 
   const handleCreateAccountClick = (e) => {    
@@ -27,8 +29,8 @@ const LoginView = ({ onLogin,onSignup }) => {
           
           <div className={styles.form_wrapper}>
             {showLoginForm ?
-              <LoginForm onSubmit={onLogin} /> :
-              <SignupForm onSubmit={onSignup} />            
+              <LoginForm onSubmit={auth.loginAction} /> :
+              <SignupForm onSubmit={auth.signupAction} />            
             }            
           </div>
 

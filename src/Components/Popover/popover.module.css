@@ -16,7 +16,7 @@
 }
 
 .popover.bottom {
-  top: 100%;
+  /* top: 100%; */  
   right: 0%;
   transform-origin: top right;
 }
