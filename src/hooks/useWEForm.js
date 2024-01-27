@@ -23,7 +23,17 @@ const validator = {
     return true;
   },
   email: (input) => {
-    return true;
+    try {
+      let value = input.value;
+      const emailRegEx = new RegExp(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/gm);
+      if (emailRegEx.test(value)) {
+        return true;
+      }
+      return false;
+      
+    } catch (error) {
+      
+    }
   },
   number: (input) => {
 
@@ -92,6 +102,7 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
     if (result.length === 0) {
       inputs.current = [...inputsCopy, { name, input, options }];
     }
+    return input;
   }
 
 
@@ -238,7 +249,8 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
       value: formData[inputName],
       name,
       required: options?.required || false,
-      "data-error": "false",      
+      "data-error": "false",
+      "data-startFocused": options?.startFocused || false,
       ref: (ele) => registerInput(inputName, ele, options),
       onChange: (e) => handleInputChange(e, inputName),
       onReset: (e) => handleInputReset(e, inputName),

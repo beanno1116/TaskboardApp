@@ -30,6 +30,8 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 
 1/24/2024 Tested why getting cors errors with axios. created basic logic to switch between login view and sign up view. Also reworked the login.php api route. Refactored the useAuth hook to interact with localstorage
 
+1/27/2024 Created a useAuth hook with an auth context and auth provider. It will keep the auth state for the app and also it will sync with localstorage to retain auth even after refresh. Added the sign up action on the api backend and also refactored the session process by extracting the session actions to a seperate class.
+
 ## Add Testing Branch
 
 1/12/2024 ran the following commands
