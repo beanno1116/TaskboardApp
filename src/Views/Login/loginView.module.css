@@ -41,7 +41,8 @@
 .image_panel img {
   --a: 8deg; /* control the angle of rotation (the smaller, the better) */
   /* width: 250px; */
-  aspect-ratio: 1;
+  max-width: 500px;
+  /* aspect-ratio: 1 / 1; */
   border-radius: 20px;
   transform: perspective(400px) rotate3d(var(--r,-1,1),0,calc(var(--i,1)*var(--a)));
   -webkit-mask: 

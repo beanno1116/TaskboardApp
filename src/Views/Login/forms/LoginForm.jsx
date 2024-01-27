@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import TBForm from '../../../Components/TBForm/TBForm';
 import useWEForm from '../../../hooks/useWEForm';
 
@@ -8,6 +9,11 @@ const LoginForm = ({ onSubmit }) => {
     username: "",
     password: "",
   })
+
+
+
+ 
+
   return (
       <TBForm>
 
@@ -19,7 +25,7 @@ const LoginForm = ({ onSubmit }) => {
         {/* Email text input row */}
         <TBForm.Row>
           <TBForm.InputWrapper>
-            <TBForm.TextField  type={"email"} {...registerFormInput("username",{required:true,submitOnly:true})} placeholder={"Username"} />          
+            <TBForm.TextField  type={"email"} {...registerFormInput("username",{required:true,submitOnly:true,validator:"email"})} placeholder={"Username"} />          
           </TBForm.InputWrapper>
         </TBForm.Row>
 
@@ -37,7 +43,7 @@ const LoginForm = ({ onSubmit }) => {
 
         {/* Form login and reset button row */}
         <TBForm.Row>
-          <TBForm.Button onClick={e => handleSubmit(e,onSubmit)} >Login</TBForm.Button>
+          <TBForm.Button type="submit" onClick={e => handleSubmit(e,onSubmit)} >Login</TBForm.Button>
           <TBForm.Button no_bg onClick={handleFormReset}>Reset</TBForm.Button>
         </TBForm.Row>
 

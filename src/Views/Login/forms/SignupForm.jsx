@@ -21,7 +21,7 @@ const SignupForm = ({ onSubmit }) => {
         {/* Email text input row */}
         <TBForm.Row>
           <TBForm.InputWrapper>
-            <TBForm.TextField  type={"email"} {...registerFormInput("username",{required:true,submitOnly:true})} placeholder={"Email"} />          
+            <TBForm.TextField  type={"email"} {...registerFormInput("email",{required:true,submitOnly:true})} placeholder={"Email"} />          
           </TBForm.InputWrapper>
         </TBForm.Row>
 
@@ -42,7 +42,7 @@ const SignupForm = ({ onSubmit }) => {
      
         {/* Form login and reset button row */}
         <TBForm.Row>
-          <TBForm.Button onClick={e => handleSubmit(e,onSubmit)} >Create</TBForm.Button>
+          <TBForm.Button type='submit' onClick={e => handleSubmit(e,onSubmit)} >Create</TBForm.Button>
           <TBForm.Button no_bg onClick={handleFormReset}>Reset</TBForm.Button>
         </TBForm.Row>
     </TBForm>    

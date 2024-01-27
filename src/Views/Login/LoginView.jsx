@@ -29,8 +29,7 @@ const LoginView = ({ onLogin,onSignup }) => {
             {showLoginForm ?
               <LoginForm onSubmit={onLogin} /> :
               <SignupForm onSubmit={onSignup} />            
-            }
-            {/* <SignupForm onSubmit={onSubmit} /> */}
+            }            
           </div>
 
           <div className={styles.panel_btn_wrapper}>
