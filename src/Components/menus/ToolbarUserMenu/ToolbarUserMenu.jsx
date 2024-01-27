@@ -8,7 +8,7 @@ import styles from './toolbarUserMenu.module.css';
 
 const ToolbarUserMenu = ({ ...props }) => {
   const auth = useAuth();
-
+  
   return (
     <div className={styles.toolbar_usermenu}>
 

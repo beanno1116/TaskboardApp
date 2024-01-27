@@ -55,7 +55,7 @@
 }
 
 .taskitem_nav {
-  /* position: relative; */
+  position: relative;
   display: flex;
   flex-flow: column;
   justify-content: space-between;

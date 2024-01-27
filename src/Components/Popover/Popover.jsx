@@ -123,8 +123,10 @@ const Popover = ({popover,onClose,onOpen,position="auto",children,...props}) => 
       publish("didopen",{target:ele,evt:e});
                   
     }
+    
 
     window.addEventListener("transitionend",handleTransitionEnd);
+    
     return () => {
       window.removeEventListener("transitionend",handleTransitionEnd);
     }

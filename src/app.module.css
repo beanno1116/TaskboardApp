@@ -2,8 +2,7 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
-  background-color: var(--tb-bg-color);
+  overflow: hidden;  
 }
 
 .taskboard_view_container {

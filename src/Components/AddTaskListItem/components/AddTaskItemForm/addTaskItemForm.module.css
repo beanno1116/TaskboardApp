@@ -1,6 +1,20 @@
 .add_task_form {
-  position: relative;
+  position: absolute;
+  bottom: 0%;
   width: 100%;
+  transform-origin: bottom center;
+  background-color: #373a44;
+  /* border: 1px solid black; */
+  border-radius: 8px;
+  opacity: 0;
+  transform: scale(.1);
+  box-shadow: rgba(0, 0, 0, 0.45) 0px -25px -20px 20px;
+  transition: transform .3s ease-in-out;
+  z-index: 999999;
+}
+.add_task_form.show_form {
+  opacity: 1;
+  transform: scale(1);
 }
 
 
@@ -48,6 +62,7 @@ input[type=text].board_input {
 
 .board_input::placeholder {
   color: hsla(158, 100%, 70%, 0.60);
+  color: #43C59E;
 }
 .board_input:focus::placeholder {
   color: #67ffc8;
@@ -75,6 +90,11 @@ input[type=text].board_input {
   padding: .75em 0;
 }
 
+.nav_section {
+  display: flex;
+  gap: 1rem;
+}
+
 .add_btn {
   display: inline-block;
   box-sizing: border-box;
@@ -84,7 +104,7 @@ input[type=text].board_input {
   -webkit-font-smoothing: antialiased;
   vertical-align: middle;
   font-family: 'Roboto', sans-serif;
-  font-weight: 500;    
+  font-weight: 900;    
   line-height: 1;    
   text-decoration: none;
   font-size: 0.875rem;
@@ -95,7 +115,7 @@ input[type=text].board_input {
   transition: all 0.3s ease 0s;    
   background-color: #67ffc8;;
   border-radius: 999px;
-  color: #373a44;
+  color: black;
 }
 
 .close_btn {    

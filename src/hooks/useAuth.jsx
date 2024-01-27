@@ -37,7 +37,7 @@ const store = {
 const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
-  const [user,setUser] = useState(null);
+  const [user,setUser] = useState(store.getValue("app")?.user || {});
   const [token,setToken] = useState(store.getValue("app")?.token || "");
 
   const loginAction = (e,formData,isValid) => {    
@@ -61,12 +61,14 @@ const AuthProvider = ({children}) => {
     .then((response) => {
       return response.json();
     })
-    .then(data => {          
+    .then(data => {
       if (data.success){
         const {id,firstName,lastName,color} = data.data;
         setToken(id);
-        setUser({firstName,lastName,color});
-        store.setValue("app",{token:id,user:{firstName,lastName,color}});
+        debugger;
+        setUser({firstName:firstName,lastName:lastName,color:color});
+        store.setValue("app",{token:id,user:{firstName:firstName,lastName:lastName,color:color}});
+        let tmp = store.getValue("app");
         console.log(data);
       }      
       console.log(data);
