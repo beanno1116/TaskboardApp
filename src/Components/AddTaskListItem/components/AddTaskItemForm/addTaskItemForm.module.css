@@ -2,14 +2,13 @@
   position: absolute;
   bottom: 0%;
   width: 100%;
-  transform-origin: bottom center;
-  background-color: #373a44;
-  /* border: 1px solid black; */
+  transform-origin: bottom;
+  background-color: #373a44;  
   border-radius: 8px;
   opacity: 0;
   transform: scale(.1);
   box-shadow: rgba(0, 0, 0, 0.45) 0px -25px -20px 20px;
-  transition: transform .3s ease-in-out;
+  transition: all .3s ease-in-out;
   z-index: 999999;
 }
 .add_task_form.show_form {
@@ -18,65 +17,24 @@
 }
 
 
-.form {
-  position: relative;
-  width: 100%;
-  padding: .5rem .75rem;
-}
+
 
 .form_content {
   position: relative;
-  padding: .75em 0 .75em 0;
-}
-
-
-
-.input_row {
-  position: relative;
+  width: 100%;
+  padding: 0 0 0.75rem 0;
   display: flex;
-  flex-wrap: nowrap;
-  width: 100%;
-  padding: .5em 0;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: .5rem;
 }
 
 
 
-.board_input {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  border: 0;
-  outline: 0;
-  background-color: transparent;  
-  font-size: 1rem;
-  caret-color: #b0b0b5;
-  color: snow;
-  transition: color .8s ease-in-out;
-}
-
-input[type=text].board_input {
-  height: 32px;
-  font-family: 'Roboto', sans-serif;
-}
 
 
-.board_input::placeholder {
-  color: hsla(158, 100%, 70%, 0.60);
-  color: #43C59E;
-}
-.board_input:focus::placeholder {
-  color: #67ffc8;
-}
 
-.board_input[data-error="true"] {
-  border-bottom: 1px solid red;  
-  -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-	        animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-}
-.board_input[data-error="true"]::placeholder,
-.board_input[data-error="true"]:focus::placeholder {
-  color: red;
-}
+
 
 
 
@@ -87,7 +45,7 @@ input[type=text].board_input {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: .75em 0;
+  padding: 0em 0;
 }
 
 .nav_section {
@@ -118,7 +76,7 @@ input[type=text].board_input {
   color: black;
 }
 
-.close_btn {    
+.close_btn {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   vertical-align: middle;    
@@ -149,6 +107,7 @@ input[type=text].board_input {
 
 .close_btn svg {
   color: #89898e;
+  transition: color .3s ease-in-out
 }
 .close_btn:hover svg {
   color: red;
@@ -214,128 +173,4 @@ input[type=text].board_input {
 
 
 
- @-webkit-keyframes shake-bottom {
-  0%,
-  100% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-    -webkit-transform-origin: 50% 100%;
-            transform-origin: 50% 100%;
-  }
-  10% {
-    -webkit-transform: rotate(2deg);
-            transform: rotate(2deg);
-  }
-  20%,
-  40%,
-  60% {
-    -webkit-transform: rotate(-4deg);
-            transform: rotate(-4deg);
-  }
-  30%,
-  50%,
-  70% {
-    -webkit-transform: rotate(4deg);
-            transform: rotate(4deg);
-  }
-  80% {
-    -webkit-transform: rotate(-2deg);
-            transform: rotate(-2deg);
-  }
-  90% {
-    -webkit-transform: rotate(2deg);
-            transform: rotate(2deg);
-  }
-}
-@keyframes shake-bottom {
-  0%,
-  100% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-    -webkit-transform-origin: 50% 100%;
-            transform-origin: 50% 100%;
-  }
-  10% {
-    -webkit-transform: rotate(2deg);
-            transform: rotate(2deg);
-  }
-  20%,
-  40%,
-  60% {
-    -webkit-transform: rotate(-4deg);
-            transform: rotate(-4deg);
-  }
-  30%,
-  50%,
-  70% {
-    -webkit-transform: rotate(4deg);
-            transform: rotate(4deg);
-  }
-  80% {
-    -webkit-transform: rotate(-2deg);
-            transform: rotate(-2deg);
-  }
-  90% {
-    -webkit-transform: rotate(2deg);
-            transform: rotate(2deg);
-  }
-}
 
-
-
- @-webkit-keyframes shake-horizontal {
-  0%,
-  100% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-  10%,
-  30%,
-  50%,
-  70% {
-    -webkit-transform: translateX(-8px);
-            transform: translateX(-8px);
-  }
-  20%,
-  40%,
-  60% {
-    -webkit-transform: translateX(8px);
-            transform: translateX(8px);
-  }
-  80% {
-    -webkit-transform: translateX(6px);
-            transform: translateX(6px);
-  }
-  90% {
-    -webkit-transform: translateX(-6px);
-            transform: translateX(-6px);
-  }
-}
-@keyframes shake-horizontal {
-  0%,
-  100% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-  10%,
-  30%,
-  50%,
-  70% {
-    -webkit-transform: translateX(-8px);
-            transform: translateX(-8px);
-  }
-  20%,
-  40%,
-  60% {
-    -webkit-transform: translateX(8px);
-            transform: translateX(8px);
-  }
-  80% {
-    -webkit-transform: translateX(6px);
-            transform: translateX(6px);
-  }
-  90% {
-    -webkit-transform: translateX(-6px);
-            transform: translateX(-6px);
-  }
-}

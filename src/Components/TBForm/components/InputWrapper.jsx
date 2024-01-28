@@ -1,8 +1,8 @@
 import styles from '../tbForm.module.css';
 
-const InputWrapper = ({ children }) => {
+const InputWrapper = ({ children,...props }) => {
   return (
-    <span className={styles.input_wrapper}>
+    <span className={styles.input_wrapper} {...props}>
       {children}
     </span>
   );

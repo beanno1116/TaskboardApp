@@ -6,7 +6,7 @@ import styles from '../loginView.module.css';
 
 const LoginForm = ({ onSubmit }) => {
   const {formData:loginFormData,registerFormInput,handleFormReset,handleSubmit} = useWEForm({
-    username: "",
+    email: "",
     password: "",
   })
 
@@ -25,7 +25,7 @@ const LoginForm = ({ onSubmit }) => {
         {/* Email text input row */}
         <TBForm.Row>
           <TBForm.InputWrapper>
-            <TBForm.TextField  type={"email"} {...registerFormInput("username",{required:true,submitOnly:true,validator:"email"})} placeholder={"Username"} />          
+            <TBForm.TextField  type={"email"} {...registerFormInput("email",{required:true,submitOnly:true,validator:"email"})} placeholder={"Email"} />          
           </TBForm.InputWrapper>
         </TBForm.Row>
 
