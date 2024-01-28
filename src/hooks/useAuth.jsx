@@ -2,6 +2,7 @@ import { useContext,createContext, useState } from "react";
 import axios from "axios";
 import { API_ENDPOINT } from "../config";
 import { useMutation, useQuery } from "react-query";
+import { createFormDataObj } from "../Utilities";
 
 
 const loginUser = async (email,password) => {
@@ -40,46 +41,31 @@ const AuthProvider = ({children}) => {
   const [user,setUser] = useState(store.getValue("app")?.user || {});
   const [token,setToken] = useState(store.getValue("app")?.token || "");
 
-  const loginAction = (e,formData,isValid) => {    
+  const loginAction = (e,formData,isValid) => {
     if (!isValid) return;
-  
-    const {username,password} = formData;
-
-    let fd = new FormData();
-
-    // fd.append('email',"benk@glds.net");
-    // fd.append('password',"devUser");
-    fd.append('email',username);
-    fd.append('password',password);
-    fd.append('action','login');
+      
+    let fd = createFormDataObj({...formData,action:"login"});
     
-
-    fetch(API_ENDPOINT,{
-      method: 'POST',
-      body: fd
+    axios.post(API_ENDPOINT,fd,
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'        
+      }
     })
-    .then((response) => {
-      return response.json();
-    })
-    .then(data => {
-      if (data.success){
-        const {id,firstName,lastName,color} = data.data;
-        setToken(id);
-        debugger;
+    .then((response) => {      
+      if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");              
+      const {success,data,message} = response.data;
+      if (success){
+        const {id,firstName,lastName,color} = data;
+        setToken(id);        
         setUser({firstName:firstName,lastName:lastName,color:color});
-        store.setValue("app",{token:id,user:{firstName:firstName,lastName:lastName,color:color}});
-        let tmp = store.getValue("app");
-        console.log(data);
-      }      
-      console.log(data);
+        store.setValue("app",{token:id,user:{firstName:firstName,lastName:lastName,color:color}});                
+      }   
+      console.log(response);
     })
-    .catch(error => {
-      debugger;
-      console.log(error);
-      //handle error
-    });
-    
-
+    .catch((error) => {
+      console.error(error);
+    });    
   }
 
   const logoutAction = (e) => {
@@ -89,46 +75,30 @@ const AuthProvider = ({children}) => {
   }
 
   const signupAction = (e,formData,isValid) => {
-    
     if (!isValid) return;
-  
-    const {username,password,passwordConfirm} = formData;
+      
+    let fd = createFormDataObj({...formData,action:"signup"});    
 
-    let fd = new FormData();
-
-    fd.append('email',"abc@glds.net");
-    fd.append('password',"newUser");
-    // fd.append('passwordConfirm',"devUser");
-    // fd.append('email',username);
-    // fd.append('password',password);
-    
-    fd.append('action','signup');
-    
-
-    fetch(API_ENDPOINT,{
-      method: 'POST',
-      body: fd
+    axios.post(API_ENDPOINT,fd,
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'        
+      }
     })
-    .then((response) => {      
-      return response.text();
+    .then((response) => {
+      if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");              
+      const {success,data,message} = response.data;
+      if (success){
+        const {id,firstName,lastName,color} = data;
+        setToken(id);        
+        setUser({firstName:firstName,lastName:lastName,color:color});
+        store.setValue("app",{token:id,user:{firstName:firstName,lastName:lastName,color:color}});                
+      }
     })
-    .then(data => {
-      debugger;      
-      if (data.success){
-        const {id,firstName,lastName,color} = data.data;
-        setToken(id);
-        setUser({firstName,lastName,color});
-        store.setValue("app",{token:id,user:{firstName,lastName,color}});
-        let tmp = store.getValue("app");
-        console.log(data);
-      }      
-      console.log(data);
-    })
-    .catch(error => {
-      debugger;
-      console.log(error);
-      //handle error
-    });
+    .catch((error) => {
+      console.error(error);
+    }); 
+            
   }
 
 

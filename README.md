@@ -36,6 +36,10 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 
 1/27/2024 Updated the css for the toolbar title element. Added a drop down menu for the profile button in the tool bar and built the logout action and functionality. Will log out if you click on the logout button in the menu. Created a toolbar user menu component for the user menu in the tool bar. Added icons for the toolbar user menu buttons
 
+## AddTaskFormBranch
+
+1/28/2024 resolved the CORS issue with axios so I could reach the backend server; added the backend api call for adding a task and deleting a task; created some infrastructure on the backend as well. add some functions to the useTasklist hook; Also updated the useAuth hook to use axios; refactored the task data obj
+
 ## Add Testing Branch
 
 1/12/2024 ran the following commands

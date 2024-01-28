@@ -118,6 +118,20 @@ export const currencyFormatterLocale = value => {
   return `$${val}`;
 }
 
+const objectToFormData = (obj) => {
+  try {
+    const fd = new FormData();
+    for (const key in obj) {
+      if (Object.hasOwnProperty.call(obj, key)) {
+        const item = obj[key];      
+        fd.append(key, item);
+      }
+    }
+    return fd; 
+  } catch (error) {
+    console.error(`[FN]objectToFormData()[ERROR]-${error.message}\n\r [STACK]-${error.stack}`);
+  }
+}
 
 /**
  * Creates a new FormData() object and appends
@@ -130,17 +144,29 @@ export const currencyFormatterLocale = value => {
  * @returns {Object} FormData object
  */
 export const createFormDataObj = (formData) => {
-  const fd = new FormData();
-  const debugArr = [];
-  for (const key in formData) {
-    if (Object.hasOwnProperty.call(formData, key)) {
-      const item = formData[key];
-      debugArr.push(item);
-      fd.append(key, item);
-    }
+  try {    
+    var fd;    
+    var type = (typeof formData === 'object' && formData instanceof Object) ? 
+                "object" :
+                (typeof formData === 'object' && formData instanceof Array) ?
+                "array" :
+                (typeof formData === 'string' || formData instanceof String) ?
+                "string" : "";
+
+    switch (type) {
+      case "object":
+        fd = objectToFormData(formData);
+        break;
+      
+      default:
+        fd = new FormData();
+        break;
+    }        
+    return fd;
+    
+  } catch (error) {
+    
   }
-  console.log(debugArr);
-  return fd;
 }
 
 

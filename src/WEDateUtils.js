@@ -122,7 +122,7 @@ const dateWithFormat = (date,format) => {
 
     switch (format) {
       case SQL_FORMAT:
-        return `${fullYear}-${padValue(month,2)}-${padValue(day,2)} ${padValue(hour,2)}:${padValue(minutes,2)}:${padValue(seconds,2)}:${padValue(miliseconds,2)}`;            
+        return `${fullYear}-${padValue(month,2)}-${padValue(day,2)} ${padValue(hour,2)}:${padValue(minutes,2)}:${padValue(seconds,2)}`;            
       default:
         return `${fullYear}-${padValue(month,2)}-${padValue(day,2)}`;
     }    

@@ -63,7 +63,12 @@ const checkInputForErrors = (_name, errors) => {
   return false;
 }
 const removeErrorStatus = (input) => {
-  input.dataset.error = false;
+  try {
+    if (input instanceof HTMLInputElement === false) throw new Error(`Arguement not of type HTMLInputElement`);
+    input.dataset.error = false;
+  } catch (error) {
+    console.error(`[FN]removeErrorStatus(input)[ERROR]-${error.message}[STACK]-${error.stack}`);
+  }  
 }
 const applyErrorStatus = (input) => {
   input.dataset.error = true;
@@ -174,32 +179,34 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
   }
 
   const handleFormReset = (e) => {
-
-    let inputsCopy = [...inputs.current];
-
-    const formDataCopy = { ...formData };
-    for (let prop in formDataCopy) {
-      console.log(typeof formDataCopy[prop]);
-      switch (typeof formDataCopy[prop]) {
-        case "boolean":
-          formDataCopy[prop] = false;
-          break;
-        case "string":
-          formDataCopy[prop] = "";
-          break;
-        case "number":
-          formDataCopy[prop] = 0;
-          break;
-        case "object":
-          if (Array.isArray(formDataCopy[prop])) {
-            formDataCopy[prop] = [];
-          }
-          break;
-        default:
-          formDataCopy[prop] = ""
-      }
-    }
-    setFormData({ ...formDataCopy });
+    try {
+      const formDataCopy = { ...formData };
+      for (let prop in formDataCopy) {
+        console.log(typeof formDataCopy[prop]);
+        switch (typeof formDataCopy[prop]) {
+          case "boolean":
+            formDataCopy[prop] = false;
+            break;
+          case "string":
+            formDataCopy[prop] = "";
+            break;
+          case "number":
+            formDataCopy[prop] = 0;
+            break;
+          case "object":
+            if (Array.isArray(formDataCopy[prop])) {
+              formDataCopy[prop] = [];
+            }
+            break;
+          default:
+            formDataCopy[prop] = ""
+        }
+      }  
+      inputs.current.forEach(input => removeErrorStatus(input.input));
+      setFormData({ ...formDataCopy });      
+    } catch (error) {
+      console.error(error.message);
+    }    
   }
 
   const handleSubmit = (e,handler, args = {}) => {    
@@ -250,7 +257,7 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
       name,
       required: options?.required || false,
       "data-error": "false",
-      "data-startFocused": options?.startFocused || false,
+      "data-startfocused": options?.startFocused || false,
       ref: (ele) => registerInput(inputName, ele, options),
       onChange: (e) => handleInputChange(e, inputName),
       onReset: (e) => handleInputReset(e, inputName),
