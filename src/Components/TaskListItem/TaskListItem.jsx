@@ -17,7 +17,7 @@ import Popover from '../Popover/Popover';
 
 
 
-function TaskListItem({ task,menu,onClick}) {
+function TaskListItem({ task,menu,onClick,listId,...props}) {
   const {id,title,description,contact,status} = task;
   const [isOpen,setIsOpen] = useState(false);
 
@@ -35,12 +35,7 @@ function TaskListItem({ task,menu,onClick}) {
   }
 
   return (
-    <div className={styles.tasklist_item} id={id} onClick={() => {
-        if (status === 1) {
-          // onClick && onClick(task.id,{status:2})
-        }
-      }}
-    >
+    <div className={styles.tasklist_item} id={id} {...props}>
       
       <StatusIndicator status={status} />
 
