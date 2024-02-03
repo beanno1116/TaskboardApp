@@ -132,6 +132,15 @@ const objectToFormData = (obj) => {
     console.error(`[FN]objectToFormData()[ERROR]-${error.message}\n\r [STACK]-${error.stack}`);
   }
 }
+const arrayToFormData = (arr) => {
+  try {
+    const fd = new FormData();
+    fd.append("array",JSON.stringify(arr));
+    return fd;
+  } catch (error) {
+    
+  }
+}
 
 /**
  * Creates a new FormData() object and appends
@@ -156,6 +165,9 @@ export const createFormDataObj = (formData) => {
     switch (type) {
       case "object":
         fd = objectToFormData(formData);
+        break;
+      case "array":
+        fd = arrayToFormData(formData);
         break;
       
       default:

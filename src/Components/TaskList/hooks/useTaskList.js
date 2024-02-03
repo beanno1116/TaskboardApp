@@ -5,10 +5,12 @@ import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 import { createFormDataObj } from "../../../Utilities";
 import { useAuth } from "../../../hooks/useAuth";
+import { indexOfObjectInArray, sortTasksByPosition, swapIndex, toFormData } from "../../../appUtils";
 
 let history = [];
 
 const ADD_TASK_ACTION = "addTask";
+const SAVE_TASKS_ACTION = "saveTasks";
 const DEL_TASK_ACTION = "deleteTask";
 
 const add = (task,handler) => {
@@ -20,7 +22,7 @@ const add = (task,handler) => {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     })
-    .then(response => {
+    .then(response => {      
       if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
       if (response.data.success) {
         handler(oldTasks => [...oldTasks,response.data.data]);
@@ -52,6 +54,29 @@ const del = (taskId,handler) => {
     });
   } catch (error) {
     onsole.error(error);
+  }
+}
+const saveTasks = (tasks) => {
+  try {    
+    var fd = toFormData(tasks);      
+    fd.append("action",SAVE_TASKS_ACTION);
+    axios.post(API_ENDPOINT,fd,{
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+    .then(response => {      
+      debugger;
+      if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
+      if (response.data.success) {
+        handler(oldTasks => [...oldTasks,response.data.data]);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  } catch (error) {
+    console.error(error);
   }
 }
 
@@ -97,7 +122,31 @@ const useTaskList = (boardId) => {
     setTasks([...newState])
   }
 
-  return {tasks,addTask,deleteTask,updateTask};
+  const action = {
+    add(e,task){
+
+    },
+    delete(taskId){
+
+    },
+    update(taskId,update){
+
+    }
+  }
+  
+  const update = {
+    position(id,oldPosition,newPosition){
+      let oldTasks = swapIndex(tasks,oldPosition,newPosition);      
+      let newTasks = oldTasks.map((task,index) => {
+        return {...task,position:index}
+      })      
+      setTasks([...newTasks]);
+      saveTasks(newTasks);
+      console.log(newTasks);
+    }
+  }
+
+  return {tasks,addTask,deleteTask,updateTask,action,update};
 }
 
 export default useTaskList;

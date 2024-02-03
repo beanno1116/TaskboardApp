@@ -40,6 +40,10 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 
 1/28/2024 resolved the CORS issue with axios so I could reach the backend server; added the backend api call for adding a task and deleting a task; created some infrastructure on the backend as well. add some functions to the useTasklist hook; Also updated the useAuth hook to use axios; refactored the task data obj
 
+## TaskListDragAndDrop
+
+2/3/2024 added drag and drop to the task list component. First draft to get something working. created an app utils for functions refactoring from app only. 
+
 ## Add Testing Branch
 
 1/12/2024 ran the following commands

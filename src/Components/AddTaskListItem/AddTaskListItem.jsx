@@ -17,7 +17,7 @@ const AddTaskListItem = ({ addTaskHandler }) => {
       
     <div className={`${styles.add_task_item} ${isFormShowing ? styles.display : ""}`}>
 
-        {/* {!isAdding && <WELabelButton onClick={() => {}}>{"add a task"}</WELabelButton>} */}
+        
         {true && 
           <WELabelButton onClick={() => setIsFormShowing(!isFormShowing)}>
             <WELabelButton.Icon />
@@ -27,9 +27,7 @@ const AddTaskListItem = ({ addTaskHandler }) => {
           </WELabelButton>
         }
         <AddTaskItemForm isFocused={isFormShowing} onSubmit={addTaskHandler} closeForm={() => setIsFormShowing(!isFormShowing)}/>
-        {/* {isFormShowing && <AddTaskItemForm isFocused={isFormShowing} onSubmit={addTaskHandler} closeForm={() => setIsFormShowing(!isFormShowing)}/>} */}
-        {/* {isAdding && <AddTaskForm type={type} isFocused={isAdding} onSubmit={action}/>} */}
-
+        
     </div>      
   );
 }

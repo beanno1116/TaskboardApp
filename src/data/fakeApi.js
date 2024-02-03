@@ -7,6 +7,7 @@ const devTasks = [
     contact:"Matt Spencer",
     contactId: 1,
     priority: 1,
+    position: 2,
     type:1,
     status:1
   },
@@ -17,6 +18,7 @@ const devTasks = [
     contact:"Matt Spencer",
     contactId: 2,
     priority: 2,
+    position: 0,
     type:1,
     status:2
   },
@@ -27,6 +29,7 @@ const devTasks = [
     contact:"Matt Spencer",
     contactId: 1,
     priority: 1,
+    position: 1,
     type:0,
     status:2
   },
@@ -37,6 +40,7 @@ const devTasks = [
     contact:"Matt Spencer",
     contactId: 3,
     priority: 3,
+    position: 1,
     type:1,
     status:4
   },
@@ -47,6 +51,7 @@ const devTasks = [
     contact:"Matt Spencer",
     contactId: 2,
     priority: 2,
+    position: 2,
     type:0,
     status:1
   },
@@ -57,6 +62,7 @@ const devTasks = [
     contact:"Matt Spencer",
     contactId: 1,
     priority: 4,
+    position: 3,
     type:1,
     status:3
   },
@@ -67,6 +73,7 @@ const devTasks = [
     contact:"Matt Spencer",
     contactId: 2,
     priority: 5,
+    position: 4,
     type:1,
     status:5
   }
