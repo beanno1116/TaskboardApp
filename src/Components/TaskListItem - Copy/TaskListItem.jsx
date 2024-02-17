@@ -1,4 +1,4 @@
-import { useRef, useState,cloneElement } from 'react';
+import { useRef, useState } from 'react';
 
 
 import styles from './taskListItem.module.css';
@@ -17,12 +17,14 @@ import Popover from '../Popover/Popover';
 
 
 
-function TaskListItem({ task,boardId,menu,...props}) {
-  const {id,title,description,contact,contactId,status} = task;
+function TaskListItem({ task,menu,onClick,listId,...props}) {
+  const {id,title,description,contact,status} = task;
   const [isOpen,setIsOpen] = useState(false);
 
   
- 
+  
+  
+    
   const onItemOptionButtonClick = (e) => {
     e.stopPropagation();
     try {
@@ -43,10 +45,10 @@ function TaskListItem({ task,boardId,menu,...props}) {
         
 
         <Popover popover={menu} onClose={() => setIsOpen(false)} position={"left"}>
-          <TaskItemOptionButton onClick={e => onItemOptionButtonClick(e)} />          
+          <TaskItemOptionButton isActive={isOpen} onClick={e => onItemOptionButtonClick(e)} />
         </Popover>
         
-        <TaskItemContact contact={contactId} />
+        <TaskItemContact contact={contact} />
 
       </TaskItemNav>
 

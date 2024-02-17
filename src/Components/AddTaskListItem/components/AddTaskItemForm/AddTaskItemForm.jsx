@@ -15,11 +15,11 @@ import FormNav from './components/FormNav';
 
 
 
-function AddTaskItemForm({ isFocused,onSubmit,closeForm }) {
+function AddTaskItemForm({ isFocused,onSubmit,closeForm,board }) {
   const {registerFormInput,handleSubmit,handleFormReset} = useWEForm({
     title: "Test task",
     description:"testing the task creation process",
-    assigneeId: ""
+    type: ""
   })
 
   const initialFocusEle = useRef(null);
@@ -49,9 +49,10 @@ function AddTaskItemForm({ isFocused,onSubmit,closeForm }) {
 
     const onAddTaskBtnClick = (e,formData,isValid) => {      
       if (!isValid) return;      
+
       closeForm();
       handleFormReset();
-      onSubmit && onSubmit(e,formData);
+      onSubmit && onSubmit({...formData,type:board});
     }
 
     const onFormCloseClick = (e) => {

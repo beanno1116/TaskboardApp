@@ -1,0 +1,160 @@
+.tasklist_item {
+  /* position: relative; */
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: .5em;
+  /* height: calc(60px + 1.5em);     */
+  min-height: 110px;
+  border-radius: .25em;
+  background-color: rgb(56, 58, 68);
+  background-color: #373a44;
+  box-shadow: 0 4px 6px -2px rgba(0,0,0,0.1),0 10px 15px -3px rgba(0,0,0,0.15);    
+  overflow-x: visible;  
+}
+
+
+
+.taskitem_status_indicator {
+  position: relative;
+  width: 10px;
+  border-radius: .25em 0 0 .25em;
+  transition: background-color .4s ease-out;
+  cursor: grab;
+}
+
+.taskitem_status_indicator.new {
+  background-color: rgb(255, 255, 255);
+}
+
+.taskitem_status_indicator.complete {
+  background-color: rgba(68,214,44,1);
+}
+.taskitem_status_indicator.holding {
+  background-color: rgba(255,173,0,1);
+}
+.taskitem_status_indicator.seen {
+  background-color: rgba(0, 150, 255,1);
+}
+.taskitem_status_indicator.delayed {
+  background-color: rgba(255, 49, 49,1);
+}
+
+.taskitem_status_indicator.started {
+  background-color: rgba(255, 240, 31,1);
+}
+
+
+.taskitem_content {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  flex: 1;
+  padding: 1.25em .75em;
+  box-shadow: -1px 0 4px 1px #373a447d;
+  /* background-color: chartreuse; */
+}
+
+.taskitem_nav {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  padding: .75em;
+  overflow-x: visible;  
+  /* background-color: fuchsia; */
+}
+
+.title {
+  position: relative;
+  padding: 0 .5em 1em 0;
+}
+.title > h1 {
+  visibility: hidden;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;   
+}
+.title > div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.body {
+  max-height: 125px;
+  padding-left: .5em;    
+  font-family: 'Roboto', sans-serif;
+  color: #b0b0b5;
+  overflow-y: scroll;
+}
+.body::-webkit-scrollbar {
+  width: 0;
+}
+
+.option_btn {
+  position: relative;     
+  cursor: pointer;
+  width: 100%;
+  padding: 0;
+  /* padding-top: 5px; */
+  background-color: transparent;  
+  color: snow;
+  opacity: 0;
+  transform: scale(1);
+  transition: transform .3s ease-in-out, opacity .3s ease-in-out;
+}
+.option_btn:active,
+.option_btn:focus {
+  background-color: transparent;
+  outline: none;
+  border: 0;
+}
+.option_btn.open {
+  opacity: 1;
+}
+.tasklist_item:hover .option_btn {
+  opacity: 1;  
+}
+
+.option_btn:hover {
+  opacity: 1;
+  /* transform: scale(1.1); */
+}
+
+.task_item:hover .option_btn:hover {
+  color: red;
+}
+
+.contact {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;    
+  width: 30px;
+  height: 30px;  
+  border-radius: 50%;
+  background-color: rgb(143,183,117);
+  font-size: .8rem;
+  color: black;
+  line-height: 1.6;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+}
+
+.contact_initials {  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%);
+
+}
+
+
+
+

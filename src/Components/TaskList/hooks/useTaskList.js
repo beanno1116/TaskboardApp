@@ -5,12 +5,14 @@ import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 import { createFormDataObj } from "../../../Utilities";
 import { useAuth } from "../../../hooks/useAuth";
-import { indexOfObjectInArray, sortTasksByPosition, swapIndex, toFormData } from "../../../appUtils";
+import { getTasks, swapIndex, toFormData } from "../../../appUtils";
+import { useQuery,useQueryClient } from "react-query";
 
 let history = [];
 
 const ADD_TASK_ACTION = "addTask";
 const SAVE_TASKS_ACTION = "saveTasks";
+const UPDATE_TASK_ACTION = "updateTask"
 const DEL_TASK_ACTION = "deleteTask";
 
 const add = (task,handler) => {
@@ -25,7 +27,7 @@ const add = (task,handler) => {
     .then(response => {      
       if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
       if (response.data.success) {
-        handler(oldTasks => [...oldTasks,response.data.data]);
+        handler();
       }
     })
     .catch((error) => {
@@ -46,7 +48,7 @@ const del = (taskId,handler) => {
     .then(response => {
       if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
       if (response.data.success) {
-        handler(oldTasks => [...oldTasks.filter(task => task.id !== taskId)]);
+        handler();
       }
     })
     .catch((error) => {
@@ -56,20 +58,19 @@ const del = (taskId,handler) => {
     onsole.error(error);
   }
 }
-const saveTasks = (tasks) => {
-  try {    
-    var fd = toFormData(tasks);      
-    fd.append("action",SAVE_TASKS_ACTION);
+const upDate = (update,handler) => {
+  try {
+    var fd = createFormDataObj({update});
+    fd.append("action",UPDATE_TASK_ACTION);
     axios.post(API_ENDPOINT,fd,{
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     })
     .then(response => {      
-      debugger;
       if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
       if (response.data.success) {
-        handler(oldTasks => [...oldTasks,response.data.data]);
+        handler();
       }
     })
     .catch((error) => {
@@ -79,51 +80,96 @@ const saveTasks = (tasks) => {
     console.error(error);
   }
 }
+const saveTasks = (tasks) => {
+  try {    
+    var fd = toFormData(tasks);      
+    fd.append("action",SAVE_TASKS_ACTION);
+    axios.get(API_ENDPOINT,{params:{action:"getTasks",boardId:1}}).then(response => {
+      debugger;
+      let tmp = response.data;
+      
+
+    })
+    // axios.post(API_ENDPOINT,fd,{
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    //   }
+    // })
+    // .then(response => {      
+    //   debugger;
+    //   if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
+    //   if (response.data.success) {
+    //     handler(oldTasks => [...oldTasks,response.data.data]);
+    //   }
+    // })
+    // .catch((error) => {
+    //   console.error(error);
+    // });
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 const useTaskList = (boardId) => {
+  // debugger;
   const auth = useAuth();
-  const [tasks,setTasks] = useState([]);
+  const [tasks,setTasks] = useState([]);  
+  const { isLoading, error, data } = useQuery({
+    queryKey: [`${boardId}`],
+    queryFn: () => getTasks(boardId)
+  })
 
-  
-  useEffect(() => {
-    setTasks(devFetchTasks(boardId));
-  },[boardId]);
+  const queryClient = useQueryClient();
 
 
 
-  const addTask = (e,task) => {
-    try {
+
+  const addTask = (task) => {
+    try {      
       const newTask = new Task(boardId,task);
       newTask.authorId = auth.token;
-      history = [...history,{event:"addtask",task}];      
-      add(newTask,setTasks);
+      history = [...history,{event:"addtask",task}];     
+      add(newTask,() => {        
+        queryClient.setQueryData([`${task.type}`],tasks => [...tasks,newTask]);
+      });
     } catch (error) {
       console.error(error.message);
     }
   }
 
-  const deleteTask = (taskId) => {
+  const deleteTask = (taskId) => {   
     try {
       if (taskId.length === 0) throw new Error("Task id required");
-      del(taskId,setTasks);      
+      del(taskId,() => {
+        queryClient.setQueryData([`${boardId}`],tasks => {                    
+          return tasks.filter(t => t.id !== taskId);
+        });
+      });      
     } catch (error) {
       console.error(error.message);
     }
   }
 
   const updateTask = (taskId,update) => {
-    const tasksCopy = [...tasks];    
+    
+    const tasksCopy = [...data];    
     const newState = tasksCopy.map(t => {
       if (t.id === taskId) {        
         return {...t,...update};
       }
       return t;
     })    
-    setTasks([...newState])
+    debugger;
+    const mutatedTask = newState.filter(t => t.id === taskId)[0];
+    queryClient.setQueryData([`${boardId}`],tasks => [...newState]);
+    // upDate({taskId,update},() => {        
+    //   queryClient.setQueryData([`${boardId}`],tasks => [...newState]);
+    // });
+    // setTasks([...newState])
   }
 
   const action = {
-    add(e,task){
+    add(task){
 
     },
     delete(taskId){
@@ -146,7 +192,7 @@ const useTaskList = (boardId) => {
     }
   }
 
-  return {tasks,addTask,deleteTask,updateTask,action,update};
+  return {isLoading,data,tasks,addTask,deleteTask,updateTask,action,update};
 }
 
 export default useTaskList;

@@ -35,7 +35,7 @@ function TaskboardView(){
 
               <Column.Header>{column.title}</Column.Header>
 
-              <Column.TaskList listId={column.id} />
+              <Column.TaskList listId={column.id}/>
                             
             </Column>
 

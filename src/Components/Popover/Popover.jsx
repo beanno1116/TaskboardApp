@@ -44,8 +44,9 @@ const Popover = ({popover,onClose,onOpen,position="auto",children,...props}) => 
     let children = {...popover.props.children};
     // debugger;
     let ref = compRef;
+    const onClose = () => setIsVisible(false);
     return (
-      cloneElement(popover,{},popover.props.children)
+      cloneElement(popover,{onClose},popover.props.children)
     )
   }
 
@@ -145,8 +146,9 @@ const Popover = ({popover,onClose,onOpen,position="auto",children,...props}) => 
       {Children.map(childArray,(child) => {
         let childOnClickEvent = child.props.onClick;
         let onClick = (e) => onClickHandler(e,childOnClickEvent);
+        let isActive = isVisible;
         let ref = compRef;
-        return cloneElement(child,{onClick},child.props.children);
+        return cloneElement(child,{onClick,isActive},child.props.children);
       })}
       
     </div>
