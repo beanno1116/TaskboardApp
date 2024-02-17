@@ -42,7 +42,11 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 
 ## TaskListDragAndDrop
 
-2/3/2024 added drag and drop to the task list component. First draft to get something working. created an app utils for functions refactoring from app only. 
+2/3/2024 added drag and drop to the task list component. First draft to get something working. created an app utils for functions refactoring from app only.
+
+## TaskListItemOptionMenu
+
+2/17/2024 updated the list item option menu. got the contact circle to poplate with the initials of the contactId. Fixed the delete button not updating live and also being connected to the incorrect list item. Fixed the add task item updating the task list in real time. Add a getUser and getUsers api request
 
 ## Add Testing Branch
 

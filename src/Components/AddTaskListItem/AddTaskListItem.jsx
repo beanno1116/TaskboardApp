@@ -4,7 +4,7 @@ import styles from './addTaskListItem.module.css';
 import WELabelButton from '../WELabelButton/WELabelButton';
 import AddTaskItemForm from './components/AddTaskItemForm/AddTaskItemForm';
 
-const AddTaskListItem = ({ addTaskHandler }) => {
+const AddTaskListItem = ({ board,addTaskHandler }) => {
   const [isFormShowing,setIsFormShowing] = useState(false);
   
   const onCloseForm = (e) => {
@@ -26,7 +26,7 @@ const AddTaskListItem = ({ addTaskHandler }) => {
             </WELabelButton.Label>
           </WELabelButton>
         }
-        <AddTaskItemForm isFocused={isFormShowing} onSubmit={addTaskHandler} closeForm={() => setIsFormShowing(!isFormShowing)}/>
+        <AddTaskItemForm board={board} isFocused={isFormShowing} onSubmit={addTaskHandler} closeForm={() => setIsFormShowing(!isFormShowing)}/>
         
     </div>      
   );

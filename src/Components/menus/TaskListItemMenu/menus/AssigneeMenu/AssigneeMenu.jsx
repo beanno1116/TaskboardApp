@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import styles from './assigneeMenu.module.css';
+import {useQuery} from 'react-query';
 import { devFetchContacts } from '../../../../../data/fakeApi';
 import { capitalizeEachFirstLetter,capitalizeFirstLetter } from '../../../../../Utilities';
 import ListMenu from '../../../ListMenu/ListMenu';
+import { getUsers } from '../../../../../appUtils';
 
 const ListItem = ({ data, onClick, isSelected }) => {
-  const name = data.first_name + " " + data.last_name;
+  
+  const name = data.firstName + " " + data.lastName;
 
   return (
     <li key={data.id} className={`${styles.list_item} ${styles.assignee} ${isSelected ? styles.selected : ""}`} onClick={e => onClick(e,data.id)}>
       <div className={styles.initials}>
-        {`${capitalizeFirstLetter(Array.from(data.first_name)[0])}${capitalizeFirstLetter(Array.from(data.last_name)[0])}`}
+        {`${capitalizeFirstLetter(Array.from(data.firstName)[0])}${capitalizeFirstLetter(Array.from(data.lastName)[0])}`}
       </div>
       <div className={styles.name}>
         {capitalizeEachFirstLetter(name)}
@@ -24,16 +27,20 @@ const ListItem = ({ data, onClick, isSelected }) => {
 
 
 const AssigneeMenu = ({ task,isActive,menuBack,onChange,search=false }) => {
+  const { isLoading, error, data } = useQuery({
+    queryKey: [`users`],
+    queryFn: () => getUsers()
+  })
   const assignees = devFetchContacts();
 
   const [searchValue,setSearchValue] = useState("");
 
-  const selectListItemEvent = (e,assigneeId) => {
+  const selectListItemEvent = (e,assigneeId) => {    
     onChange(task.id,{contactId:assigneeId});
   }
 
   const renderListItems = (itemArr,selectedId) => {
-    debugger;
+    
     return itemArr.map(item => {
       if (item.id === selectedId){
         return {
@@ -63,40 +70,16 @@ const AssigneeMenu = ({ task,isActive,menuBack,onChange,search=false }) => {
 
       {search && <ListMenu.SearchField value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />}
 
-      <ListMenu.List
-        items={renderListItems(assignees,task.contactId.toString())}
+
+
+      {data && <ListMenu.List
+        items={renderListItems(data,task.contactId.toString())}
         onClick={selectListItemEvent}
         ListItem={ListItem}
-      />
+      />}
 
     </ListMenu>
 
-    // <div className={`${styles.menu_container} ${styles.assignee_menu} ${!isActive ? "" : styles.show_menu}`}>
-
-    //   <div className={styles.menu_header}>
-    //     <LeftDblCheveronButton width={22} height={22} onClick={menuBack} type={"button"} className={styles.menu_header_btn} />
-    //     <div className={styles.menu_title}>Assignees</div>
-    //     <div className={styles.menu_header_placeholder}></div>
-    //   </div>
-
-    //   <ListSeperator />
-
-    //   <div className={styles.search_row}>
-    //     <input type={"text"} className={styles.search_input} value={searchValue} onChange={e => setSearchValue(e.target.value)} />
-    //   </div>
-
-    //   <div ref={listRef} className={styles.list}>
-    //     <ul>
-    //       {assignees.map(assignee => {            
-    //         var selectedStatus = (assignee.id === task.contactId.toString()) ? true : false;
-    //         return (
-    //           <ListItem key={assignee.id} data={assignee} onClick={() => selectListItemEvent(assignee.id)} isSelected={selectedStatus} />
-    //         )
-    //       })}          
-    //     </ul>
-    //   </div>
-
-    // </div>
   );
 }
 

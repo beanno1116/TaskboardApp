@@ -56,10 +56,10 @@ const AuthProvider = ({children}) => {
       if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");              
       const {success,data,message} = response.data;
       if (success){
-        const {id,firstName,lastName,color} = data;
+        const {id,firstName,lastName,color,level} = data;
         setToken(id);        
-        setUser({firstName:firstName,lastName:lastName,color:color});
-        store.setValue("app",{token:id,user:{firstName:firstName,lastName:lastName,color:color}});                
+        setUser({firstName:firstName,lastName:lastName,color:color,level:level});
+        store.setValue("app",{token:id,user:{firstName:firstName,lastName:lastName,color:color,level:level}});                
       }   
       console.log(response);
     })

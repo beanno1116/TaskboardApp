@@ -21,7 +21,7 @@ const MENU_HEIGHT = 380;
 
 
 
-const TasklistItemMenu = ({task,deleteTask,updateTask,onChange}) => {
+const TasklistItemMenu = ({task,onClose,deleteTask,updateTask,onChange}) => {
   const mainMenuItems = devFetchListItemMainMenuItems();
   const [showMenuView,setShowMenuView] = useState(false);
   const [currentMenu,setCurrentMenu] = useState("");
@@ -85,6 +85,11 @@ const TasklistItemMenu = ({task,deleteTask,updateTask,onChange}) => {
     setShowMenuView(true);
   }
 
+  const deleteTaskClickHandler = (e) => {    
+    onClose();
+    deleteTask(task.id);    
+  }
+
   
 
   return (
@@ -105,7 +110,7 @@ const TasklistItemMenu = ({task,deleteTask,updateTask,onChange}) => {
         
       <EditButton width={24} height={24}  name={"edit_btn"} className={styles.nav_btn} type={"button"} onClick={(e) => onEditButtonClick(e)}/>
 
-      <TrashButton width={24} height={24}  name={"trash_btn"} className={styles.nav_btn} type={"button"} onClick={() => deleteTask(task.id)} />
+      <TrashButton width={24} height={24}  name={"trash_btn"} className={styles.nav_btn} type={"button"} onClick={(e) => deleteTaskClickHandler(e)} />
 
     </div>
 

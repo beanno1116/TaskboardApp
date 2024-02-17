@@ -1,3 +1,5 @@
+import axios from "axios";
+import { API_ENDPOINT } from "./config";
 
 
 export const sortTasksByPosition = (a,b) => parseInt(a.position) - parseInt(b.position);
@@ -117,3 +119,22 @@ export const toFormData = (data,key="") => {
     
   }
 }
+
+
+export const getTasks = async (boardId) => {
+
+  const response = await axios.get(API_ENDPOINT,{params:{action:"getTasks",boardId:boardId}});
+  return response.data;
+}
+
+export const getUsers = async () => {
+  const response = await axios.get(API_ENDPOINT,{params:{action:"getUsers"}});
+  return response.data;
+}
+export const getUser = async (userId) => {
+  const response = await axios.get(API_ENDPOINT,{params:{action:"getUser",id:userId}});
+  debugger;
+  let tmp = response.data;
+  return response.data;
+}
+
