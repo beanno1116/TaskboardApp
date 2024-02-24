@@ -60,7 +60,7 @@ const del = (taskId,handler) => {
 }
 const upDate = (update,handler) => {
   try {
-    var fd = createFormDataObj({update});
+    var fd = createFormDataObj({update:JSON.stringify(update)});
     fd.append("action",UPDATE_TASK_ACTION);
     axios.post(API_ENDPOINT,fd,{
       headers: {
@@ -151,7 +151,7 @@ const useTaskList = (boardId) => {
   }
 
   const updateTask = (taskId,update) => {
-    
+    debugger;
     const tasksCopy = [...data];    
     const newState = tasksCopy.map(t => {
       if (t.id === taskId) {        
@@ -162,9 +162,9 @@ const useTaskList = (boardId) => {
     debugger;
     const mutatedTask = newState.filter(t => t.id === taskId)[0];
     queryClient.setQueryData([`${boardId}`],tasks => [...newState]);
-    // upDate({taskId,update},() => {        
-    //   queryClient.setQueryData([`${boardId}`],tasks => [...newState]);
-    // });
+    upDate({taskId,update},() => {        
+      queryClient.setQueryData([`${boardId}`],tasks => [...newState]);
+    });
     // setTasks([...newState])
   }
 

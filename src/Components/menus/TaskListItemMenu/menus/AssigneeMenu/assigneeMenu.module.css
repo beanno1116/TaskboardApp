@@ -9,6 +9,8 @@
   padding-left: .5em;
   border-radius: .25em;
   cursor: pointer;
+  /* background-color: #373a44; */
+  /* z-index: 9; */
   /* padding: .5em; */
 }
 .list_item:hover {

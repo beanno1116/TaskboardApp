@@ -6,7 +6,7 @@ import { capitalizeFirstLetter } from '../../../Utilities';
 
 
 const getinitials = (user) => {
-  debugger;
+  
   if (!user) return "";  
   if (Reflect.ownKeys(user).length === 0) return "";
   let firstName = user.firstName;
@@ -23,9 +23,9 @@ const TaskItemContact = ({ contact }) => {
   })
 
   return (
-    <div title={contact ? contact : ""} className={styles.contact}>
+    <div title={data ? `${data.firstName} ${data.lastName}` : ""} className={styles.contact} style={data && {"--bg-color":data.color + "52"}}>
       <span className={styles.contact_initials}>
-        {isLoading && "? ?"};
+        {isLoading && "? ?"}
         {data && getinitials(data)}
       </span>
     </div>

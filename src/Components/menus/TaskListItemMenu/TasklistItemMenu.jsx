@@ -12,6 +12,8 @@ import AssigneeMenu from './menus/AssigneeMenu/AssigneeMenu';
 import StatusMenu from './menus/StatusMenu/StatusMenu';
 import PrioritiesMenu from './menus/PriorityMenu/PriorityMenu';
 import { devFetchListItemMainMenuItems } from '../../../data/fakeApi';
+import { useQuery } from 'react-query';
+import { getMenuItems } from '../../../appUtils';
 
 
 const DEFAULT_HEIGHT = 175;
@@ -22,6 +24,10 @@ const MENU_HEIGHT = 380;
 
 
 const TasklistItemMenu = ({task,onClose,deleteTask,updateTask,onChange}) => {
+  const {isLoading,isError,data} = useQuery({
+    queryKey: ['listItemMenu'],
+    queryFn: () => getMenuItems("listItemMenu","main")
+  })
   const mainMenuItems = devFetchListItemMainMenuItems();
   const [showMenuView,setShowMenuView] = useState(false);
   const [currentMenu,setCurrentMenu] = useState("");
@@ -99,7 +105,7 @@ const TasklistItemMenu = ({task,onClose,deleteTask,updateTask,onChange}) => {
       {showMenuView && setMenuView(currentMenu)}
                 
 
-      <MainMenu menuItems={mainMenuItems} isActive={showMenuView} onClick={onMenuItemClick}/>
+      <MainMenu menuItems={isLoading ? [] : data} isActive={showMenuView} onClick={onMenuItemClick}/>
 
         
     </div>
