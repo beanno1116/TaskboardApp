@@ -71,7 +71,7 @@ const Popover = ({popover,onClose,onOpen,position="auto",children,...props}) => 
   const onClickHandler = (e,handler) => {
     e.stopPropagation();
     e.preventDefault();
-
+debugger;
     let anchorRect = getDOMRectObj(e.currentTarget);
    
     let popoverRect = getDOMRectObj(popoverRef.current);
@@ -133,12 +133,16 @@ const Popover = ({popover,onClose,onOpen,position="auto",children,...props}) => 
     }
   })
 
-
+  const onTransitionEndEvent = (e) => {
+    let tmp = e;
+    debugger;
+    console.log(e);
+  }
 
   return (
     <div className={styles.popover_container} ref={containerRef}>
 
-      <div ref={popoverRef} data-open={isVisible} className={`${popoverClassNames()} ${isVisible ? styles.is_open : ""}`} style={{right:right + "px"}} {...props}>
+      <div ref={popoverRef} data-open={isVisible} onTransitionEnd={onTransitionEndEvent} className={`${popoverClassNames()} ${isVisible ? styles.is_open : ""}`} style={{right:right + "px"}} {...props}>
         {/* {isVisible ? popover : null} */}
         <Component />
         

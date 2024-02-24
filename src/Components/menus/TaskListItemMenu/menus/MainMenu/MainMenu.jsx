@@ -1,5 +1,6 @@
 
 
+import { capitalizeFirstLetter } from '../../../../../Utilities';
 import RightChevronIcon from '../../../../../assets/icons/RightChevron';
 import styles from './mainMenu.module.css';
 
@@ -19,7 +20,7 @@ const MainMenu = ({ menuItems,onClick,isActive}) => {
 
       {menuItems.map(item => {
         return (
-          <MenuItem key={item.id} id={item.id} name={item.name} onClick={onClick} />          
+          <MenuItem key={item.id} id={item.id} name={capitalizeFirstLetter(item.label)} onClick={onClick} />          
         )
       })}
 

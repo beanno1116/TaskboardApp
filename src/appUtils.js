@@ -1,6 +1,11 @@
 import axios from "axios";
 import { API_ENDPOINT } from "./config";
 
+const GET_TASKS = "getTasks";
+const GET_USERS = "getUsers";
+const GET_USER = "getUser";
+const GET_STATUSES = "getStatuses";
+const GET_MENU_ITEMS = "getMenuItems";
 
 export const sortTasksByPosition = (a,b) => parseInt(a.position) - parseInt(b.position);
 
@@ -123,18 +128,32 @@ export const toFormData = (data,key="") => {
 
 export const getTasks = async (boardId) => {
 
-  const response = await axios.get(API_ENDPOINT,{params:{action:"getTasks",boardId:boardId}});
-  return response.data;
-}
-
-export const getUsers = async () => {
-  const response = await axios.get(API_ENDPOINT,{params:{action:"getUsers"}});
-  return response.data;
-}
-export const getUser = async (userId) => {
-  const response = await axios.get(API_ENDPOINT,{params:{action:"getUser",id:userId}});
-  debugger;
+  const response = await axios.get(API_ENDPOINT,{params:{action:GET_TASKS,boardId:boardId}});
+  // debugger;
   let tmp = response.data;
   return response.data;
 }
 
+export const getUsers = async () => {
+  const response = await axios.get(API_ENDPOINT,{params:{action:GET_USERS}});
+  return response.data;
+}
+export const getUser = async (userId) => {
+  const response = await axios.get(API_ENDPOINT,{params:{action:GET_USER,id:userId}});
+  // debugger;
+  let tmp = response.data;
+  return response.data;
+}
+export const getStatuses = async () => {  
+  const response = await axios.get(API_ENDPOINT,{params:{action:GET_STATUSES}});
+  // debugger;
+  let tmp = response.data;
+  return response.data.data;
+}
+
+export const getMenuItems = async (menu,name) => {
+  const response = await axios.get(API_ENDPOINT,{params:{action:GET_MENU_ITEMS,menu:menu,name:name}});
+  // debugger;
+  let tmp = response.data;
+  return response.data.data;
+}

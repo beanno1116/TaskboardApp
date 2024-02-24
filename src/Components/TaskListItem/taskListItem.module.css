@@ -132,6 +132,7 @@
 }
 
 .contact {
+  --bg-color: rgba(144, 183, 118, 0.702);
   position: relative;
   display: flex;
   justify-content: center;
@@ -139,9 +140,10 @@
   width: 30px;
   height: 30px;  
   border-radius: 50%;
-  background-color: rgb(143,183,117);
+  background-color: var(--bg-color); 
   font-size: .8rem;
-  color: black;
+  font-weight: 800;
+  color: snow;
   line-height: 1.6;
   font-family: 'Roboto', sans-serif;
   cursor: pointer;
