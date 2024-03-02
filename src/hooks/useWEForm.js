@@ -110,11 +110,16 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
     return input;
   }
 
+  const updateFormData = (key,value) => {
+    let tmp = {...formData,[key]:value};
+    debugger;
+    setFormData({...tmp});
+    
+  }
 
 
   const handleInputChange = (e, inputName) => {
-    
-    
+  
     const config = findInputConfig(inputName, inputs.current);
     
     const { name, input } = config;
@@ -278,7 +283,7 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
     return retObj;
   }
 
-  return { formData, registerFormInput, registerFormInputContext, handleSubmit, handleFormReset,handleInputReset, handleInputChange, errors };
+  return { formData,updateFormData, registerFormInput, registerFormInputContext, handleSubmit, handleFormReset,handleInputReset, handleInputChange, errors };
 }
 
 export default useWEForm;

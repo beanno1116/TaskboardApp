@@ -48,7 +48,9 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 
 2/17/2024 updated the list item option menu. got the contact circle to poplate with the initials of the contactId. Fixed the delete button not updating live and also being connected to the incorrect list item. Fixed the add task item updating the task list in real time. Add a getUser and getUsers api request
 
-2/24/2024 update the list item menu option for status. Also added the updateTask api call as well as added getMenuItems api call as well. 
+2/24/2024 update the list item menu option for status. Also added the updateTask api call as well as added getMenuItems api call as well.
+
+3/2/2024 added animation to the tasklist items entering the view. created list item components for the list menus. Created the ProjectLead list menu component. set up the form data to accept the contactId from the list menu. TODO: need to fix the way that the pop over closes so that when a menu item is clicked and the update occurs the popover closes.
 
 ## Add Testing Branch
 

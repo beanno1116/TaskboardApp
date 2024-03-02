@@ -23,7 +23,7 @@ const TaskItemContact = ({ contact }) => {
   })
 
   return (
-    <div title={data ? `${data.firstName} ${data.lastName}` : ""} className={styles.contact} style={data && {"--bg-color":data.color + "52"}}>
+    <div title={data ? `${data.firstName} ${data.lastName}` : ""} className={styles.contact} style={data && {"--bg-color":data.color}}>
       <span className={styles.contact_initials}>
         {isLoading && "? ?"}
         {data && getinitials(data)}
