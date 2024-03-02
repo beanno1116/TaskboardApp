@@ -1,6 +1,7 @@
 
 import TaskListItem from '../TaskListItem/TaskListItem';
 import styles from './taskList.module.css';
+import { CSSTransition,TransitionGroup,Transition } from 'react-transition-group';
 // import ListItem from './ListItem';
 
 
@@ -72,23 +73,36 @@ const TaskList = ({listId}) => {
           <ul className={styles.tasklist}>
             
               {/* {isLoading && <h1>Loading...</h1>} */}
-            
-              {data && data.filter(d => d.type === listId).sort(sortTasksByPosition).map((task,index) => {                                
-                return (
-                 
-                  <TaskListItem
-                    key={task.id}
-                    task={task}
-                    boardId={listId}
-                    menu={<TasklistItemMenu task={task} onChange={() => {}} deleteTask={deleteTask} updateTask={updateTask} />}
-                    draggable
-                    onDragOver={onDragOverEvent}
-                    onDragStart={(e) => onDragStart(e,index)}
-                    onDragEnter={(e) => onDragEnterEvent(e,index)}                
-                    // onDrop={onDropEvent}
-                  />
-                )
-              })}
+              <TransitionGroup>
+
+                {data && data.filter(d => d.type === listId).sort(sortTasksByPosition).map((task,index) => {                                
+                  return (
+                    <CSSTransition key={task.id} classNames={{
+                      enter: styles.myEnter,
+                      enterActive: styles.myEnterActive,
+                      enterDone: styles.myEnterDone,
+                      exit: styles.myExit,
+                      exitActive: styles.myExitActive,
+                      exitDone: styles.myExitDone
+                    }} timeout={900}>
+
+                      <TaskListItem
+                        key={task.id}
+                        task={task}
+                        boardId={listId}
+                        menu={<TasklistItemMenu task={task} onChange={() => {}} deleteTask={deleteTask} updateTask={updateTask} />}
+                        draggable
+                        onDragOver={onDragOverEvent}
+                        onDragStart={(e) => onDragStart(e,index)}
+                        onDragEnter={(e) => onDragEnterEvent(e,index)}                
+                        // onDrop={onDropEvent}
+                      />
+
+                    </CSSTransition>
+                  )
+                })}
+
+              </TransitionGroup>
                           
           </ul>
 

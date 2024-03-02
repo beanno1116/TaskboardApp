@@ -71,7 +71,7 @@ const Popover = ({popover,onClose,onOpen,position="auto",children,...props}) => 
   const onClickHandler = (e,handler) => {
     e.stopPropagation();
     e.preventDefault();
-debugger;
+
     let anchorRect = getDOMRectObj(e.currentTarget);
    
     let popoverRect = getDOMRectObj(popoverRef.current);
@@ -135,7 +135,7 @@ debugger;
 
   const onTransitionEndEvent = (e) => {
     let tmp = e;
-    debugger;
+    
     console.log(e);
   }
 

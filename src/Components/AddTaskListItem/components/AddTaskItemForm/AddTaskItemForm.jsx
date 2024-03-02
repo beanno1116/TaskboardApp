@@ -10,16 +10,19 @@ import ToolbarUserMenu from '../../../menus/ToolbarUserMenu/ToolbarUserMenu';
 import TBForm from '../../../TBForm/TBForm';
 import FormContent from './components/FormContent';
 import FormNav from './components/FormNav';
+import AssigneeMenu from '../../../menus/TaskListItemMenu/menus/AssigneeMenu/AssigneeMenu';
+import LeadMenu from '../../../menus/LeadMenu/LeadMenu';
 
 
 
 
 
 function AddTaskItemForm({ isFocused,onSubmit,closeForm,board }) {
-  const {registerFormInput,handleSubmit,handleFormReset} = useWEForm({
+  const {updateFormData,registerFormInput,handleSubmit,handleFormReset,handleInputChange} = useWEForm({
     title: "Test task",
     description:"testing the task creation process",
-    type: ""
+    type: "",
+    contactId: ""
   })
 
   const initialFocusEle = useRef(null);
@@ -47,7 +50,8 @@ function AddTaskItemForm({ isFocused,onSubmit,closeForm,board }) {
       console.log(contacts);
     }
 
-    const onAddTaskBtnClick = (e,formData,isValid) => {      
+    const onAddTaskBtnClick = (e,formData,isValid) => {  
+      debugger;    
       if (!isValid) return;      
 
       closeForm();
@@ -108,8 +112,8 @@ function AddTaskItemForm({ isFocused,onSubmit,closeForm,board }) {
                 <VerticalDotsButton width={23} height={23} className={styles.assign_btn}/>
               </Popover>
 
-
-              <Popover popover={<ToolbarUserMenu />} onClose={() => {}} style={{bottom:"100%",right:"0%",transformOrigin:"bottom right"}} >
+              
+              <Popover popover={<LeadMenu onClick={updateFormData}/>} onClose={() => {}} style={{bottom:"100%",right:"0%",transformOrigin:"bottom right"}} >
                 <AssigneeButton width={24} height={24} className={styles.assign_btn}/>
               </Popover>
 

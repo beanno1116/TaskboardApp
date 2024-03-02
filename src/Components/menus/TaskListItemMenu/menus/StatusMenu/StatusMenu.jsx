@@ -5,6 +5,7 @@ import { capitalizeFirstLetter } from '../../../../../Utilities';
 import ListMenu from '../../../ListMenu/ListMenu';
 import { useQuery } from 'react-query';
 import { getStatuses } from '../../../../../appUtils';
+import StatusListItem from '../../../../listItems/StatusListItem/StatusListItem';
 
 
 
@@ -70,7 +71,7 @@ const StatusMenu = ({ task,isActive,menuBack,onChange,search=false }) => {
       {data && <ListMenu.List 
         items={renderListItems(data,task.status)} 
         onClick={selectListItemEvent} 
-        ListItem={ListItem}
+        ListItem={StatusListItem}
       />}
 
     </ListMenu>

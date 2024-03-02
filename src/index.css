@@ -37,6 +37,7 @@ html {
   hanging-punctuation: first last;
   color-scheme: dark light;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 * , *:before, *:after{ 
