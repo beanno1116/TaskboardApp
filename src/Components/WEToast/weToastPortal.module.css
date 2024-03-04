@@ -1,0 +1,96 @@
+.toast_view {
+  position: relative;  
+}
+
+/***** TOAST LAYOUT CSS STYLES *****/
+.toast_layout {
+  position: relative;
+  display: flex;
+  width: 275px;
+  height: 100px;
+}
+
+/***** SUCCESS TOAST CSS STYLES *****/
+.toast_container {
+  position: absolute;
+  display: flex;
+  flex-flow: column;
+  top: 0;
+  right: 0;
+  height: 100%;   
+  /* padding: 2em 0 2em 2em;  */
+  /* background-color: #3e3e3e;   */
+  z-index: 1;
+  /* background-color: #555; */
+}
+
+.toast_item {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  min-width: 250px;
+  height: 90px;
+  margin: 1em;
+  border-radius: 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;   
+}
+.toast_item .icon {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  /* width: 50px; */
+  padding: .75em;  
+  color: white;  
+}
+.toast_item .body {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  color: white;
+}
+.toast_item .title {    
+  width: 100%;
+  padding: .25rem .5rem;
+  padding-bottom: 0;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  font-family: 'Passion One', sans-serif;
+  /* text-align: center; */
+}
+.toast_item .message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+  padding: 0 .5rem;
+  padding-bottom: 0;
+  font-family: 'Roboto', sans-serif;
+}
+.toast_item .close_btn {
+  position: absolute;
+  top: .125rem;
+  right: .125rem;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background-color: transparent;
+  box-shadow: 0;
+  color: white;
+  cursor: pointer;
+}
+
+
+.toast_item.success {
+  background-color: limegreen;
+  
+}
+.toast_item.warn {
+  background-color: orange;
+}
+.toast_item.error {
+  background-color: red;
+}

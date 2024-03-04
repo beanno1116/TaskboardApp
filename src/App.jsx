@@ -2,6 +2,7 @@ import { useQuery,useMutation,useQueryClient,QueryClient,QueryClientProvider } f
 import TaskboardApp from './Views/TaskboardApp/TaskboardApp';
 
 import AuthProvider from './hooks/useAuth';
+import { WEToast } from './Components/WEToast/WEToast';
 
 const queryClient = new QueryClient();
 
@@ -17,7 +18,7 @@ function App() {
         <TaskboardApp />
 
       </AuthProvider>
-
+            
     </QueryClientProvider>
     
   )

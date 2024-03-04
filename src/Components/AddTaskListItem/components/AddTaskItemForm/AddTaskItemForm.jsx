@@ -22,7 +22,8 @@ function AddTaskItemForm({ isFocused,onSubmit,closeForm,board }) {
     title: "Test task",
     description:"testing the task creation process",
     type: "",
-    contactId: ""
+    contactId: "",
+    status: 0
   })
 
   const initialFocusEle = useRef(null);
@@ -51,7 +52,7 @@ function AddTaskItemForm({ isFocused,onSubmit,closeForm,board }) {
     }
 
     const onAddTaskBtnClick = (e,formData,isValid) => {  
-      debugger;    
+        
       if (!isValid) return;      
 
       closeForm();

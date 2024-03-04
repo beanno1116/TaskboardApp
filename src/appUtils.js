@@ -90,6 +90,19 @@ const stringToFormData = (str,key="array") => {
     
   }
 }
+export const isEmpty = (val) => {
+  try {    
+    if (isString(val)) {
+      if (val === null || val === undefined || val.length === 0){
+        return true;
+      }
+    }
+    return false;
+  } catch (error) {
+    console.error(`[FNC][isEmpty][ERROR]-${error.message}`);
+  }
+}
+
 
 export const toFormData = (data,key="") => {
   try {
