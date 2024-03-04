@@ -52,6 +52,10 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 
 3/2/2024 added animation to the tasklist items entering the view. created list item components for the list menus. Created the ProjectLead list menu component. set up the form data to accept the contactId from the list menu. TODO: need to fix the way that the pop over closes so that when a menu item is clicked and the update occurs the popover closes.
 
+## Add Toast Branch
+
+3/4/2024 Add a toast mechanism to the app and added it to the add and delete operations. Needs to work on css and find the best way to animate the toasts in and out. Created a WEToast component to handle the toasts. Look into creating a hook and possibly another way to implement.  Currently using an event to display the toast. Could possibly share a method in a context or other way
+
 ## Add Testing Branch
 
 1/12/2024 ran the following commands

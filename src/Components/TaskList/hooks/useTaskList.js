@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { devFetchTasks } from "../../../data/fakeApi";
 import { Task } from "../../../data/models/task";
 import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
@@ -7,6 +6,7 @@ import { createFormDataObj } from "../../../Utilities";
 import { useAuth } from "../../../hooks/useAuth";
 import { getTasks, swapIndex, toFormData } from "../../../appUtils";
 import { useQuery,useQueryClient } from "react-query";
+import { toast } from "../../WEToast/WEToast";
 
 let history = [];
 
@@ -27,7 +27,7 @@ const add = (task,handler) => {
     .then(response => {      
       if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
       if (response.data.success) {
-        handler();
+        handler(response.data.message);
       }
     })
     .catch((error) => {
@@ -48,7 +48,7 @@ const del = (taskId,handler) => {
     .then(response => {
       if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
       if (response.data.success) {
-        handler();
+        handler(response.data.message);
       }
     })
     .catch((error) => {
@@ -110,8 +110,7 @@ const saveTasks = (tasks) => {
   }
 }
 
-const useTaskList = (boardId) => {
-  // debugger;
+const useTaskList = (boardId) => {  
   const auth = useAuth();
   const [tasks,setTasks] = useState([]);  
   const { isLoading, error, data } = useQuery({
@@ -129,7 +128,11 @@ const useTaskList = (boardId) => {
       const newTask = new Task(boardId,task);
       newTask.authorId = auth.token;
       history = [...history,{event:"addtask",task}];     
-      add(newTask,() => {        
+      add(newTask,(message) => {      
+        toast.success(message,{
+          position: toast.position.TOP_RIGHT,
+          title: "Success"
+        })  
         queryClient.setQueryData([`${task.type}`],tasks => [...tasks,newTask]);
       });
     } catch (error) {
@@ -140,7 +143,12 @@ const useTaskList = (boardId) => {
   const deleteTask = (taskId) => {   
     try {
       if (taskId.length === 0) throw new Error("Task id required");
-      del(taskId,() => {
+      
+      del(taskId,(message) => {
+        toast.success(message,{
+          position: toast.position.TOP_RIGHT,
+          title: "Success"
+        }) 
         queryClient.setQueryData([`${boardId}`],tasks => {                    
           return tasks.filter(t => t.id !== taskId);
         });

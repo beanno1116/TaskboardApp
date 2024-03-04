@@ -7,6 +7,7 @@ import styles from '../../app.module.css';
 import TaskboardToolbar from '../Taskboard/TaskboardToolbar';
 import TaskboardView from '../Taskboard/TaskboardView';
 import {useAuth} from '../../hooks/useAuth';
+import { WEToast } from '../../Components/WEToast/WEToast';
 
 
 
@@ -26,7 +27,7 @@ const TaskboardApp = () => {
 
   return (
     <div className={styles.taskboard_app}>
-
+      <WEToast />
        {!auth.token ?
         <LoginView /> :
         <TaskboardViewContainer />
