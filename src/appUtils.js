@@ -22,7 +22,7 @@ export const swapIndex = (array,current,finished) => {
 
 export const isObject = (obj) => {
   try {
-    debugger;
+    
     if (typeof obj === 'object' && obj instanceof Object) {
       return true;
     }
@@ -139,10 +139,16 @@ export const toFormData = (data,key="") => {
 }
 
 
+
+
+
+
+
+
 export const getTasks = async (boardId) => {
 
   const response = await axios.get(API_ENDPOINT,{params:{action:GET_TASKS,boardId:boardId}});
-  // debugger;
+  // 
   let tmp = response.data;
   return response.data;
 }
@@ -153,20 +159,70 @@ export const getUsers = async () => {
 }
 export const getUser = async (userId) => {
   const response = await axios.get(API_ENDPOINT,{params:{action:GET_USER,id:userId}});
-  // debugger;
+  // 
   let tmp = response.data;
   return response.data;
 }
 export const getStatuses = async () => {  
   const response = await axios.get(API_ENDPOINT,{params:{action:GET_STATUSES}});
-  // debugger;
+  // 
   let tmp = response.data;
   return response.data.data;
 }
 
 export const getMenuItems = async (menu,name) => {
   const response = await axios.get(API_ENDPOINT,{params:{action:GET_MENU_ITEMS,menu:menu,name:name}});
-  // debugger;
+  // 
   let tmp = response.data;
   return response.data.data;
+}
+
+export const deleteRequest = async (url,data,handler) => {
+  axios.post(url,data,{
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+  .then(response => {
+    if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
+    if (response.data.success) {
+      handler(response.data.message);
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+}
+export const createRequest = async (url,data,handler) => {
+  axios.post(url,data,{
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+  .then(response => {      
+    if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
+    if (response.data.success) {
+      handler(response.data.message);
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+}
+
+export const updateRequest = (url,data,handler) => {
+  axios.post(url,data,{
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+  .then(response => {      
+    if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
+    if (response.data.success) {
+      handler();
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 }

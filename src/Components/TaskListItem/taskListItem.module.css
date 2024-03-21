@@ -1,4 +1,5 @@
 .tasklist_item {
+  /* position: relative; */
   display: flex;
   flex-wrap: nowrap;
   margin-bottom: .5em;

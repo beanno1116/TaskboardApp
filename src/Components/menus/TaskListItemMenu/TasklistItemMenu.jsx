@@ -23,38 +23,44 @@ const MENU_HEIGHT = 380;
 
 
 
-const TasklistItemMenu = ({task,onClose,deleteTask,updateTask,onChange}) => {
+const TasklistItemMenu = ({task,onClose,onOpen,deleteTask,updateTask,onChange}) => {
   const {isLoading,isError,data} = useQuery({
     queryKey: ['listItemMenu'],
     queryFn: () => getMenuItems("listItemMenu","main")
-  })
-  const mainMenuItems = devFetchListItemMainMenuItems();
+  })  
   const [showMenuView,setShowMenuView] = useState(false);
   const [currentMenu,setCurrentMenu] = useState("");
   
-  
   const menuRef = useRef(null);
   
-  
-  
+
   const onNavChangeEvent = (e) => {
-    debugger;
+    
     menuRef.current.style.setProperty("--height",DEFAULT_HEIGHT + "px");
     menuRef.current.style.setProperty("--width",DEFAULT_WIDTH + "px");
     setShowMenuView(false);
     setCurrentMenu("");
   }
 
+  const menuOnChangeEvent = (taskId,changeObj) => {    
+    updateTask(taskId,changeObj);
+    menuRef.current.style.setProperty("--height",DEFAULT_HEIGHT + "px");
+    menuRef.current.style.setProperty("--width",DEFAULT_WIDTH + "px");
+    setShowMenuView(false);
+    setCurrentMenu("");
+    onClose();
+  }
+
 
 
   const setMenuView = (menuName) => {
-    // debugger;
+    // 
     menuRef.current.style.setProperty("--height",MENU_HEIGHT + "px");
     switch (menuName.toLowerCase()) {
       case "assignee":                            
         return (<AssigneeMenu task={task} isActive={showMenuView} menuBack={onNavChangeEvent} onChange={updateTask} search={true} />)    
       case "status":    
-          return (<StatusMenu task={task} isActive={showMenuView} menuBack={onNavChangeEvent} onChange={updateTask} search={false} />)
+          return (<StatusMenu task={task} isActive={showMenuView} menuBack={onNavChangeEvent} onChange={menuOnChangeEvent} search={false} />)
     //   case "due_date":
     //       root.style.setProperty("--po-height","380px");
     //       return (<PODueDateMenu onClick={menuBackClickEvent} onChange={e => onChange(e,"due_date")} task={task} />)

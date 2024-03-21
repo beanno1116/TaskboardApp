@@ -42,7 +42,7 @@ const Popover = ({popover,onClose,onOpen,position="auto",children,...props}) => 
   const Component = () => {
     let props = {...popover.props};
     let children = {...popover.props.children};
-    // debugger;
+    // 
     let ref = compRef;
     const onClose = () => setIsVisible(false);
     return (
@@ -63,7 +63,8 @@ const Popover = ({popover,onClose,onOpen,position="auto",children,...props}) => 
     if (popoverConfig.position === "auto") {
       return classNames;
     }
-    return `${classNames} ${styles[popoverConfig.position]}`
+    return `${classNames}`
+    // return `${classNames} ${styles[popoverConfig.position]}`
   }
 
 
@@ -71,12 +72,38 @@ const Popover = ({popover,onClose,onOpen,position="auto",children,...props}) => 
   const onClickHandler = (e,handler) => {
     e.stopPropagation();
     e.preventDefault();
-
+    const popoverStyles = getComputedStyle(popoverRef.current);
+    let popoverWidth = popoverStyles.getPropertyValue("width").replace("px","");
+    let popoverHeight = popoverStyles.getPropertyValue("height");
     let anchorRect = getDOMRectObj(e.currentTarget);
+
+    let anchorRectX = anchorRect.x;
+
+    let viewHeight = window.innerHeight;
+    let viewWidth = window.innerWidth;
+    let midX = viewWidth * .5;
+    let midY = viewHeight * .5;
+
+    // anchorRect.x > midX right side of middle
+    // anchorRect.x < midX left side of middle
+    // anchorRect.y > midY bottom side of middle
+    // anchorRect.y < midY top side of middle
+
+    if (anchorRect.x > midX && anchorRect.y > midY){
+      console.log("Bottom Right Quadrant");
+    }else if (anchorRect.x < midX && anchorRect.y > midY) {
+      console.log("Bottom left quadrant");
+    }else if (anchorRect.x < midX && anchorRect.y < midY) {
+       console.log("Top left quandrant");
+    }else if (anchorRect.x > midX && anchorRect.y < midY) {
+      console.log("Top right quadrant");
+    }
    
     let popoverRect = getDOMRectObj(popoverRef.current);
    
+   let tmp = anchorRect.right + 5 + popoverWidth;
     setRight(anchorRect.width + 15);
+    // setRight((anchorRect.width + 15) + popoverWidth);
     setTop(anchorRect.top - popoverRect.top);
     
     
@@ -86,7 +113,11 @@ const Popover = ({popover,onClose,onOpen,position="auto",children,...props}) => 
 
   useLayoutEffect(() => {
     if (popoverRef.current){
-      const popover = popoverRef.current;      
+      const popover = popoverRef.current;  
+      let styleObj = getComputedStyle(popover);
+      let height = styleObj.getPropertyValue("height");
+      let width = styleObj.getPropertyValue("width");
+      
       // popover.classList.add(styles.is_open);
       // popover.style.visibility = "hidden";
       // let tmpRect = getDOMRectObj(popover);      
@@ -96,7 +127,7 @@ const Popover = ({popover,onClose,onOpen,position="auto",children,...props}) => 
       let tmp = popoverRef.current;
       let rect = getDOMRectObj(tmp);
 
-      // debugger;
+      // 
     }
     // let style = getComputedStyle(tmp);
     // let h = style.height.replace("px","");

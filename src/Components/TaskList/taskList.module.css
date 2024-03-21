@@ -40,7 +40,7 @@
   opacity: 1;  
   transform: translateX(0%);
 }
-.exitActive {
+.exitDone {
   opacity: 0;
   transform: translateX(-100%);
   transition: all .3s ease-in-out;

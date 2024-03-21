@@ -3,7 +3,7 @@ import styles from '../wePopup.module.css';
 
 const Popup = forwardRef(({ content, show, handleClose, top, left, width, height }, ref) => {
 
-  // debugger;
+  // 
   let w = (width === 'unset') ? 'unset' : width + 'px';
   let h = (height === 'unset') ? 'unset' : height + 'px';
 

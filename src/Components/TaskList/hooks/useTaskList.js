@@ -4,7 +4,7 @@ import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 import { createFormDataObj } from "../../../Utilities";
 import { useAuth } from "../../../hooks/useAuth";
-import { getTasks, swapIndex, toFormData } from "../../../appUtils";
+import { getTasks, swapIndex, toFormData,deleteRequest,createRequest,updateRequest } from "../../../appUtils";
 import { useQuery,useQueryClient } from "react-query";
 import { toast } from "../../WEToast/WEToast";
 
@@ -15,100 +15,9 @@ const SAVE_TASKS_ACTION = "saveTasks";
 const UPDATE_TASK_ACTION = "updateTask"
 const DEL_TASK_ACTION = "deleteTask";
 
-const add = (task,handler) => {
-  try {
-    var fd = createFormDataObj(task);
-    fd.append("action",ADD_TASK_ACTION);
-    axios.post(API_ENDPOINT,fd,{
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    })
-    .then(response => {      
-      if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
-      if (response.data.success) {
-        handler(response.data.message);
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}
-const del = (taskId,handler) => {
-  try {
-    var fd = createFormDataObj({taskId:taskId,action:DEL_TASK_ACTION});
-    axios.post(API_ENDPOINT,fd,{
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    })
-    .then(response => {
-      if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
-      if (response.data.success) {
-        handler(response.data.message);
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  } catch (error) {
-    onsole.error(error);
-  }
-}
-const upDate = (update,handler) => {
-  try {
-    var fd = createFormDataObj({update:JSON.stringify(update)});
-    fd.append("action",UPDATE_TASK_ACTION);
-    axios.post(API_ENDPOINT,fd,{
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    })
-    .then(response => {      
-      if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
-      if (response.data.success) {
-        handler();
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}
-const saveTasks = (tasks) => {
-  try {    
-    var fd = toFormData(tasks);      
-    fd.append("action",SAVE_TASKS_ACTION);
-    axios.get(API_ENDPOINT,{params:{action:"getTasks",boardId:1}}).then(response => {
-      debugger;
-      let tmp = response.data;
-      
 
-    })
-    // axios.post(API_ENDPOINT,fd,{
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   }
-    // })
-    // .then(response => {      
-    //   debugger;
-    //   if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
-    //   if (response.data.success) {
-    //     handler(oldTasks => [...oldTasks,response.data.data]);
-    //   }
-    // })
-    // .catch((error) => {
-    //   console.error(error);
-    // });
-  } catch (error) {
-    console.error(error);
-  }
-}
+
+
 
 const useTaskList = (boardId) => {  
   const auth = useAuth();
@@ -121,73 +30,64 @@ const useTaskList = (boardId) => {
   const queryClient = useQueryClient();
 
 
-
-
-  const addTask = (task) => {
-    try {      
-      const newTask = new Task(boardId,task);
-      newTask.authorId = auth.token;
-      history = [...history,{event:"addtask",task}];     
-      add(newTask,(message) => {      
-        toast.success(message,{
+  const actions = {
+    add(task){
+      try {      
+        const newTask = new Task(boardId,task);
+        newTask.authorId = auth.token;
+        var fd = createFormDataObj(newTask);
+        fd.append("action",ADD_TASK_ACTION);
+        history = [...history,{event:"addtask",newTask}];    
+        createRequest(API_ENDPOINT,fd,(message) => {  
+          queryClient.setQueryData([`${task.type}`],tasks => [...tasks,newTask]);
+          toast.success(message,{
+            position: toast.position.TOP_RIGHT,
+            title: "Success"
+          })                        
+        })
+        
+      } catch (error) {
+        console.error(error.message);
+      }
+    },
+    delete(taskId){
+      try {
+        if (taskId.length === 0) throw new Error("Task id required");
+        var fd = createFormDataObj({taskId:taskId,action:DEL_TASK_ACTION});        
+        deleteRequest(API_ENDPOINT,fd,(message) => {
+          toast.warning("Task deleted successfully",{
+            position: toast.position.TOP_RIGHT,
+            title: "Error"
+          });                    
+          queryClient.setQueryData([`${boardId}`],tasks => {                    
+            return tasks.filter(t => t.id !== taskId);
+          });
+        });      
+      } catch (error) {
+        console.error(error.message);
+      }
+    },
+    update(taskId,update){
+      const tasksCopy = [...data];    
+      const newState = tasksCopy.map(t => {
+        if (t.id === taskId) {        
+          return {...t,...update};
+        }
+        return t;
+      })
+      var fd = createFormDataObj({update:JSON.stringify({taskId,update})});
+      fd.append("action",UPDATE_TASK_ACTION);
+      updateRequest(API_ENDPOINT,fd,() => {      
+        toast.success("Task updated successfully",{
           position: toast.position.TOP_RIGHT,
           title: "Success"
         })  
-        queryClient.setQueryData([`${task.type}`],tasks => [...tasks,newTask]);
-      });
-    } catch (error) {
-      console.error(error.message);
+        queryClient.setQueryData([`${boardId}`],tasks => [...newState]);
+      })
     }
   }
 
-  const deleteTask = (taskId) => {   
-    try {
-      if (taskId.length === 0) throw new Error("Task id required");
-      
-      del(taskId,(message) => {
-        toast.success(message,{
-          position: toast.position.TOP_RIGHT,
-          title: "Success"
-        }) 
-        queryClient.setQueryData([`${boardId}`],tasks => {                    
-          return tasks.filter(t => t.id !== taskId);
-        });
-      });      
-    } catch (error) {
-      console.error(error.message);
-    }
-  }
 
-  const updateTask = (taskId,update) => {
-    debugger;
-    const tasksCopy = [...data];    
-    const newState = tasksCopy.map(t => {
-      if (t.id === taskId) {        
-        return {...t,...update};
-      }
-      return t;
-    })    
-    debugger;
-    const mutatedTask = newState.filter(t => t.id === taskId)[0];
-    queryClient.setQueryData([`${boardId}`],tasks => [...newState]);
-    upDate({taskId,update},() => {        
-      queryClient.setQueryData([`${boardId}`],tasks => [...newState]);
-    });
-    // setTasks([...newState])
-  }
-
-  const action = {
-    add(task){
-
-    },
-    delete(taskId){
-
-    },
-    update(taskId,update){
-
-    }
-  }
-  
   const update = {
     position(id,oldPosition,newPosition){
       let oldTasks = swapIndex(tasks,oldPosition,newPosition);      
@@ -200,7 +100,7 @@ const useTaskList = (boardId) => {
     }
   }
 
-  return {isLoading,data,tasks,addTask,deleteTask,updateTask,action,update};
+  return {isLoading,data,tasks,actions,update};
 }
 
 export default useTaskList;

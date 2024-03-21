@@ -16,15 +16,15 @@ const toast = {
   },
   toastTypes: {
     SUCCESS: 'success',
-    WARN: 'warn',
+    WARN: 'warning',
     ERROR: 'error'
   },
   success(msg, options) {
-    debugger;
+    
     console.log('WEToast:toast:success');
     publish('displaytoast', { msg: msg, options: options, type: toast.toastTypes.SUCCESS });
   },
-  warn(msg, options) {
+  warning(msg, options) {
     console.log('WEToast:toast:warn');
     publish('displaytoast', { msg: msg, options: options, type: toast.toastTypes.WARN });
   },
@@ -53,8 +53,8 @@ const WEToast = () => {
       type: e.detail.type
     }
     toastObj = { ...toastObj, ...e.detail.options };
-    setToastList([...toastList, { ...toastObj, ...e.detail.options }]);
-    let intv = setInterval(() => {
+    setToastList(toasts => [...toasts, { ...toastObj, ...e.detail.options }]);    
+    let intv = setInterval(() => {      
       let tmpArr = toastList.filter(x => x.id !== id);
       setToastList([...tmpArr]);
       clearInterval(intv);
