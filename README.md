@@ -56,6 +56,10 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 
 3/4/2024 Add a toast mechanism to the app and added it to the add and delete operations. Needs to work on css and find the best way to animate the toasts in and out. Created a WEToast component to handle the toasts. Look into creating a hook and possibly another way to implement.  Currently using an event to display the toast. Could possibly share a method in a context or other way
 
+## Popover Work Branch
+
+3/21/2024 Fixed the popover issue in the list view component. cleaned up the useTaskList hook. Redesigned the toast components
+
 ## Add Testing Branch
 
 1/12/2024 ran the following commands

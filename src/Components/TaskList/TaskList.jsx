@@ -18,7 +18,7 @@ const DATA_TRANSFER_TEXT = "text/plain";
 const TaskList = ({listId}) => {
   const auth = useAuth();
   console.log(`Task List ${listId} rendered`);
-  const {isLoading,data,tasks,addTask,deleteTask,updateTask,update} = useTaskList(listId);   
+  const {isLoading,data,tasks,update,actions} = useTaskList(listId);   
 
   const dragItem = useRef();
   const dragOverItem = useRef();
@@ -69,6 +69,10 @@ const TaskList = ({listId}) => {
       <div className={styles.tasklist_body}   onDrop={onDropEvent}>
 
         <div className={styles.tasklist_wrapper}>
+          
+          <div className={styles.tl_box}>
+            
+          </div>
 
           <ul className={styles.tasklist}>
             
@@ -90,7 +94,14 @@ const TaskList = ({listId}) => {
                         key={task.id}
                         task={task}
                         boardId={listId}
-                        menu={<TasklistItemMenu task={task} onChange={() => {}} deleteTask={deleteTask} updateTask={updateTask} />}
+                        menu={(close,open) => <TasklistItemMenu 
+                          task={task} 
+                          onChange={() => {}} 
+                          onClose={close}
+                          onOpen={open}
+                          deleteTask={actions.delete} 
+                          updateTask={actions.update} 
+                        />}
                         draggable
                         onDragOver={onDragOverEvent}
                         onDragStart={(e) => onDragStart(e,index)}
@@ -105,10 +116,12 @@ const TaskList = ({listId}) => {
               </TransitionGroup>
                           
           </ul>
+          
+
 
         </div>
 
-        {auth.user.level > 0 ? <AddTaskListItem board={listId} addTaskHandler={addTask} /> : null}
+        {auth.user.level > 0 ? <AddTaskListItem board={listId} addTaskHandler={actions.add} /> : null}
       </div>
     </>
   );
