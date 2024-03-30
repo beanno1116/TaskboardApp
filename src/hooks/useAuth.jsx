@@ -1,8 +1,9 @@
-import { useContext,createContext, useState } from "react";
+import { useContext,createContext, useState, useCallback } from "react";
 import axios from "axios";
 import { API_ENDPOINT } from "../config";
 import { useMutation, useQuery } from "react-query";
 import { createFormDataObj } from "../Utilities";
+import { toast } from "../Components/WEToast/WEToast";
 
 
 const loginUser = async (email,password) => {
@@ -34,6 +35,10 @@ const store = {
   }
 }
 
+const headers = {
+  'Content-Type': 'application/x-www-form-urlencoded' 
+}
+
 
 const AuthContext = createContext();
 
@@ -41,17 +46,12 @@ const AuthProvider = ({children}) => {
   const [user,setUser] = useState(store.getValue("app")?.user || {});
   const [token,setToken] = useState(store.getValue("app")?.token || "");
 
-  const loginAction = (e,formData,isValid) => {
+  const loginAction = useCallback((e,formData,isValid) => {
     if (!isValid) return;
       
     let fd = createFormDataObj({...formData,action:"login"});
     
-    axios.post(API_ENDPOINT,fd,
-    {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'        
-      }
-    })
+    axios.post(API_ENDPOINT,fd,{headers})
     .then((response) => {      
       if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");              
       const {success,data,message} = response.data;
@@ -59,32 +59,34 @@ const AuthProvider = ({children}) => {
         const {id,firstName,lastName,color,level} = data;
         setToken(id);        
         setUser({firstName:firstName,lastName:lastName,color:color,level:level});
-        store.setValue("app",{token:id,user:{firstName:firstName,lastName:lastName,color:color,level:level}});                
-      }   
-      console.log(response);
+        store.setValue("app",{token:id,user:{firstName:firstName,lastName:lastName,color:color,level:level}});
+        return;
+      }
+      toast.error("Unable to login user",{
+        position: toast.position.TOP_RIGHT,
+        title: "Error"
+      })
     })
     .catch((error) => {
-      console.error(error);
+      toast.error("Unable to login user",{
+        position: toast.position.TOP_RIGHT,
+        title: "Error"
+      })      
     });    
-  }
+  },[setToken,setUser])
 
-  const logoutAction = (e) => {
+  const logoutAction = useCallback((e) => {
     setToken("");
     setUser({})
     store.setValue("app",{token:"",user:{}});
-  }
+  },[setToken,setUser])
 
-  const signupAction = (e,formData,isValid) => {
+  const signupAction = useCallback((e,formData,isValid) => {
     if (!isValid) return;
       
     let fd = createFormDataObj({...formData,action:"signup"});    
 
-    axios.post(API_ENDPOINT,fd,
-    {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'        
-      }
-    })
+    axios.post(API_ENDPOINT,fd,{headers})
     .then((response) => {
       if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");              
       const {success,data,message} = response.data;
@@ -92,14 +94,23 @@ const AuthProvider = ({children}) => {
         const {id,firstName,lastName,color} = data;
         setToken(id);        
         setUser({firstName:firstName,lastName:lastName,color:color});
-        store.setValue("app",{token:id,user:{firstName:firstName,lastName:lastName,color:color}});                
+        store.setValue("app",{token:id,user:{firstName:firstName,lastName:lastName,color:color}}); 
+        return;               
       }
+      toast.error("Unable to signup user",{
+        position: toast.position.TOP_RIGHT,
+        title: "Error"
+      }) 
     })
     .catch((error) => {
+      toast.error("Unable to signup user",{
+        position: toast.position.TOP_RIGHT,
+        title: "Error"
+      }) 
       console.error(error);
     }); 
             
-  }
+  },[setToken,setUser])
 
 
   return  <AuthContext.Provider 

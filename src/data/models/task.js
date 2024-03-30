@@ -6,12 +6,13 @@ const testMap = {
   change: "first instance"
 };
 
-export const Task =  function(type,dataObj={}) {
+export const Task =  function(boardId,dataObj={}) {
   
   let today = new Date();
 
   const defaultTask = {
     id: "",
+    boardId: 0,
     title: "Untitled ",
     description: "default",
     type: "",
@@ -33,7 +34,8 @@ export const Task =  function(type,dataObj={}) {
 
   // task.test = testMap;
   task.id = task?.id?.length > 0 ? task.id : uuid("tsk_");
-  task.type = task?.type?.length > 0 ? task.type : type;
+  task.type = task?.boardId?.length > 0 ? task.boardId : boardId;
+  task.boardId = task?.boardId?.length > 0 ? task.boardId : boardId;
   
   return task;  
 }

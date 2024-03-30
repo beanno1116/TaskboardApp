@@ -110,7 +110,7 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
     return input;
   }
 
-  const updateFormData = (key,value) => {
+  const updateFormData = (key,value) => {    
     let tmp = {...formData,[key]:value};    
     setFormData({...tmp});
     

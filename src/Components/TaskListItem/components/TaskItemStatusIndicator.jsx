@@ -1,18 +1,11 @@
 import styles from '../taskListItem.module.css';
-import { useQuery } from 'react-query';
-import { getStatuses } from '../../../appUtils';
+import { useGetStatusLevels } from '../../../api/api';
 
 
 
 const TaskItemStatusIndicator = ({ status }) => {
-  const {isLoading,isError,data} = useQuery({
-    queryKey: ['getStatuses'],
-    queryFn: () => getStatuses()
-  })
-
-  
-  let level = data ? data.filter(lvl => lvl.id === status)[0] : undefined;
-    
+  const {status:reqStatus,data} = useGetStatusLevels();    
+  let level = data ? data.results.filter(lvl => lvl.id === status)[0] : undefined;    
   return (
       <div title={`Task status: ${level?.description && level?.description}`} className={`${styles.taskitem_status_indicator} ${level?.description && styles[level.description]}`}></div>
   )

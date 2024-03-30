@@ -83,7 +83,7 @@ export const capitalizeFirstLetter = (str = undefined) => {
  * @param {String} str 
  * @returns {String}
  */
-export const capitalizeEachFirstLetter = (str,del=" ") => {  
+export const capitalizeEachFirstLetter = (str,del=" ") => {    
   if (!str) return "";      
   return str.split(del).map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(del);
 }

@@ -14,6 +14,8 @@ import PrioritiesMenu from './menus/PriorityMenu/PriorityMenu';
 import { devFetchListItemMainMenuItems } from '../../../data/fakeApi';
 import { useQuery } from 'react-query';
 import { getMenuItems } from '../../../appUtils';
+import { useGetMenu } from '../../../api/api';
+import * as menuTypes from "../menuTypes";
 
 
 const DEFAULT_HEIGHT = 175;
@@ -23,11 +25,12 @@ const MENU_HEIGHT = 380;
 
 
 
+
+
 const TasklistItemMenu = ({task,onClose,onOpen,deleteTask,updateTask,onChange}) => {
-  const {isLoading,isError,data} = useQuery({
-    queryKey: ['listItemMenu'],
-    queryFn: () => getMenuItems("listItemMenu","main")
-  })  
+  const {status,data} = useGetMenu(menuTypes.MAIN_MENU,menuTypes.LIST_ITEM_MENU);
+  const mainMenuItems = data?.results ? data.results : [];
+  
   const [showMenuView,setShowMenuView] = useState(false);
   const [currentMenu,setCurrentMenu] = useState("");
   
@@ -42,7 +45,7 @@ const TasklistItemMenu = ({task,onClose,onOpen,deleteTask,updateTask,onChange}) 
     setCurrentMenu("");
   }
 
-  const menuOnChangeEvent = (taskId,changeObj) => {    
+  const menuOnChangeEvent = (taskId,changeObj) => {     
     updateTask(taskId,changeObj);
     menuRef.current.style.setProperty("--height",DEFAULT_HEIGHT + "px");
     menuRef.current.style.setProperty("--width",DEFAULT_WIDTH + "px");
@@ -54,13 +57,13 @@ const TasklistItemMenu = ({task,onClose,onOpen,deleteTask,updateTask,onChange}) 
 
 
   const setMenuView = (menuName) => {
-    // 
+    
     menuRef.current.style.setProperty("--height",MENU_HEIGHT + "px");
     switch (menuName.toLowerCase()) {
       case "assignee":                            
-        return (<AssigneeMenu task={task} isActive={showMenuView} menuBack={onNavChangeEvent} onChange={updateTask} search={true} />)    
+        return (<AssigneeMenu task={{id:task.id,contactId:task.contactId}} isActive={showMenuView} menuBack={onNavChangeEvent} onChange={menuOnChangeEvent} search={true} />)    
       case "status":    
-          return (<StatusMenu task={task} isActive={showMenuView} menuBack={onNavChangeEvent} onChange={menuOnChangeEvent} search={false} />)
+          return (<StatusMenu task={{id:task.id,status:task.status}} isActive={showMenuView} menuBack={onNavChangeEvent} onChange={menuOnChangeEvent} search={false} />)
     //   case "due_date":
     //       root.style.setProperty("--po-height","380px");
     //       return (<PODueDateMenu onClick={menuBackClickEvent} onChange={e => onChange(e,"due_date")} task={task} />)
@@ -77,6 +80,7 @@ const TasklistItemMenu = ({task,onClose,onOpen,deleteTask,updateTask,onChange}) 
 
   const onMenuItemClick = (e,name) => {
     const {currentTarget} = e;
+    
     
     if (currentTarget.localName === "li" && currentTarget.dataset.menu === "item" && name.length > 0) {
       
@@ -111,7 +115,7 @@ const TasklistItemMenu = ({task,onClose,onOpen,deleteTask,updateTask,onChange}) 
       {showMenuView && setMenuView(currentMenu)}
                 
 
-      <MainMenu menuItems={isLoading ? [] : data} isActive={showMenuView} onClick={onMenuItemClick}/>
+      <MainMenu menuItems={status.isLoading ? [] : mainMenuItems} isActive={showMenuView} onClick={onMenuItemClick}/>
 
         
     </div>
