@@ -22,6 +22,7 @@ function TaskListItem({ task,boardId,menu,...props}) {
   // 
   const {isShowing,close,open} = usePopover();
   const {id,title,description,contact,contactId,status} = task;
+  
   const [isOpen,setIsOpen] = useState(false);
 
   const renderMenu = () => {
@@ -50,8 +51,8 @@ function TaskListItem({ task,boardId,menu,...props}) {
       <TaskItemNav>
         
       <NTTPopover popover={renderMenu()} close={close} open={open} show={isShowing} config={{position:positions.LEFT_CENTER}}>
-          <TaskItemOptionButton onClick={e => onItemOptionButtonClick(e)} />
-        </NTTPopover>
+        <TaskItemOptionButton onClick={e => onItemOptionButtonClick(e)} />
+      </NTTPopover>
 
         {/* <Popover popover={menu} onClose={() => setIsOpen(false)} position={"left"}>
           <TaskItemOptionButton onClick={e => onItemOptionButtonClick(e)} />          

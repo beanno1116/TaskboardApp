@@ -60,6 +60,10 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 
 3/21/2024 Fixed the popover issue in the list view component. cleaned up the useTaskList hook. Redesigned the toast components
 
+## Api Connection Branch
+
+3/30/2024 Refactored the way that taskboard app interfaces with the backend server. refactored some of the backend api calls to return an objec with the results of the api call set to results instance var and also sending back a meta object as well. This will help if pagination is needed. Cleaned up the usage of react-query and axios. Refactored the assignee menu, and the status menu as well to operate with the new api connection.
+
 ## Add Testing Branch
 
 1/12/2024 ran the following commands

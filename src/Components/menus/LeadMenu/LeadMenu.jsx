@@ -3,16 +3,34 @@ import { getUsers } from '../../../appUtils';
 
 import styles from './leadMenu.module.css';
 import AssigneeListItem from '../../listItems/AssigneeListItem/AssigneeListItem';
+import { useGetUsers } from '../../../api/api';
 
-const LeadMenu = ({onClick}) => {
-  const { isLoading, error, data } = useQuery({
-    queryKey: [`users`],
-    queryFn: () => getUsers()
-  })
+
+
+// const useGetUsers = () => {
+//   const { isLoading, isError,isSuccess, data } = useQuery({
+//     queryKey: [`users`],
+//     queryFn: ({signal}) => getUsers({signal})
+//   })
+
+//   const status = {
+//     isLoading,
+//     isError,
+//     isSuccess
+//   }
+
+//   return {status,data};
+// }
+
+const LeadMenu = ({heading,onClick}) => {
+  const {status,data} = useGetUsers();
+  const menuItems = data?.results ? data.results : [];
+  // const {status,data} = useGetUsers();
+
 
 
   const selectListItemEvent = (e,assigneeId) => {    
-    
+    debugger;
     let tmp = assigneeId;
     onClick("contactId",assigneeId);        
     console.log("");
@@ -22,24 +40,26 @@ const LeadMenu = ({onClick}) => {
 
   return (
     <div className={styles.leadMenu}>
+
       <header className={styles.header}>
-        <h2 className={styles.heading}>Project Contact</h2>
+        <h2 className={styles.heading}>{heading ? heading : "Project Contact"}</h2>
       </header>
       
       <section className={styles.section}>
+
+        
+
         <ul className={styles.leadList}>
-          {data && data.map(d => {
-            let tmp = d;
-            
-            console.log("")
+          
+          {!status.isLoading && menuItems.map(d => {
+    
             return (
-              <AssigneeListItem data={d} onClick={selectListItemEvent} isSelected={false} />
-              // <li className={styles.leadListItem}>{d.firstName + " " + d.lastName}</li>
+              <AssigneeListItem key={d.id} id={d.id} color={d.color} fullName={`${d.firstName} ${d.lastName}`} onClick={selectListItemEvent} isSelected={false} />              
             )
           })}
         </ul>
       </section>
-       
+
     </div>
   );
 }

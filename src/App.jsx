@@ -1,4 +1,5 @@
 import { useQuery,useMutation,useQueryClient,QueryClient,QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import TaskboardApp from './Views/TaskboardApp/TaskboardApp';
 
 import AuthProvider from './hooks/useAuth';

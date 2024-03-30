@@ -15,10 +15,13 @@ import { useAuth } from '../../hooks/useAuth';
 
 const DATA_TRANSFER_TEXT = "text/plain";
 
-const TaskList = ({listId}) => {
+const TaskList = ({boardId}) => {
+  console.log(`Task List ${boardId} rendered`);
+
   const auth = useAuth();
-  console.log(`Task List ${listId} rendered`);
-  const {isLoading,data,tasks,update,actions} = useTaskList(listId);   
+  const {status,data,update,actions} = useTaskList(boardId);   
+  const tasks = data?.results ? data.results : [];
+  const meta = data?.meta ? data.meta : {};
 
   const dragItem = useRef();
   const dragOverItem = useRef();
@@ -70,16 +73,13 @@ const TaskList = ({listId}) => {
 
         <div className={styles.tasklist_wrapper}>
           
-          <div className={styles.tl_box}>
-            
-          </div>
+          
 
           <ul className={styles.tasklist}>
-            
-              {/* {isLoading && <h1>Loading...</h1>} */}
+                          
               <TransitionGroup>
 
-                {data && data.filter(d => d.type === listId).sort(sortTasksByPosition).map((task,index) => {                                
+                {tasks && tasks.filter(d => d.type === boardId).sort(sortTasksByPosition).map((task,index) => {
                   return (
                     <CSSTransition key={task.id} classNames={{
                       enter: styles.myEnter,
@@ -93,7 +93,7 @@ const TaskList = ({listId}) => {
                       <TaskListItem
                         key={task.id}
                         task={task}
-                        boardId={listId}
+                        boardId={boardId}
                         menu={(close,open) => <TasklistItemMenu 
                           task={task} 
                           onChange={() => {}} 
@@ -121,7 +121,7 @@ const TaskList = ({listId}) => {
 
         </div>
 
-        {auth.user.level > 0 ? <AddTaskListItem board={listId} addTaskHandler={actions.add} /> : null}
+        {auth.user.level > 0 ? <AddTaskListItem board={boardId} addTaskHandler={actions.add} /> : null}
       </div>
     </>
   );

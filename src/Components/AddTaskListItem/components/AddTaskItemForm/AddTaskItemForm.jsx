@@ -52,7 +52,7 @@ function AddTaskItemForm({ isFocused,onSubmit,closeForm,board }) {
     }
 
     const onAddTaskBtnClick = (e,formData,isValid) => {  
-        
+        debugger;
       if (!isValid) return;      
 
       closeForm();

@@ -183,7 +183,7 @@ const Popover = ({popover,onClose,onOpen,position="auto",children,...props}) => 
         let onClick = (e) => onClickHandler(e,childOnClickEvent);
         let isActive = isVisible;
         let ref = compRef;
-        return cloneElement(child,{onClick,isActive},child.props.children);
+        return cloneElement(child,{onClick},child.props.children);
       })}
       
     </div>

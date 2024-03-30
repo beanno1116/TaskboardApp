@@ -5,7 +5,8 @@ const GET_TASKS = "getTasks";
 const GET_USERS = "getUsers";
 const GET_USER = "getUser";
 const GET_STATUSES = "getStatuses";
-const GET_MENU_ITEMS = "getMenuItems";
+const GET_MENU = "getMenu";
+const GET_BOARDS = "getBoards";
 
 export const sortTasksByPosition = (a,b) => parseInt(a.position) - parseInt(b.position);
 
@@ -144,17 +145,19 @@ export const toFormData = (data,key="") => {
 
 
 
+export const getTaskboards = async ({signal}) => {
+  const response = await axios.get(API_ENDPOINT,{signal,params:{action:GET_BOARDS}});  
+  return response.data;
+}
 
-export const getTasks = async (boardId) => {
-
-  const response = await axios.get(API_ENDPOINT,{params:{action:GET_TASKS,boardId:boardId}});
-  // 
-  let tmp = response.data;
+export const getTasks = async ({signal,boardId}) => {  
+  const response = await axios.get(API_ENDPOINT,{signal:signal,params:{action:GET_TASKS,boardId:boardId}});  
+  debugger;
   return response.data;
 }
 
 export const getUsers = async () => {
-  const response = await axios.get(API_ENDPOINT,{params:{action:GET_USERS}});
+  const response = await axios.get(API_ENDPOINT,{params:{action:GET_USERS}});  
   return response.data;
 }
 export const getUser = async (userId) => {
@@ -171,7 +174,7 @@ export const getStatuses = async () => {
 }
 
 export const getMenuItems = async (menu,name) => {
-  const response = await axios.get(API_ENDPOINT,{params:{action:GET_MENU_ITEMS,menu:menu,name:name}});
+  const response = await axios.get(API_ENDPOINT,{params:{action:GET_MENU,menu:menu,name:name}});
   // 
   let tmp = response.data;
   return response.data.data;
@@ -194,12 +197,14 @@ export const deleteRequest = async (url,data,handler) => {
   });
 }
 export const createRequest = async (url,data,handler) => {
+  debugger;
   axios.post(url,data,{
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   })
   .then(response => {      
+    debugger;
     if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
     if (response.data.success) {
       handler(response.data.message);
@@ -211,6 +216,7 @@ export const createRequest = async (url,data,handler) => {
 }
 
 export const updateRequest = (url,data,handler) => {
+  
   axios.post(url,data,{
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'

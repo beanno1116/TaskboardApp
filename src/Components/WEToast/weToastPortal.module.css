@@ -51,7 +51,7 @@
 	font-weight: 300;
 	margin: 1rem 0;
 	text-align: left;
-	max-width: 16rem;
+	max-width: 25rem;
 	transition: var(--tr);
 	opacity: 1;
 	background: linear-gradient(180deg, var(--clr), var(--bg));
