@@ -1,0 +1,87 @@
+.profile_form_View {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+
+  border-radius: 8px;
+  background-color: #242424;
+}
+
+
+
+.tab_menu {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255, 255, 255, 0.47);
+  /* background-color: red; */
+}
+
+.heading {
+  border-radius: 8px 0 0 0;
+  padding: .5rem .75rem;
+  font-size: 3.5rem;
+}
+
+
+.tab_list {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.tab_list_item {
+  padding: .5rem .75rem;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.form_container {
+  flex: 1;
+  border-radius: 0 8px 8px 0;
+  /* background-color: blue; */
+}
+
+h1.profile_form_heading {
+  font-size: 3rem;;
+}
+
+
+
+
+/* GENERAL PROFILE FORM */
+.general_profile_form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: .75rem 1rem;
+  padding-left: 5rem;
+  text-align: center;
+}
+
+.profile_form {
+  display: flex;  
+  gap: 2rem;
+  align-items: flex-start;
+}
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  font-size: 1.25rem;
+}
+
+.avatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 5rem;
+  padding-top: 0;
+}
+.avatar_container {
+  background-color: #F49F0A;
+  border-radius: 50%;
+  height: 175px;
+  width: 175px;
+}

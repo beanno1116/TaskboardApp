@@ -11,7 +11,7 @@ const AssigneeIcon = ({ width = 16, height = 16 }) => {
 
 
 const AssigneeButton = ({ onClick, ...props }) => {
-  const {width,height} = props;
+  const {width,height,showing} = props;
   return (
     <button {...props} onClick={onClick}>
       <AssigneeIcon width={width} height={height} />

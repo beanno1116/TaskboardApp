@@ -12,6 +12,7 @@ import FormContent from './components/FormContent';
 import FormNav from './components/FormNav';
 import AssigneeMenu from '../../../menus/TaskListItemMenu/menus/AssigneeMenu/AssigneeMenu';
 import LeadMenu from '../../../menus/LeadMenu/LeadMenu';
+import NTTPopover, { positions,usePopover } from '../../../NTTPopover/NTTPopover';
 
 
 
@@ -25,25 +26,13 @@ function AddTaskItemForm({ isFocused,onSubmit,closeForm,board }) {
     contactId: "",
     status: 0
   })
+  const {isShowing,close,open} = usePopover();
 
   const initialFocusEle = useRef(null);
   const formContainer = useRef(null);
 
 
-  useEffect(() => {
-    var intv;        
-    if (initialFocusEle.current) {
-      intv = setTimeout(() => {
-        if (initialFocusEle.current.children.length > 0) {
-          initialFocusEle.current.children[0].focus(); 
-        }        
-        clearTimeout(intv);
-      },200);
-    }
-    return () => {
-      clearTimeout(intv);
-    }
-  },[isFocused])
+  
    
 
     const assignTask = (e) => {
@@ -73,7 +62,11 @@ function AddTaskItemForm({ isFocused,onSubmit,closeForm,board }) {
       }
     }
 
-    return (    
+    const onAssigneeBtnClick = (e) => {
+      debugger;
+    }
+
+    return (
       <div ref={formContainer} className={`${styles.add_task_form} ${isFocused ? styles.show_form : ""}`}>
 
         <TBForm style={{justifyContent:"unset",gap:"0",padding:".75rem .75rem"}}>
@@ -114,6 +107,10 @@ function AddTaskItemForm({ isFocused,onSubmit,closeForm,board }) {
               </Popover>
 
               
+              {/* <NTTPopover popover={<LeadMenu close={close} open={open} onClick={updateFormData} />} close={close} open={open} show={isShowing} config={{position:positions.LEFT_CENTER}}>
+                <AssigneeButton width={24} height={24} className={styles.assign_btn} onClick={e => onAssigneeBtnClick(e)}/>
+              </NTTPopover> */}
+
               <Popover popover={<LeadMenu onClick={updateFormData}/>} onClose={() => {}} style={{bottom:"100%",right:"0%",transformOrigin:"bottom right"}} >
                 <AssigneeButton width={24} height={24} className={styles.assign_btn}/>
               </Popover>

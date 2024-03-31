@@ -25,8 +25,9 @@ const NTTPopover = ({children,close,open,show,popover,config={...defaultConfig}}
 
   useOnClickOutside(popoverModalRef,() => close())
 
-  const onClickHandler = (e) => {    
-    // 
+  const onClickHandler = (e,onClick) => {    
+    e.preventDefault();    
+    onClick(e);
     updatePosition(e.currentTarget,popoverModalRef.current.parentElement);    
     open();
   }
@@ -37,12 +38,7 @@ const NTTPopover = ({children,close,open,show,popover,config={...defaultConfig}}
 
       <div className={`${styles.popover_modal} ${show ? styles.showing : ""}`}>
         <div ref={popoverModalRef} className={styles.modal_popover} style={{ position: "absolute", ...position }}>
-          {popover}
-          {/* <div>
-            <div>This is a test</div>
-            <div>This is a test</div>
-            <div>This is a test</div>
-          </div> */}
+          {popover}         
         </div>
       </div>
       
@@ -50,8 +46,8 @@ const NTTPopover = ({children,close,open,show,popover,config={...defaultConfig}}
       {Children.map(childArray,(child) => {
         let childOnClickEvent = child.props.onClick;
         let onClick = (e) => onClickHandler(e,childOnClickEvent);
-        let showing = show;        
-        return cloneElement(child,{onClick,showing},child.props.children);
+        
+        return cloneElement(child,{onClick},child.props.children);
       })}
     </div>
   );

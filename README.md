@@ -64,6 +64,10 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 
 3/30/2024 Refactored the way that taskboard app interfaces with the backend server. refactored some of the backend api calls to return an objec with the results of the api call set to results instance var and also sending back a meta object as well. This will help if pagination is needed. Cleaned up the usage of react-query and axios. Refactored the assignee menu, and the status menu as well to operate with the new api connection.
 
+## WEModal Branch
+
+3/31/2024 Add a new modal component to the app.  Wired it up to the user menu drop down from the top left. It will show the profile edit form and the settings form.
+
 ## Add Testing Branch
 
 1/12/2024 ran the following commands
