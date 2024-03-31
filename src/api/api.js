@@ -5,6 +5,7 @@ import {
   getTasks
 } from "./requests"
 import { useQuery } from "react-query"
+import { API_ENDPOINT } from "../config"
 
 
 
@@ -96,7 +97,28 @@ const useGetStatusLevels = () => {
   };
 }
 
+const useApi = () => {
+  
+  const post = (data,config) => {
+    axios.post(API_ENDPOINT,data,{...config})
+    .then(response => {      
+      if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
+      if (response.data.success) {
+        console.log(response);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+  return {
+    post
+  }
+}
+
 export {
+  useApi,
   useGetMenu,
   useGetStatusLevels,
   useGetTasks,

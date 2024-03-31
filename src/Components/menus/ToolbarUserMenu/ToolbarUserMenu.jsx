@@ -6,7 +6,7 @@ import ProfileButton from '../../../assets/icons/ProfileButton';
 import { useAuth } from '../../../hooks/useAuth';
 import styles from './toolbarUserMenu.module.css';
 
-const ToolbarUserMenu = ({ ...props }) => {
+const ToolbarUserMenu = ({ menuAction }) => {
   const auth = useAuth();
   
   return (
@@ -19,11 +19,11 @@ const ToolbarUserMenu = ({ ...props }) => {
         </li>
 
         <li>
-          <ProfileButton width={24} height={24} className={styles.usermenu_list_btn}/>
+          <ProfileButton width={24} height={24} className={styles.usermenu_list_btn} onClick={(e) => menuAction(e,"profile")}/>
         </li>
 
         <li>
-          <GearButton width={24} height={24} className={styles.usermenu_list_btn} />          
+          <GearButton width={24} height={24} className={styles.usermenu_list_btn} onClick={(e) => menuAction(e,"settings")} />          
         </li>
 
         <li>

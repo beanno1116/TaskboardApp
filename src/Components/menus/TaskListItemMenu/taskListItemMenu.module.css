@@ -1,5 +1,5 @@
 .tasklist_item_menu_container {
-  --height: 175px;
+  --height: 180px;
   --width: 225px;
   display: flex;
   flex-direction: column;

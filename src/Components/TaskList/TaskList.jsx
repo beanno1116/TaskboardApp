@@ -8,19 +8,31 @@ import { CSSTransition,TransitionGroup,Transition } from 'react-transition-group
 import AddTaskListItem from '../AddTaskListItem/AddTaskListItem';
 import useTaskList from './hooks/useTaskList';
 import TasklistItemMenu from '../menus/TaskListItemMenu/TasklistItemMenu';
-import { useEffect, useRef } from 'react';
+import { createRef, useEffect, useRef } from 'react';
 import { sortTasksByPosition } from '../../appUtils';
 import { useAuth } from '../../hooks/useAuth';
 
 
 const DATA_TRANSFER_TEXT = "text/plain";
 
+
+
+
+
+
 const TaskList = ({boardId}) => {
   console.log(`Task List ${boardId} rendered`);
 
   const auth = useAuth();
   const {status,data,update,actions} = useTaskList(boardId);   
-  const tasks = data?.results ? data.results : [];
+  
+
+  const prepareTasks = () => {
+    let tmpTasks = data?.results ? data.results : [];
+    return tmpTasks.map(t => ({...t,ref:createRef(null)}));
+  }
+
+  const tasks = prepareTasks();
   const meta = data?.meta ? data.meta : {};
 
   const dragItem = useRef();
@@ -80,6 +92,7 @@ const TaskList = ({boardId}) => {
               <TransitionGroup>
 
                 {tasks && tasks.filter(d => d.type === boardId).sort(sortTasksByPosition).map((task,index) => {
+                
                   return (
                     <CSSTransition key={task.id} classNames={{
                       enter: styles.myEnter,
@@ -88,10 +101,11 @@ const TaskList = ({boardId}) => {
                       exit: styles.myExit,
                       exitActive: styles.myExitActive,
                       exitDone: styles.myExitDone
-                    }} timeout={900}>
+                    }} timeout={900} nodeRef={task.ref}>
 
-                      <TaskListItem
-                        key={task.id}
+                    <div ref={task.ref}>
+                    <TaskListItem
+                        key={task.id}                        
                         task={task}
                         boardId={boardId}
                         menu={(close,open) => <TasklistItemMenu 
@@ -108,6 +122,8 @@ const TaskList = ({boardId}) => {
                         onDragEnter={(e) => onDragEnterEvent(e,index)}                
                         // onDrop={onDropEvent}
                       />
+                    </div>
+                      
 
                     </CSSTransition>
                   )

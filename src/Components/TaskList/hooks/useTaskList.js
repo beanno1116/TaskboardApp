@@ -17,6 +17,8 @@ const DEL_TASK_ACTION = "deleteTask";
 
 
 
+
+
 const useTaskList = (boardId) => {  
   const auth = useAuth();
   const {status,data} = useGetTasks(boardId);  
@@ -75,6 +77,7 @@ const useTaskList = (boardId) => {
       })
       var fd = createFormDataObj({update:JSON.stringify({taskId,update})});
       fd.append("action",UPDATE_TASK_ACTION);
+      
       
       updateRequest(API_ENDPOINT,fd,() => {        
         queryClient.setQueryData([`board-${boardId}`],tasks => ({...tasks,results: [...newState]}));

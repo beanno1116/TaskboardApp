@@ -18,7 +18,7 @@ import { useGetMenu } from '../../../api/api';
 import * as menuTypes from "../menuTypes";
 
 
-const DEFAULT_HEIGHT = 175;
+const DEFAULT_HEIGHT = 200;
 const DEFAULT_WIDTH = 225;
 const MENU_HEIGHT = 380;
 

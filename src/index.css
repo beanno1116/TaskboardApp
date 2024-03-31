@@ -139,6 +139,8 @@ font-family: 'Roboto', sans-serif;
   -webkit-text-size-adjust: 100%;
   --alt-clr-1: #43C59E;
   --alt-clr-2: #D81159;
+  /* --alt-clr-3: #51255c; */
+  /* --alt: #373a44; */
   --alt-clr-3: #701F84;
   --alt-clr-4: #F49F0A;
 }

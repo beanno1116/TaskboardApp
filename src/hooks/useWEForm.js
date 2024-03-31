@@ -111,6 +111,7 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
   }
 
   const updateFormData = (key,value) => {    
+    debugger;
     let tmp = {...formData,[key]:value};    
     setFormData({...tmp});
     
