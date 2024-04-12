@@ -49,7 +49,7 @@ const TaskboardToolbar = ({ titleText }) => {
             <UserBadgeButton width={30} height={30} className={styles.option_btn} title={"Show user menu"} onClick={handleClick}/>
           </Popover>
 
-          <WEModal isOpen={profileModalState} toggle={temp}>
+          <WEModal isOpen={profileModalState} toggle={temp} style={{padding:"10rem 15rem"}}>
             <ProfileFormView />
             
           </WEModal>

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from '../profileFormView.module.css';
+import TextField from '../../../Components/TextField/TextField';
 
 const GeneralProfileForm = ({ ...props }) => {
   return (
@@ -11,9 +12,9 @@ const GeneralProfileForm = ({ ...props }) => {
 
       <form className={styles.profile_form}>
 
-        <div className={styles.fields}> 
-          <input type='text' name='firstName' placeholder='First name' />
-          <input type='text' name='lastName' placeholder='Last name' />
+        <div className={styles.fields}>           
+          <TextField name='firstName' placeholder='First Name' value={""} size={"sm"} disabled={true}/>
+          <TextField name='lastName' placeholder='Last Name' value={""} size={"sm"} />                  
         </div>
 
         <div className={styles.avatar}>

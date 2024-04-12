@@ -56,7 +56,7 @@ const WEModal = ({ children, isOpen, toggle,config, ...props }) => {
         }}
       >
 
-        <div className={`${styles.modal_container} ${styles.scale_in} ${styles.center}`} ref={modalRef}>  
+        <div className={`${styles.modal_container} ${styles.scale_in} ${styles.center}`} style={{...props.style}} ref={modalRef}>  
 
           <CloseButton className={`${styles.close_btn}`} onClick={toggle} width={50} height={50} />
 
