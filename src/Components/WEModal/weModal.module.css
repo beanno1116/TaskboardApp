@@ -13,6 +13,7 @@
   transform: scale(0);
   opacity: 0;
   pointer-events: none;  
+  /* padding: 10rem 15rem; */
 }
 .scale_in.center {
   transform-origin: center;

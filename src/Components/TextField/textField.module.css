@@ -1,0 +1,185 @@
+.container {
+  --backgroundColor: #242424;
+  --borderColor: #43C59E;
+  --borderRadius: .25rem; 
+
+  --errorColor: #ED6A5A;
+  --successColor: #0CCE6B;
+
+  /* Textfield focus vars */
+  --onFocusBorderColor: #15feb8;
+  --onFocusbackgroundColor: #102A43;
+  
+  /* Textfield font vars */
+  --fontSize: 1rem;
+  --fontFamily: 'Secular One', sans-serif;
+  --color: rgba(255, 255, 255, 0.87);
+
+  position: relative;
+  /* margin-bottom: 1em; */
+}
+
+/***** WEInput accessory components ******/
+
+.acc_cmp {
+position: absolute;
+top: 50%;
+right: 1em;
+transform: translateY(-50%);
+z-index: 1;
+}
+
+.clear_btn {
+  padding: .5em;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  box-shadow: 0;
+  color: var(--errorCclr);
+  cursor: pointer;
+}
+
+
+/***** STATUS COMPONENT STYLE START *****/
+/* .status {
+background-color: #102A43;
+} */
+/***** STATUS COMPONENT STYLE END *****/
+
+
+/***** INPUT COMPONENT STYLE START *****/
+.text_field {
+  position: relative;
+  display: block;  
+  width: 100%;
+  width: 30rem;
+  height: calc(3.5rem + 2px);
+  padding: 1rem 0.75rem;    
+  background-clip: padding-box;
+  background-color: var(--backgroundColor);
+  border: 1px solid var(--borderColor);
+  appearance: none;
+  border-radius: var(--borderRadius);
+  font-size: var(--fontSize);
+  font-weight: 400;
+  line-height: 1.5;
+  font-family: var(--fontFamily);
+  color: var(--color);
+}
+.sm .text_field {
+  height: calc(2.75rem + 2px);
+  font-size: .85rem;
+}
+.sm .text_field {
+  height: calc(2.75rem + 2px);
+  font-size: .85rem;
+}
+.text_field::placeholder {
+  color: transparent;
+}
+.text_field:focus {
+  padding-top: 1.625rem;
+  padding-bottom: 0.625rem;
+  outline: 0;
+  border: 2px solid var(--onFocusBorderColor);
+  /* box-shadow: 0px 3px 2px 6px #00bbbb36, 0px -3px 2px 6px #00bbbb36; */
+}
+.text_field:not(:placeholder-shown) {
+  padding-top: 1.625rem;
+  padding-bottom: 0.625rem;
+}
+
+/* Textfield error css styles */
+.text_field[data-error="true"] {
+border: 2px solid var(--errorColor);
+box-shadow: 0px 3px 2px 6px #BB000036, 0px -3px 2px 6px #BB000036;
+animation: shake .1s linear;
+animation-iteration-count: 3;
+}
+
+.is_error .text_field {
+  border: 2px solid var(--errorColor);
+  animation: shake .1s linear;
+  animation-iteration-count: 3;
+}
+.is_error .text_field {
+animation: shake .1s linear;
+animation-iteration-count: 3;
+transition: all .2s ease-in-out;
+}
+.is_error .text_field:focus {
+border: 2px solid var(--errorColor);
+animation: shake .1s linear;
+animation-iteration-count: 3;
+}
+
+
+
+/* TextField Label CSS styles */
+.text_field_label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: 1rem 0.75rem;
+  pointer-events: none;
+  border: 1px solid transparent;
+  text-transform: capitalize;
+  font-family: var(--fontFamily);
+  transform-origin: 0 0;
+  transition: opacity .1s ease-in-out,transform .1s ease-in-out;
+  color: var(--color);
+  opacity: .75;
+}
+.sm .text_field_label {
+  padding: .85rem 0.75rem;
+  font-size: .85rem;
+}
+
+.text_field:focus ~ .text_field_label {
+  opacity: .65;
+  transform: scale(.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+.sm .text_field:focus ~ .text_field_label {
+  font-size: .8rem;
+  opacity: .65;
+  transform: scale(.85) translateY(-0.8rem) translateX(0.15rem);
+}
+
+.text_field:not(:placeholder-shown) ~ .text_field_label {
+  opacity: .65;
+  transform: scale(.85) translateY(-0.5rem) translateX(0.15rem);
+}
+.sm .text_field:not(:placeholder-shown) ~ .text_field_label {
+opacity: .65;
+transform: scale(.75) translateY(-0.6rem) translateX(0.15rem);
+}
+
+.is_error .text_field_label {
+  color: var(--errorColor);
+}
+
+
+/***** Theme styles *****/
+[class*="theme-"] {
+  background: var(--border-clr);
+  border: 1px solid var(--backgroundColor);
+  color: var(--text-clr);
+}
+
+
+.theme-bright {
+  --border-clr: #00B2CA;
+  --backgroundColor: #1D4E89;
+  --text-clr: #FBD1A2;
+}
+
+@keyframes shake {
+  0% {         
+      left: -5px;
+  }
+  100% {
+      right: -5px;
+  }
+}
