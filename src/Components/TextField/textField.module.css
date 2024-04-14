@@ -22,20 +22,25 @@
 /***** WEInput accessory components ******/
 
 .acc_cmp {
-position: absolute;
-top: 50%;
-right: 1em;
-transform: translateY(-50%);
-z-index: 1;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  right: .5em;
+  padding: 0;
+  margin: 0;
+  transform: translateY(-50%);
+  z-index: 1;
+  background-color: var(--backgroundColor);
 }
 
-.clear_btn {
-  padding: .5em;
+.clear_btn {  
   border: 0;
   outline: 0;
   background-color: transparent;
   box-shadow: 0;
-  color: var(--errorCclr);
+  color: var(--errorColor);
   cursor: pointer;
 }
 
@@ -66,17 +71,18 @@ background-color: #102A43;
   font-family: var(--fontFamily);
   color: var(--color);
 }
-.sm .text_field {
-  height: calc(2.75rem + 2px);
-  font-size: .85rem;
-}
-.sm .text_field {
-  height: calc(2.75rem + 2px);
-  font-size: .85rem;
-}
 .text_field::placeholder {
   color: transparent;
 }
+.text_field:disabled {
+  border-color: color-mix(in srgb, var(--borderColor), grey 60%);
+  color: color-mix(in srgb, var(--color), grey 80%);
+}
+.sm .text_field {
+  height: calc(2.75rem + 2px);
+  font-size: .85rem;
+}
+
 .text_field:focus {
   padding-top: 1.625rem;
   padding-bottom: 0.625rem;

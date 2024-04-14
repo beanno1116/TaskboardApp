@@ -67,6 +67,7 @@ Worked on the TaskboardView render from a data structure. moved the list item re
 ## WEModal Branch
 
 3/31/2024 Add a new modal component to the app.  Wired it up to the user menu drop down from the top left. It will show the profile edit form and the settings form.
+4/14/2024 updated the Profile Menu and form as well as started to build controllers for the main components that will be used.  That way a component has a controller to update the view to seperate concerns
 
 ## Add Testing Branch
 

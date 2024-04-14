@@ -55,11 +55,10 @@ const AuthProvider = ({children}) => {
     .then((response) => {      
       if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");              
       const {success,data,message} = response.data;
-      if (success){
-        const {id,firstName,lastName,color,level} = data;
-        setToken(id);        
-        setUser({firstName:firstName,lastName:lastName,color:color,level:level});
-        store.setValue("app",{token:id,user:{firstName:firstName,lastName:lastName,color:color,level:level}});
+      if (success){                
+        setToken(data.id);        
+        setUser({...data});
+        store.setValue("app",{token:data.id,user:{...data}});
         return;
       }
       toast.error("Unable to login user",{

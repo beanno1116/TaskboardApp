@@ -1,22 +1,27 @@
 
 import { useState } from 'react';
 import GeneralProfileForm from './formViews/GeneralProfileForm';
+import { useGetCurrentUser,useGetMenu } from '../../api/api';
+import * as menuTypes from '../../components/menus/menuTypes';
 
 
 import styles from './profileFormView.module.css';
+import { capitalizeFirstLetter } from '../../Utilities';
 
 
-const ProfileFormView = ({ ...props }) => {
-  const [currentView,setCurrentView] = useState("general")
 
-  const onTabItemClick = (e,tabName) => {
-    console.log(e);
-    console.log(tabName);
-    setCurrentView(tabName);
+const useProfileFormView = (initialView) => {
+  const {status,data} = useGetMenu(menuTypes.MAIN_MENU,menuTypes.PROFILE_FORM_MENU);   
+  const [currentView,setCurrentView] = useState(initialView);
+
+  const onTabItemClick = (e,tab) => {
+    onsole.log(e);
+    console.log(tab);
+    setCurrentView(tab);
   }
 
-  const showProfileView = (view) => {
-    switch (view) {
+  const showMenuView = () => {
+    switch (currentView) {
       case "general":
         return <GeneralProfileForm />        
       case "security":
@@ -29,23 +34,54 @@ const ProfileFormView = ({ ...props }) => {
     }
   }
 
+  return {
+    controller: {
+      currentView,
+      onTabItemClick,
+      showMenuView,
+      menu: {
+        status,
+        data
+      },
+
+    }
+  }
+}
+
+
+const ProfileFormView = ({ ...props }) => {  
+  const {controller} = useProfileFormView("general");
+  
+
 
   return (
     <div className={styles.profile_form_View}>
       
       <div className={styles.tab_menu}>
+
         <div className={styles.heading}>
           <h1>Profile Settings</h1>
         </div>
+        
         <ul className={styles.tab_list} role='list'>
-          <li className={`${styles.tab_list_item} ${styles.active}`} onClick={(e) => onTabItemClick(e,"general")}>General</li>
-          <li className={styles.tab_list_item} onClick={(e) => onTabItemClick(e,"contact")}>Contact</li>
-          <li className={styles.tab_list_item} onClick={(e) => onTabItemClick(e,"security")}>Security</li>
+          {controller.menu.status.isLoading ? <div>Loading...</div> : controller.menu.data.results.map(item => {       
+            return (              
+              <li 
+              key={item.id} 
+              id={item.id} 
+              className={`${styles.tab_list_item} ${controller.currentView === item.label ? styles.active : ""}`} 
+              onClick={(e) => controller.onTabItemClick(e,item.label)}
+              >
+                {capitalizeFirstLetter(item.label)}
+              </li>              
+            )
+          })}
         </ul>
+
       </div>
-      <div className={styles.form_container}>
-        {showProfileView(currentView)}
-        {/* <GeneralProfileForm /> */}
+      
+      <div className={styles.tab_menu_view}>
+        {controller.showMenuView()}        
       </div>
 
        

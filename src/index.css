@@ -204,21 +204,12 @@ button {
               transform 150ms ease;
   -webkit-appearance: none;
   -moz-appearance: none;
+  inline-size: fit-content;
+  touch-action: manipulation;
+  user-select: none;
 }
 
-button:hover,
-button:focus {
-  /* background: #0053ba; */
-}
 
-button:focus {
-  /* outline: 1px solid #fff;
-  outline-offset: -4px; */
-}
-
-button:active {
-  transform: scale(0.99);
-}
 
 
 ul {
@@ -226,6 +217,18 @@ ul {
   margin: 0;
 }
 
+
+.visually_hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
 
 
 /* KEY FRAME ANIMATIONS */
