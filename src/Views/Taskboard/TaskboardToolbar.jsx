@@ -10,6 +10,15 @@ import WEModal from '../../Components/WEModal/WEModal';
 import useModal from '../../Components/WEModal/hooks/useModal';
 import ProfileFormView from '../../forms/profileFormView/ProfileFormView';
 
+
+
+const profileFormModalOptions = {
+  type: "modal",
+  size: "md",
+  opacity: ""
+}
+
+
 const TaskboardToolbar = ({ titleText }) => {
   const {modalState:profileModalState,toggleModal:toggleProfileModal} = useModal(true);
 
@@ -22,7 +31,7 @@ const TaskboardToolbar = ({ titleText }) => {
   const userMenuAction = (e,action) => {
     console.log(action);
     toggleProfileModal();
-    debugger;
+    
   }
 
   const temp = () => {
@@ -49,7 +58,7 @@ const TaskboardToolbar = ({ titleText }) => {
             <UserBadgeButton width={30} height={30} className={styles.option_btn} title={"Show user menu"} onClick={handleClick}/>
           </Popover>
 
-          <WEModal isOpen={profileModalState} toggle={temp} style={{padding:"10rem 15rem"}}>
+          <WEModal isOpen={profileModalState} toggle={temp}  style={{padding:"5% 20%"}}>
             <ProfileFormView />
             
           </WEModal>

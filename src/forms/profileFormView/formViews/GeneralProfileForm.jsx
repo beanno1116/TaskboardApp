@@ -2,33 +2,27 @@ import React from 'react';
 
 import styles from '../profileFormView.module.css';
 import TextField from '../../../Components/TextField/TextField';
+import FormViewLayout from '../components/FormViewLayout';
+import GeneralForm from '../forms/GeneralForm';
+import { useAuth } from '../../../hooks/useAuth';
+import { useGetCurrentUser } from '../../../api/api';
 
-const GeneralProfileForm = ({ ...props }) => {
+const GeneralProfileForm = ({initialState}) => {
+  
+
+
+
+
   return (
-    <div className={styles.general_profile_form}>
+
+    <FormViewLayout>
+
+      <FormViewLayout.Heading text={"General"} />
+
+      <GeneralForm />
       
-      <h1 className={styles.profile_form_heading}>General</h1>
-      
-
-      <form className={styles.profile_form}>
-
-        <div className={styles.fields}>           
-          <TextField name='firstName' placeholder='First Name' value={""} size={"sm"} disabled={true}/>
-          <TextField name='lastName' placeholder='Last Name' value={""} size={"sm"} />                  
-        </div>
-
-        <div className={styles.avatar}>
-          <div className={styles.avatar_container}>
-
-          </div>
-          <div>
-            <button>Add Profile Image</button>
-          </div>
-        </div>
-
-      </form>
-       
-    </div>
+    </FormViewLayout>
+    
   );
 }
 

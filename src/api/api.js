@@ -1,4 +1,5 @@
 import {
+  getCurrentuser,
   getMenu,
   getStatusLevels,
   getUsers,
@@ -6,6 +7,7 @@ import {
 } from "./requests"
 import { useQuery } from "react-query"
 import { API_ENDPOINT } from "../config"
+import { useAuth } from "../hooks/useAuth"
 
 
 
@@ -36,6 +38,29 @@ const useGetUsers = () => {
   const { isLoading, isError,isSuccess,isIdle, data,error } = useQuery({
     queryKey: [`users`],
     queryFn: ({signal}) => getUsers({signal}),
+    staleTime: 60000,
+    keepPreviousData: true
+  })
+
+  const status = {
+    isLoading,
+    isError,
+    isSuccess,
+    isIdle
+  }
+
+  return {
+    status,
+    data,
+    error
+  };
+}
+
+const useGetCurrentUser = () => {
+  const auth = useAuth();
+  const { isLoading, isError,isSuccess,isIdle, data,error } = useQuery({
+    queryKey: [`currentUser`],
+    queryFn: ({signal}) => getCurrentuser({signal,token:auth.token}),
     staleTime: 60000,
     keepPreviousData: true
   })
@@ -119,6 +144,7 @@ const useApi = () => {
 
 export {
   useApi,
+  useGetCurrentUser,
   useGetMenu,
   useGetStatusLevels,
   useGetTasks,

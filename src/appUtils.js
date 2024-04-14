@@ -222,7 +222,8 @@ export const updateRequest = (url,data,handler) => {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   })
-  .then(response => {      
+  .then(response => {   
+    debugger;   
     if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
     if (response.data.success) {
       handler();

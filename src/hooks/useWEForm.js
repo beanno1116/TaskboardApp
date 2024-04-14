@@ -109,6 +109,7 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
     }
     return input;
   }
+  
 
   const updateFormData = (key,value) => {    
     debugger;
@@ -251,7 +252,7 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
     });
 
     handler && handler(e,{...formData}, validationStatus, args)
-    return validationStatus;
+    return {e,formData,validationStatus,args};
   }
 
   const registerFormInput = (name, options = {}) => {
@@ -283,7 +284,18 @@ const useWEForm = (initialState = {}, onSubmit = null) => {
     return retObj;
   }
 
-  return { formData,updateFormData, registerFormInput, registerFormInputContext, handleSubmit, handleFormReset,handleInputReset, handleInputChange, errors };
+  return { 
+    formData,
+    updateFormData, 
+    registerFormInput, 
+    registerFormInputContext,
+    setFormData,
+    handleSubmit, 
+    handleFormReset,
+    handleInputReset, 
+    handleInputChange, 
+    errors 
+  };
 }
 
 export default useWEForm;

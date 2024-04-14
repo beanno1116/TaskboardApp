@@ -23,7 +23,7 @@ const defaultCSS = {
 
 
 
-const TextField = forwardRef(( {name,style={},value,...props},ref ) => {
+const TextField = forwardRef(( {name,style={},onChange,value,status="idle",...props},ref ) => {
 
   const idStr = useRef(Math.floor(Math.random() * 1000)).current;
   const containerRef = useRef(null);
@@ -94,10 +94,11 @@ const TextField = forwardRef(( {name,style={},value,...props},ref ) => {
     <div ref={containerRef} className={`${styles.container} ${props.size ? styles[props.size] : ""}`} name={name} style={containerStyle()}>
 
       {(status === "busy") && <StatusIndicator className={styles.status} />}
-      {(status === "idle" && value !== "") && <ClearButton className={styles.close_btn} onClick={(e) => onClearInputClickEvent(e)} />}
+      {(status === "idle" && value == "") && <ClearButton onClick={(e) => onClearInputClickEvent(e)} />}
 
       <input
         ref={ref}
+        // data-display-type="label"
         id={`${name}-${idStr}`}
         name={name}
         className={`${styles.text_field} `}
