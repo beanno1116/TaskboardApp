@@ -29,8 +29,7 @@ const LeadMenu = ({heading,onClick}) => {
 
 
 
-  const selectListItemEvent = (e,assigneeId) => {    
-    debugger;
+  const selectListItemEvent = (e,assigneeId) => {        
     let tmp = assigneeId;
     onClick("contactId",assigneeId);        
     console.log("");

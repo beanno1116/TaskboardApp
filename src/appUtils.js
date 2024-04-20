@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_ENDPOINT } from "./config";
+import { toast } from "./Components/WEToast/WEToast";
 
 const GET_TASKS = "getTasks";
 const GET_USERS = "getUsers";
@@ -151,8 +152,7 @@ export const getTaskboards = async ({signal}) => {
 }
 
 export const getTasks = async ({signal,boardId}) => {  
-  const response = await axios.get(API_ENDPOINT,{signal:signal,params:{action:GET_TASKS,boardId:boardId}});  
-  debugger;
+  const response = await axios.get(API_ENDPOINT,{signal:signal,params:{action:GET_TASKS,boardId:boardId}});    
   return response.data;
 }
 
@@ -160,9 +160,8 @@ export const getUsers = async () => {
   const response = await axios.get(API_ENDPOINT,{params:{action:GET_USERS}});  
   return response.data;
 }
-export const getUser = async (userId) => {
-  const response = await axios.get(API_ENDPOINT,{params:{action:GET_USER,id:userId}});
-  // 
+export const getUser = async (userId) => {  
+  const response = await axios.get(API_ENDPOINT,{params:{action:GET_USER,id:userId}});  
   let tmp = response.data;
   return response.data;
 }
@@ -196,15 +195,13 @@ export const deleteRequest = async (url,data,handler) => {
     console.error(error);
   });
 }
-export const createRequest = async (url,data,handler) => {
-  debugger;
+export const createRequest = async (url,data,handler) => {  
   axios.post(url,data,{
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   })
-  .then(response => {      
-    debugger;
+  .then(response => {    
     if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
     if (response.data.success) {
       handler(response.data.message);
@@ -222,8 +219,7 @@ export const updateRequest = (url,data,handler) => {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   })
-  .then(response => {   
-    debugger;   
+  .then(response => {       
     if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");
     if (response.data.success) {
       handler();

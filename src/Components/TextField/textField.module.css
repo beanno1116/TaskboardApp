@@ -1,22 +1,21 @@
 .container {
-  --backgroundColor: #242424;
-  --borderColor: #43C59E;
+  --backgroundColor: #0f1113;
+  --borderColor: var(--site-accent-color-1);
   --borderRadius: .25rem; 
 
   --errorColor: #ED6A5A;
   --successColor: #0CCE6B;
 
   /* Textfield focus vars */
-  --onFocusBorderColor: #15feb8;
-  --onFocusbackgroundColor: #102A43;
+  --onFocusBorderColor: #858c93;
+  --onFocusBackgroundColor: #102A43;
   
   /* Textfield font vars */
   --fontSize: 1rem;
   --fontFamily: 'Secular One', sans-serif;
   --color: rgba(255, 255, 255, 0.87);
 
-  position: relative;
-  /* margin-bottom: 1em; */
+  position: relative;  
 }
 
 /***** WEInput accessory components ******/
@@ -88,6 +87,7 @@ background-color: #102A43;
   padding-bottom: 0.625rem;
   outline: 0;
   border: 2px solid var(--onFocusBorderColor);
+  background-color: var(--onFocusBackgroundColor);
   /* box-shadow: 0px 3px 2px 6px #00bbbb36, 0px -3px 2px 6px #00bbbb36; */
 }
 .text_field:not(:placeholder-shown) {

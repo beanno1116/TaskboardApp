@@ -6,6 +6,7 @@ import { createFormDataObj } from "../Utilities";
 import { toast } from "../Components/WEToast/WEToast";
 
 
+
 const loginUser = async (email,password) => {
   const response = await axios.post(API_ENDPOINT,{email,password},{headers:{'Content-Type':'application/json'}});
   return response.data;
@@ -52,13 +53,13 @@ const AuthProvider = ({children}) => {
     let fd = createFormDataObj({...formData,action:"login"});
     
     axios.post(API_ENDPOINT,fd,{headers})
-    .then((response) => {      
+    .then((response) => {            
       if (response.status !== 200 && response.statusText !== "OK") throw new Error("Error with request");              
-      const {success,data,message} = response.data;
+      const {success,data,token,message} = response.data;
       if (success){                
-        setToken(data.id);        
+        setToken(token);        
         setUser({...data});
-        store.setValue("app",{token:data.id,user:{...data}});
+        store.setValue("app",{token:token,user:{...data}});
         return;
       }
       toast.error("Unable to login user",{
@@ -111,9 +112,21 @@ const AuthProvider = ({children}) => {
             
   },[setToken,setUser])
 
+  const updateUser = useCallback((userObj) => {
+    debugger;
+    try {
+      if (!user) throw new Error("user Undefined");
+      const stateCopy = {...user,...userObj};
+      setUser({...stateCopy});
+      store.setValue("app",{token:token,user:{...stateCopy}});
+    } catch (error) {
+      console.error(error.message);
+    }
+  },[user,setUser]);
+
 
   return  <AuthContext.Provider 
-            value={{token,user,loginAction,logoutAction,signupAction}}
+            value={{token,user,loginAction,logoutAction,signupAction,updateUser}}
           >
             {children}
           </AuthContext.Provider>

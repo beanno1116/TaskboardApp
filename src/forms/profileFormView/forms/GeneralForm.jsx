@@ -3,21 +3,16 @@
 import TextField from '../../../Components/TextField/TextField';
 import styles from '../profileFormView.module.css';
 import useWEForm from '../../../hooks/useWEForm';
-import { useGetCurrentUser } from '../../../api/api';
 import { useAuth } from '../../../hooks/useAuth';
 import { createFormDataObj } from '../../../Utilities';
 import { updateRequest } from '../../../appUtils';
 import { API_ENDPOINT } from '../../../config';
+import { toast } from '../../../Components/WEToast/WEToast';
 
-const initialFormState = {
-  firstName: "",
-  lastName: "",
-  color: "",
-  avatarImg: ""
-}
+
 
 const useGeneralForm = (initialState={}) => {
-  const auth = useAuth();
+  const auth = useAuth();  
   const {formData,handleSubmit,registerFormInput,updateFormData} = useWEForm({
     id: auth.user.id,
     firstName: auth.user.firstName,
@@ -26,48 +21,21 @@ const useGeneralForm = (initialState={}) => {
     avatarImg: auth.user.avatarImg
   });  
   
-  
-  
-
-  
-
   const handleInputClick = (e) => {
 
   }
 
   const handleFormSubmit = (e,args={}) => {
-    const {args:formArgs,formData,validationStatus} = handleSubmit(e);
-    debugger;
+    const {args:formArgs,formData,validationStatus} = handleSubmit(e);      
     var fd = createFormDataObj({update:JSON.stringify({userId:formData.id,update:formData})});
     fd.append("action","updateUser");
     updateRequest(API_ENDPOINT,fd,()=> {
-      toast.success("Task updated successfully",{
+      auth.updateUser(formData);
+      toast.success("Updated successfully",{
         position: toast.position.TOP_RIGHT,
         title: "Success"
       })  
     })
-    
-    // update(taskId,update){      
-    //   const tasksCopy = [...data.results];    
-    //   const newState = tasksCopy.map(t => {
-    //     if (t.id === taskId) {        
-    //       return {...t,...update};
-    //     }
-    //     return t;
-    //   })
-    //   var fd = createFormDataObj({update:JSON.stringify({taskId,update})});
-    //   fd.append("action",UPDATE_TASK_ACTION);
-      
-      
-    //   updateRequest(API_ENDPOINT,fd,() => {        
-    //     queryClient.setQueryData([`board-${boardId}`],tasks => ({...tasks,results: [...newState]}));
-    //     toast.success("Task updated successfully",{
-    //       position: toast.position.TOP_RIGHT,
-    //       title: "Success"
-    //     })  
-        
-    //   })
-    // }
     return fd;
   }
 
@@ -116,7 +84,8 @@ const GeneralForm = () => {
       </div>
 
       <div className={styles.form_controls}>
-        <button type='button' onClick={(e) => controller.handleFormSubmit(e)}>Save</button>
+        <button className={styles.main_button} type='button' onClick={(e) => controller.handleFormSubmit(e)}>Save</button>
+        <button className={`${styles.main_button} ${styles.outline}`} type='button' onClick={(e) => {}}>Cancel</button>
       </div>
 
       </form>
