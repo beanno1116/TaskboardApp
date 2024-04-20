@@ -8,19 +8,31 @@ import styles from './textField.module.css';
 
 
 
+// const defaultCSS = {
+//   backgroundColor: "#242424",
+//   borderColor: "#43C59E",
+//   borderRadius: ".25rem",
+//   errorColor: "#ED6A5A",
+//   successColor: "#0CCE6B",
+//   onFocusBorderColor: "#15feb8",
+//   onFocusBackgrounColor: "#102A43",
+//   fontSize: "1rem",
+//   fontFamily: "'Secular One', sans-serif",
+//   color: "rgba(255, 255, 255, 0.87)"
+// }
+
 const defaultCSS = {
-  backgroundColor: "#242424",
-  borderColor: "#43C59E",
+  backgroundColor: "#0f1113",  
+  borderColor: "var(--site-primary-color)",
   borderRadius: ".25rem",
   errorColor: "#ED6A5A",
   successColor: "#0CCE6B",
-  onFocusBorderColor: "#15feb8",
-  onFocusBackgrounColor: "#102A43",
+  onFocusBorderColor: "hsl(219, 61%, 57%)",
+  onFocusBackgroundColor: "#252a2e",
   fontSize: "1rem",
   fontFamily: "'Secular One', sans-serif",
-  color: "rgba(255, 255, 255, 0.87)"
+  color: "var(--site-text-color)"
 }
-
 
 
 const TextField = forwardRef(( {name,style={},onChange,value,status="idle",...props},ref ) => {

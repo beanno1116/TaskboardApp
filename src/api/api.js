@@ -79,8 +79,7 @@ const useGetCurrentUser = () => {
   };
 }
 
-const useGetTasks = (boardId) => {  
-  // debugger;
+const useGetTasks = (boardId) => {    
   const { isLoading, isError,isSuccess,isIdle, data,error } = useQuery({
     queryKey: [`board-${boardId}`],
     queryFn: ({signal}) => getTasks({signal,boardId})

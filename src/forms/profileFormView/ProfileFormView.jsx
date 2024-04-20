@@ -1,12 +1,12 @@
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import GeneralProfileForm from './formViews/GeneralProfileForm';
 import { useGetCurrentUser,useGetMenu } from '../../api/api';
 import * as menuTypes from '../../components/menus/menuTypes';
 
 
 import styles from './profileFormView.module.css';
-import { capitalizeFirstLetter } from '../../Utilities';
+
 
 
 
@@ -14,13 +14,13 @@ const useProfileFormView = (initialView) => {
   const {status,data} = useGetMenu(menuTypes.MAIN_MENU,menuTypes.PROFILE_FORM_MENU);   
   const [currentView,setCurrentView] = useState(initialView);
 
-  const onTabItemClick = (e,tab) => {
-    onsole.log(e);
+  const onTabItemClick = useCallback((e,tab) => {
+    console.log(e);
     console.log(tab);
     setCurrentView(tab);
-  }
+  },[setCurrentView])
 
-  const showMenuView = () => {
+  const showMenuView = useCallback(() => {
     switch (currentView) {
       case "general":
         return <GeneralProfileForm />        
@@ -32,7 +32,7 @@ const useProfileFormView = (initialView) => {
       default:
         return <GeneralProfileForm />
     }
-  }
+  },[currentView])
 
   return {
     controller: {
@@ -71,8 +71,8 @@ const ProfileFormView = ({ ...props }) => {
               id={item.id} 
               className={`${styles.tab_list_item} ${controller.currentView === item.label ? styles.active : ""}`} 
               onClick={(e) => controller.onTabItemClick(e,item.label)}
-              >
-                {capitalizeFirstLetter(item.label)}
+              >             
+                {item.label}                
               </li>              
             )
           })}

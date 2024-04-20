@@ -127,16 +127,39 @@ font-family: 'Roboto', sans-serif;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  color-scheme: light dark;
+
+  --default-text-color: hsl(218, 44%, 95%);
+  --default-background-color: hsl(210, 40%, 2%);
+  --default-primary-color: hsl(219, 42%, 50%);
+  --default-secondary-color: hsl(260, 43%, 26%);
+  --default-accent-color: hsl(272, 43%, 40%);
+
+  
+  
+  
+    
+  --site-background-color: var(--default-background-color);
+  --site-panel-background-color: hsla(219, 42%, 50%, 0.2);
+  --site-text-color: var(--default-text-color);
+  --site-sub-text-color: hsl(213, 6%, 70%);
+  --site-primary-color: var(--default-primary-color);
+  --site-secondary-color: var(--default-secondary-color);
+  --site-accent-color-1: var(--default-accent-color);
+  
+  --task-status-complete-color: rgba(68,214,44,1);
+  --task-status-holding-color: rgba(255,173,0,1);
+  --task-status-seen-color: rgba(0, 150, 255,1);
+  --task-status-delayed-color: rgba(255, 49, 49,1);
+  --task-status-started-color: rgba(255, 240, 31,1);
+  --task-status-new-color: rgb(255, 255, 255);
+
+  
   --alt-clr-1: #43C59E;
   --alt-clr-2: #D81159;
   /* --alt-clr-3: #51255c; */
@@ -165,13 +188,14 @@ img {
 }
 
 
-body {
+body {  
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #242424;
+  background-color: var(--site-background-color);
+  color: var(--site-text-color);  
 }
 
 * , *:before, *:after{ 

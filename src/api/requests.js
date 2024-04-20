@@ -19,7 +19,7 @@ const getStatusLevels = async ({signal}) => {
 
 const getCurrentuser = async ({signal,token}) => {
   const response = await axios.get(API_ENDPOINT,{params:{action:GET_CURRENT_USER,token},signal});
-  debugger;
+  
   return response.data;
 }
 

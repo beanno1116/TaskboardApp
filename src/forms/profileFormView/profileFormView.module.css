@@ -5,7 +5,7 @@
   width: 100%;
   height: 100%;
   border-radius: 8px;
-  background-color: #242424;
+  background-color: #0f1113;  
 }
 
 
@@ -13,44 +13,57 @@
 .tab_menu {
   display: flex;
   flex-direction: column;
-  border-right: 1px solid rgba(255, 255, 255, 0.47);
-  /* background-color: red; */
+  border-right: 1px solid rgba(255, 255, 255, 0.47);  
 }
 
 .heading {
   border-radius: 8px 0 0 0;
   padding: .5rem .75rem;
-  font-size: 3.5rem;
-  background: linear-gradient(169deg, rgba(59, 15, 70, 0.41) 0%, rgba(81, 37, 92, 0.515) 39%, rgba(55, 58, 68, 1) 100%);
-  color: #43C59E;
+  font-size: 3.5rem;  
+  color: var(--site-text-color);
 }
 
 
 .tab_list {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: .5rem;  
 }
 
 .tab_list_item {
+  position: relative;
   padding: .5rem .75rem;
   font-size: 1.5rem;
   text-align: center;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: color .3s ease-in-out;
 }
-.tab_list_item.active {
-  background-color: #D81159;
-  border-bottom: 1px solid #D81159;
+.tab_list_item:hover {
+  color: var(--site-primary-color);
+}
+.tab_list_item.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;  
+  background-color: var(--site-accent-color-1);    
 }
 
 .tab_menu_view {
   position: relative;
   flex: 1;
-  border-radius: 0 8px 8px 0;
-  /* background-color: blue; */
+  border-radius: 0 8px 8px 0;  
 }
 
 h1.profile_form_heading {
-  font-size: 3rem;;
+  background: linear-gradient(120deg, var(--site-primary-color), var(--site-accent-color-1));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3rem;
 }
 
 
@@ -114,5 +127,22 @@ h1.profile_form_heading {
 }
 
 .form_controls {
-  padding: .5rem;
+  display: flex;
+  gap: 1.75rem;
+  padding: .75rem;
+  justify-content: center;
+}
+.form_controls > .main_button { 
+  flex: 1;
+}
+.main_button {
+  padding: 0;
+  padding: .75rem 2rem;
+  margin: 0;
+  border-radius: 5px;
+  background-color: var(--site-primary-color);
+}
+.main_button.outline {
+  border: 1px solid var(--site-primary-color);
+  background-color: transparent;
 }

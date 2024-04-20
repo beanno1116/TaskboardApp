@@ -1,14 +1,13 @@
-.tasklist_item {
-  /* position: relative; */
+.tasklist_item {  
   display: flex;
   flex-wrap: nowrap;
   margin-bottom: .5em;
   min-height: 110px;
-  border-radius: .25em;
-  background-color: rgb(56, 58, 68);
-  background-color: #373a44;
+  border-radius: .25em;  
+  background-color: var(--site-panel-background-color);
   box-shadow: 0 4px 6px -2px rgba(0,0,0,0.1),0 10px 15px -3px rgba(0,0,0,0.15);    
-  overflow-x: visible;  
+  overflow-x: visible;
+  cursor: pointer;
 }
 
 
@@ -22,24 +21,23 @@
 }
 
 .taskitem_status_indicator.new {
-  background-color: rgb(255, 255, 255);
+  background-color: var(--task-status-new-color);
 }
-
 .taskitem_status_indicator.complete {
-  background-color: rgba(68,214,44,1);
+  background-color: var(--task-status-complete-color);
 }
 .taskitem_status_indicator.holding {
-  background-color: rgba(255,173,0,1);
+  background-color: var(--task-status-holding-color);
 }
 .taskitem_status_indicator.seen {
-  background-color: rgba(0, 150, 255,1);
+  background-color: var(--task-status-seen-color);
 }
 .taskitem_status_indicator.delayed {
-  background-color: rgba(255, 49, 49,1);
+  background-color: var(--task-status-delayed-color);
 }
 
 .taskitem_status_indicator.started {
-  background-color: rgba(255, 240, 31,1);
+  background-color: var(--task-status-started-color);
 }
 
 
@@ -49,8 +47,7 @@
   flex-flow: column;
   flex: 1;
   padding: 1.25em .75em;
-  box-shadow: -1px 0 4px 1px #373a447d;
-  /* background-color: chartreuse; */
+  box-shadow: -1px 0 4px 1px #373a447d;  
 }
 
 .taskitem_nav {
@@ -59,8 +56,7 @@
   flex-flow: column;
   justify-content: space-between;
   padding: .75em;
-  overflow-x: visible;  
-  /* background-color: fuchsia; */
+  overflow-x: visible;    
 }
 
 .title {
@@ -90,6 +86,7 @@
   padding-left: .5em;    
   font-family: 'Roboto', sans-serif;
   color: #b0b0b5;
+  color: var(--site-sub-text-color);
   overflow-y: scroll;
 }
 .body::-webkit-scrollbar {
@@ -100,10 +97,9 @@
   position: relative;     
   cursor: pointer;
   width: 100%;
-  padding: 0;
-  /* padding-top: 5px; */
+  padding: 0;  
   background-color: transparent;  
-  color: snow;
+  color: var(--site-text-color);
   opacity: 0;
   transform: scale(1);
   transition: transform .3s ease-in-out, opacity .3s ease-in-out;
@@ -122,8 +118,7 @@
 }
 
 .option_btn:hover {
-  opacity: 1;
-  /* transform: scale(1.1); */
+  opacity: 1;  
 }
 
 .task_item:hover .option_btn:hover {
