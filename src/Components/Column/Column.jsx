@@ -6,14 +6,11 @@ import TaskListItem from '../TaskListItem/TaskListItem';
 
 
 function Column({children}){
-    
- 
-
-    return (
-        <div className={styles.column}>
-          {children}
-        </div>
-    );
+  return (
+      <div className={styles.column}>
+        {children}
+      </div>
+  );
 }
 
 Column.Header = ColumnHeader;

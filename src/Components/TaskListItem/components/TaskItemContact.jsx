@@ -16,7 +16,7 @@ const getinitials = (user) => {
   return initials;
 }
 
-const TaskItemContact = ({ contact }) => {  
+const TaskItemContact = ({ contact,onClick }) => {  
   const {isLoading,isError,data} = useQuery({
     queryKey: [`${contact}`],
     queryFn: () => getUser(contact)
@@ -24,7 +24,7 @@ const TaskItemContact = ({ contact }) => {
 
   return (
     <div title={data ? `${data.firstName} ${data.lastName}` : ""} className={styles.contact} style={data && {"--bg-color":data.color}}>
-      <span className={styles.contact_initials}>
+      <span className={styles.contact_initials} onClick={onClick}>
         {isLoading && "? ?"}
         {data && getinitials(data)}
       </span>

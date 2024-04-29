@@ -1,0 +1,42 @@
+.avatar_form {
+  position: relative;
+}
+.avatar_img {
+  background-color: #F49F0A;
+  border-radius: 50%;
+  height: 175px;
+  width: 175px;
+}
+
+.avatar_img.default {
+ padding: 4px;
+  background-image: linear-gradient(to right, var(--site-primary-color) 0%, var(--site-secondary-color) 100%);
+  border-radius: 50%;
+  height: 175px;
+  width: 175px;
+}
+
+.default span {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #0f1113;
+}
+
+
+
+
+.add_avatar_button {
+  position: absolute;
+  bottom: -15px;
+  right: -15px;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  color: var(--site-accent-color-1);
+}
+
+.add_avatar_button path {
+  fill: url(#MyGradient);
+}

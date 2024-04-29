@@ -11,6 +11,7 @@ import TaskItemContact from './components/TaskItemContact';
 
 import Popover from '../Popover/Popover';
 import NTTPopover,{positions,usePopover} from '../NTTPopover/NTTPopover';
+import ContactMenu from '../menus/listItem/ContactMenu/ContactMenu';
 
 
 
@@ -21,6 +22,7 @@ import NTTPopover,{positions,usePopover} from '../NTTPopover/NTTPopover';
 function TaskListItem({ task,boardId,menu,...props}) {
   // 
   const {isShowing,close,open} = usePopover();
+  const {isShowing:contactIsShowing,close:contactClose,open:contactOpen} = usePopover();
   const {id,title,description,contact,contactId,status} = task;
   
   const [isOpen,setIsOpen] = useState(false);
@@ -57,8 +59,12 @@ function TaskListItem({ task,boardId,menu,...props}) {
         {/* <Popover popover={menu} onClose={() => setIsOpen(false)} position={"left"}>
           <TaskItemOptionButton onClick={e => onItemOptionButtonClick(e)} />          
         </Popover> */}
+
+      <NTTPopover popover={<ContactMenu />} close={contactClose} open={contactOpen} show={contactIsShowing} config={{position:positions.LEFT_CENTER}}>
+        <TaskItemContact contact={contactId} onClick={e => onItemOptionButtonClick(e)}/>        
+      </NTTPopover>
         
-        <TaskItemContact contact={contactId} />
+        {/* <TaskItemContact contact={contactId} /> */}
 
       </TaskItemNav>
 

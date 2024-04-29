@@ -5,7 +5,7 @@
   width: 100%;
   height: 100%;
   border-radius: 8px;
-  background-color: #0f1113;  
+  background-color: hsl(210, 12%, 7%);  
 }
 
 
@@ -18,7 +18,8 @@
 
 .heading {
   border-radius: 8px 0 0 0;
-  padding: .5rem .75rem;
+  padding: .5rem 1rem;
+  font-family: var(--site-main-header-font-family);
   font-size: 3.5rem;  
   color: var(--site-text-color);
 }
@@ -33,6 +34,7 @@
 .tab_list_item {
   position: relative;
   padding: .5rem .75rem;
+  font-family: var(--default-font-family);
   font-size: 1.5rem;
   text-align: center;
   text-transform: capitalize;
@@ -59,7 +61,9 @@
 }
 
 h1.profile_form_heading {
-  background: linear-gradient(120deg, var(--site-primary-color), var(--site-accent-color-1));
+  font-family: var(--site-main-header-font-family);
+  font-weight: var(--site-main-header-font-weight);
+  background: linear-gradient(120deg, var(--site-primary-color) 30%, var(--site-accent-color-1) 70%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -91,18 +95,23 @@ h1.profile_form_heading {
   display: flex; 
   flex-direction: column;   
   flex:1;  
+  overflow-y: scroll;  
+}
+.general_form::-webkit-scrollbar {
+  width: 0;
+  opacity: 0;
 }
 .form_content {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   flex:1;  
+
 }
 
 .fields {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: column;  
   gap: .75rem;
   flex: 1;
   font-size: 1rem;
@@ -114,10 +123,7 @@ h1.profile_form_heading {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  flex: 1;
-  padding-top: 0;
+  align-items: center;  
 }
 .avatar_container {
   background-color: #F49F0A;
@@ -132,17 +138,9 @@ h1.profile_form_heading {
   padding: .75rem;
   justify-content: center;
 }
-.form_controls > .main_button { 
+.form_controls > button { 
   flex: 1;
 }
-.main_button {
-  padding: 0;
-  padding: .75rem 2rem;
-  margin: 0;
-  border-radius: 5px;
-  background-color: var(--site-primary-color);
-}
-.main_button.outline {
-  border: 1px solid var(--site-primary-color);
-  background-color: transparent;
+.form_controls > button:last-child { 
+  flex: .5;
 }

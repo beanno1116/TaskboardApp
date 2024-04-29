@@ -1,0 +1,53 @@
+.tb_button {
+  --button-background: #0f1113;
+
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  margin: 0 auto;
+	padding: 4px;
+  letter-spacing: 1px;		
+  font: 1.125rem 'Oswald', Arial, sans-serif; /*18*/ 
+  text-decoration: none;
+	text-transform: uppercase;
+  background-image: linear-gradient(to right, var(--site-primary-color) 0%, var(--site-secondary-color) 100%);
+	border-radius: 9px;
+	z-index: 2;
+  -webkit-transition: background-image 1s ease-in-out;
+  transition: scale .3s ease-in-out;
+}
+
+.tb_button.outline {
+  border: 1px solid var(--site-primary-color);
+  background-color: transparent;
+}
+
+
+
+.tb_button span {
+	align-items: center;	
+	background: var(--button-background);
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	height: 100%;
+  padding: 1rem 2rem;
+  color: var(--site-text-color);
+	transition: background .5s ease, color .5s ease;
+	width: 100%;
+}
+
+.tb_button:hover {
+  /* scale: 1.01; */
+}
+
+
+.tb_button:hover span,
+.tb_button.cto_btn span {
+  background: transparent;
+}
+
+.tb_button.cto_btn:hover span {
+  background: var(--button-background);
+  /* color: lime; */
+}

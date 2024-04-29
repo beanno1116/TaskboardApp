@@ -23,6 +23,8 @@
   padding-right: 2rem;
 }
 .taskboard_toolbar_container h1 {
+  font-family: var(--site-main-header-font-family);
+  font-weight: var(--site-main-header-font-weight);
   background: linear-gradient(120deg, var(--site-primary-color), var(--site-accent-color-1));
   background-clip: text;
   -webkit-background-clip: text;

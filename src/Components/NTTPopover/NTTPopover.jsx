@@ -10,16 +10,25 @@ import styles from './nttPopover.module.css';
 
 const defaultConfig = {
   position: positionValues.BOTTOM_CENTER,
-  gap: 8
+  gap: 8,
+  mode: "popover"
 }
 
-
+const opacityMode = (mode) => {  
+  switch (mode) {
+    case "popover":
+      return "0.0";  
+    default:
+      return "0.2";
+  }
+}
 
 
 const NTTPopover = ({children,close,open,show,popover,config={...defaultConfig}}) => {
   const {position,updatePosition} = usePopoverPosition(config);
   const childArray = Children.toArray(children);  
  
+  const popoverConfig = {...defaultConfig,...config}
 
   const popoverModalRef = useRef(null);
 
@@ -36,7 +45,7 @@ const NTTPopover = ({children,close,open,show,popover,config={...defaultConfig}}
   return (
     <div className={styles.popover}>
 
-      <div className={`${styles.popover_modal} ${show ? styles.showing : ""}`}>
+      <div className={`${styles.popover_modal} ${show ? styles.showing : ""}`} style={{"--background-opacity":opacityMode(popoverConfig.mode)}}>
         <div ref={popoverModalRef} className={styles.modal_popover} style={{ position: "absolute", ...position }}>
           {popover}         
         </div>
