@@ -9,18 +9,18 @@ import { updateRequest } from '../../../appUtils';
 import { API_ENDPOINT } from '../../../config';
 import { toast } from '../../../Components/WEToast/WEToast';
 import TBButton from '../../../Components/TBButton/TBButton';
-import TBAvatarForm from '../../../Components/TBAvatar/TBAvatarForm';
 
 
 
-const useGeneralForm = (initialState={}) => {
+
+const useContactForm = (initialState={}) => {
   const auth = useAuth();  
+  debugger;
   const {formData,handleSubmit,registerFormInput,updateFormData} = useWEForm({
     id: auth.user.id,
-    firstName: auth.user.firstName,
-    lastName: auth.user.lastName,
-    color: auth.user.color,
-    avatarImg: auth.user.avatarImg
+    email: auth.user.email,
+    phone: auth.user.phone,
+    extension: auth.user.extension    
   });  
   
   const handleInputClick = (e) => {
@@ -59,8 +59,8 @@ const useGeneralForm = (initialState={}) => {
 }
 
 
-const GeneralForm = () => {  
-  const {controller} = useGeneralForm();
+const ContactForm = () => {  
+  const {controller} = useContactForm();
   
 
   
@@ -71,26 +71,21 @@ const GeneralForm = () => {
       <div className={styles.form_content}>
 
       
+        <TextField {...controller.registerFormInput("phone")} onClick={controller.handleTextFieldClick} placeholder='Phone number' autoComplete={"off"}/>
+        <TextField {...controller.registerFormInput("email")} onClick={controller.handleTextFieldClick} placeholder='Email' autoComplete={"off"} />
+        <TextField {...controller.registerFormInput("extension")} onClick={controller.handleTextFieldClick} placeholder='Ext' autoComplete={"off"}/>
 
-      <div className={styles.avatar}>
-        <TBAvatarForm />
-      </div>
-
-      <div className={styles.fields}>
-          <TextField {...controller.registerFormInput("firstName")} onClick={controller.handleTextFieldClick} placeholder='First Name' autoComplete={"off"}/>
-          <TextField {...controller.registerFormInput("lastName")} onClick={controller.handleTextFieldClick} placeholder='Last Name' autoComplete={"off"} />
-          <TextField {...controller.registerFormInput("color")} onClick={controller.handleTextFieldClick} placeholder='Color' autoComplete={"off"}/>
-      </div>
-
+        
           
       </div>
 
       <div className={styles.form_controls}>
-        <TBButton text={"Save"} onClick={controller.handleFormSubmit} btnType='action'/>        
+        <TBButton text={"Save"} onClick={controller.handleFormSubmit} btnType='action'/>
+        {/* <TBButton text={"Cancel"} onClick={controller.handleFormCancel} />         */}
       </div>
 
       </form>
   );
 }
 
-export default GeneralForm;
+export default ContactForm;

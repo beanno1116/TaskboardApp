@@ -1,15 +1,15 @@
 .tasklist_item {  
   display: flex;
   flex-wrap: nowrap;
-  margin-bottom: .5em;
+  margin-bottom: .75em;
   min-height: 110px;
   border-radius: .25em;  
   background-color: var(--site-panel-background-color);
   box-shadow: 0 4px 6px -2px rgba(0,0,0,0.1),0 10px 15px -3px rgba(0,0,0,0.15);    
   overflow-x: visible;
   cursor: pointer;
+  transition: color .3s ease-in-out;
 }
-
 
 
 .taskitem_status_indicator {
@@ -35,7 +35,6 @@
 .taskitem_status_indicator.delayed {
   background-color: var(--task-status-delayed-color);
 }
-
 .taskitem_status_indicator.started {
   background-color: var(--task-status-started-color);
 }
@@ -65,15 +64,20 @@
 }
 .title > h1 {
   visibility: hidden;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
+  font-family: var(--site-font-family);  
+  color: var(--site-text-color);
   font-size: 1.5rem;   
+  
+}
+.tasklist_item:hover  {
+  /* background-color: red; */
+  color: var(--site-accent-color-1);
 }
 .title > div {
   position: absolute;
   width: 100%;
   height: 100%;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--site-font-family);
   font-weight: 500;
   font-size: 1.5rem;
   white-space: nowrap;

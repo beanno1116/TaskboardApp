@@ -16,6 +16,7 @@
   --color: rgba(255, 255, 255, 0.87);
 
   position: relative;  
+  cursor: pointer;
 }
 
 /***** WEInput accessory components ******/
@@ -56,7 +57,7 @@ background-color: #102A43;
   position: relative;
   display: block;  
   width: 100%;
-  width: 30rem;
+  /* width: 30rem; */
   height: calc(3.5rem + 2px);
   padding: 1rem 0.75rem;    
   background-clip: padding-box;
@@ -136,6 +137,7 @@ animation-iteration-count: 3;
   transition: opacity .1s ease-in-out,transform .1s ease-in-out;
   color: var(--color);
   opacity: .75;
+  font-size: 1rem;
 }
 .sm .text_field_label {
   padding: .85rem 0.75rem;

@@ -6,6 +6,8 @@ import * as menuTypes from '../../components/menus/menuTypes';
 
 
 import styles from './profileFormView.module.css';
+import ContactProfileFormView from './formViews/ContactProfileFormView';
+import SecurityProfileFormView from './formViews/SecurityProfileFormView';
 
 
 
@@ -25,9 +27,9 @@ const useProfileFormView = (initialView) => {
       case "general":
         return <GeneralProfileForm />        
       case "security":
-        return <div>Security View</div>
-      case "contact":
-        return <div>Contact View</div>
+        return <SecurityProfileFormView />
+      case "contact":        
+        return <ContactProfileFormView />
     
       default:
         return <GeneralProfileForm />

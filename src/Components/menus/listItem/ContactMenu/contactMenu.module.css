@@ -1,0 +1,13 @@
+.menu {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu_header {
+  padding: 1rem 4rem;
+  font-family: var(--site-font-family);
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--site-text-color);
+}

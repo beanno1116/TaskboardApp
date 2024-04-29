@@ -16,7 +16,7 @@ const TaskboardViewContainer = () => {
 
   return (
     <div className={styles.taskboard_view_container}>        
-      <TaskboardToolbar titleText="GLDS Dev Board" />
+      <TaskboardToolbar text="GLDS Dev Board" logoPath="Logo" />
       <TaskboardView />
     </div>
   )

@@ -115,18 +115,16 @@ select {
 
 /*
 
-font-family: 'Archivo Black', sans-serif;
-font-family: 'Lilita One', sans-serif;
-font-family: 'Passion One', sans-serif;
-font-family: 'Roboto', sans-serif;
+font-family: "Poppins", sans-serif;
+font-family: "Montserrat", sans-serif;
+font-family: "Open Sans", sans-serif;
+font-family: "Inter", sans-serif;
 
 */
 
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
-  font-weight: 400;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -139,18 +137,26 @@ font-family: 'Roboto', sans-serif;
   --default-primary-color: hsl(219, 42%, 50%);
   --default-secondary-color: hsl(260, 43%, 26%);
   --default-accent-color: hsl(272, 43%, 40%);
-
+  --default-main-header-font-family: "Montserrat", sans-serif;
+  --default-main-header-font-weight: 900;
+  --default-font-family: "Poppins", sans-serif;
   
   
   
     
   --site-background-color: var(--default-background-color);
-  --site-panel-background-color: hsla(219, 42%, 50%, 0.2);
+  --site-panel-background-color: hsla(219, 51%, 58%, 0.2);
   --site-text-color: var(--default-text-color);
   --site-sub-text-color: hsl(213, 6%, 70%);
   --site-primary-color: var(--default-primary-color);
   --site-secondary-color: var(--default-secondary-color);
   --site-accent-color-1: var(--default-accent-color);
+
+  --site-main-header-font-family: var(--default-main-header-font-family);
+  --site-main-header-font-weight: var(--default-main-header-font-weight);
+  --site-font-family: var(--default-font-family);
+   
+  
   
   --task-status-complete-color: rgba(68,214,44,1);
   --task-status-holding-color: rgba(255,173,0,1);

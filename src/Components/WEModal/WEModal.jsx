@@ -29,12 +29,18 @@ const WEModal = ({ children, isOpen, toggle,config, ...props }) => {
     e.key === "Escape" ? toggle() : ()=>{};
   },[toggle])
 
+  const onClose = useCallback((e) => {
+    toggle();
+  },[toggle])
+
 
 
   useEffect(() => {
+    document.addEventListener("closemodal",onClose);
     document.addEventListener("keydown", onKeyDownEvent);
     return () => {
       document.removeEventListener("keydown", onKeyDownEvent);
+      document.addEventListener("closemodal",onClose)
     }
   });
 
